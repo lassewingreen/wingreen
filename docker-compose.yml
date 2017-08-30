@@ -9,6 +9,7 @@ services:
    - db:mysql
   volumes:
    - "./wingreen/:/var/www/html/wp-content/themes/wingreen"
+   - "./wingreen/twentyseventeen:/var/www/html/wp-content/themes/twentyseventeen"
   environment:
    WORDPRESS_DB_PASSWORD: 46g452h45h
 
