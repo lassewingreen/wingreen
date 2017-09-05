@@ -8,6 +8,8 @@ jQuery(document).ready(function ($) {
       $(this).toggleClass('open');
       $('.menu-topmenu-container').toggleClass('open');
       $('#page').toggleClass('open');
+      $('.navigation-top').toggleClass('open');
+      $('#site-navigation').toggleClass('open');
     });
   });
   

@@ -34,13 +34,13 @@ function enqueue_my_scripts() {
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
-function debug_to_console( $data ) {
-	if ( is_array( $data ) )
-	 $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
-	 else
-	 $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
-	echo $output;
-	}
+	function debug_to_console( $data ) {
+		if ( is_array( $data ) )
+		 $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+		 else
+		 $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+		echo $output;
+		}
 
 function custom_scripts() {
 	
@@ -48,7 +48,7 @@ function custom_scripts() {
 	
 	wp_enqueue_script( 'custom-script' );
 
-	//debug_to_console( "Test" );
+	
 	
 	}
 	
