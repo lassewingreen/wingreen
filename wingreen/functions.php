@@ -34,12 +34,25 @@ function enqueue_my_scripts() {
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
+function debug_to_console( $data ) {
+	if ( is_array( $data ) )
+	 $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+	 else
+	 $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+	echo $output;
+	}
 
+function custom_scripts() {
+	
+	wp_register_script( 'custom-script', get_stylesheet_directory_uri() . '/open_burger.js', array() , false, true );
+	
+	wp_enqueue_script( 'custom-script' );
 
-
-
-
-// add_action('wp_enqueue_scripts', 'enqueue_my_styles');
+	//debug_to_console( "Test" );
+	
+	}
+	
+	add_action( 'wp_enqueue_scripts', 'custom_scripts', 99 );
 
 
 

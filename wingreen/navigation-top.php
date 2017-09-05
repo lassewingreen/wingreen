@@ -11,18 +11,16 @@
 ?>
 <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Top Menu', 'twentyseventeen' ); ?>">
 	<button class="menu-toggle" aria-controls="top-menu" aria-expanded="false">
-    <input id="burger" type="checkbox" />
-        
-        <label for="burger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <?php
+		<div id="nav-icon1">
+  			<span></span>
+  			<span></span>
+  			<span></span>
+		</div>
+        <!-- <?php
         //echo twentyseventeen_get_svg( array( 'icon' => 'bars' ) );
 		//echo twentyseventeen_get_svg( array( 'icon' => 'close' ) );
 		//_e( 'Menu', 'twentyseventeen' );
-		?>
+		?> -->
 	</button>
 
 	<?php wp_nav_menu( array(
