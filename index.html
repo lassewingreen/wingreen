@@ -6,7 +6,10 @@
   <meta name="theme-color" content="#111827" />
   <title>Lasse Wingreen | Product Owner & Wedding Singer</title>
   <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
   <!-- Font Awesome -->
   <link
     rel="stylesheet"
@@ -17,7 +20,9 @@
 
   <!-- Navbar -->
   <nav class="top-0 left-0 z-50 w-full absolute flex items-center justify-between px-4 py-4">
-    <a href="#home" class="text-white text-lg font-bold uppercase tracking-wide">Lasse Wingreen</a>
+    <a href="#home" class="text-white text-lg font-bold uppercase tracking-wide">
+      Lasse Wingreen
+    </a>
     <button
       class="cursor-pointer text-xl px-3 py-1 rounded bg-transparent block lg:hidden focus:outline-none"
       type="button"
@@ -26,21 +31,23 @@
       <i class="fas fa-bars text-white"></i>
     </button>
     <div id="mobile-menu" class="hidden lg:flex space-x-6">
-      <a href="#about" class="text-white hover:text-gray-300 transition">About</a>
-      <a href="#contact" class="text-white hover:text-gray-300 transition">Contact</a>
+      <a href="#about" class="text-white hover:text-gray-300 transition"
+        >About</a
+      >
+      <a href="#contact" class="text-white hover:text-gray-300 transition"
+        >Contact</a
+      >
     </div>
   </nav>
 
   <!-- Hero Section with Video -->
-  <!--
-    Explanation:
-    1. Removed h-screen on mobile; now uses py-20 to reduce excessive height.
-    2. On md and larger screens, hero becomes full screen.
-    3. We keep the wave at the bottom, but let it float. The section will not forcibly exceed the video height on mobile.
+  <!-- 
+    1. On mobile: 80vh tall with a 150% zoom. This ensures coverage with sides cropped. 
+    2. On md+ screens: full screen, normal zoom. 
   -->
   <section
     id="home"
-    class="relative flex items-center justify-center overflow-hidden py-20 md:py-0 md:h-screen"
+    class="relative h-[80vh] md:h-screen flex items-center justify-center overflow-hidden"
   >
     <!-- Video Background -->
     <div class="absolute inset-0 overflow-hidden">
@@ -50,7 +57,7 @@
         allow="autoplay; fullscreen"
         frameborder="0"
         scrolling="no"
-        class="w-full h-full object-cover filter grayscale transform origin-center scale-125 md:scale-100"
+        class="w-full h-full object-cover filter grayscale transform origin-center scale-150 md:scale-100"
       ></iframe>
       <div class="absolute inset-0 bg-black bg-opacity-30"></div>
     </div>
@@ -61,7 +68,9 @@
         alt="Lasse Wingreen"
         class="mx-auto rounded-full w-32 h-32 border-4 border-white shadow-lg filter grayscale"
       />
-      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold">Hi, I'm Lasse!</h1>
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold">
+        Hi, I'm Lasse!
+      </h1>
       <p class="mt-2 text-gray-200 text-lg sm:text-xl max-w-xl mx-auto">
         Product Owner by day, Singer by night.
       </p>
@@ -92,20 +101,27 @@
             alt="Profile"
             class="w-32 h-32 rounded-full shadow-md filter grayscale"
           />
-          <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">Lasse Wingreen</h3>
-          <p class="text-gray-500 flex items-center"><i class="fas fa-map-marker-alt mr-2"></i>Aarhus, Denmark</p>
-          <p class="mt-4 text-gray-700 text-center max-w-2xl">
-            <strong>Product Owner</strong> at iPaper – crafting the best digital catalog software. By night,
-            I belt out tunes and strum the guitar at weddings and events.
+          <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">
+            Lasse Wingreen
+          </h3>
+          <p class="text-gray-500 flex items-center">
+            <i class="fas fa-map-marker-alt mr-2"></i>Aarhus, Denmark
           </p>
           <p class="mt-4 text-gray-700 text-center max-w-2xl">
-            Weekends? I'm all about gravel biking, building my perfect ride, and tackling long-distance runs.
-            As a father of two and a loving husband, I find endless inspiration in my family.
+            <strong>Product Owner</strong> at iPaper – crafting the best
+            digital catalog software. By night, I belt out tunes and strum the
+            guitar at weddings and events.
           </p>
           <p class="mt-4 text-gray-700 text-center max-w-2xl">
-            These passions share a common thread: creation, connection, and pushing limits. Whether it's
-            building a user-friendly platform, crafting an unforgettable performance, or conquering a challenging ride,
-            each pursuit fuels my drive to innovate and make a difference.
+            Weekends? I'm all about gravel biking, building my perfect ride, and
+            tackling long-distance runs. As a father of two and a loving
+            husband, I find endless inspiration in my family.
+          </p>
+          <p class="mt-4 text-gray-700 text-center max-w-2xl">
+            These passions share a common thread: creation, connection, and
+            pushing limits. Whether it's building a user-friendly platform,
+            crafting an unforgettable performance, or conquering a challenging
+            ride, each pursuit fuels my drive to innovate and make a difference.
           </p>
           <a
             href="https://www.linkedin.com/in/lassewingreen/"
@@ -132,17 +148,21 @@
         >
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="mailto:youremail@example.com" class="text-xl hover:text-gray-300">
+        <a href="mailto:lasse@wingreen.dk" class="text-xl hover:text-gray-300">
           <i class="fas fa-envelope"></i>
         </a>
       </div>
       <p class="mt-4 text-gray-500 text-sm">
-        &copy; 2024 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span> in Aarhus
+        &copy; 2024 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span>
+        in Aarhus
       </p>
     </div>
   </footer>
 
   <!-- Toggle Menu Script -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
 </body>
 </html>
