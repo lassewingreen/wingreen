@@ -1,67 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#111827" />
   <title>Lasse Wingreen | Product Owner & Wedding Singer</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
 </head>
-<body class="bg-gray-100 font-roboto antialiased">
+<body class="font-sans antialiased bg-gray-100">
 
-  <!-- Hero Section -->
-  <section class="h-screen relative overflow-hidden">
-    <iframe class="absolute top-0 left-0 w-full h-full object-cover grayscale opacity-30 pointer-events-none" src="https://fast.wistia.net/embed/iframe/to40tf54hb?autoplay=true&controls=false&loop=true&muted=true" allow="autoplay" frameborder="0"></iframe>
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900"></div>
-
-    <nav class="absolute top-0 z-50 w-full py-6 px-6 lg:px-20 flex justify-between items-center">
-      <a href="#" class="text-white text-xl font-bold tracking-wide">Lasse Wingreen</a>
-      <ul class="hidden lg:flex space-x-8">
-        <li><a href="#about" class="text-gray-300 hover:text-white">About</a></li>
-        <li><a href="#contact" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Connect <i class="fab fa-linkedin ml-2"></i></a></li>
-      </ul>
-      <button class="lg:hidden text-white text-2xl"><i class="fas fa-bars"></i></button>
-    </nav>
-
-    <div class="absolute inset-0 flex items-center justify-center flex-col text-center px-4">
-      <img src="./assets/img/team-2-800x800.jpg" alt="Lasse Wingreen" class="h-40 w-40 rounded-full border-4 border-white shadow-lg grayscale">
-      <h1 class="text-5xl text-white font-bold mt-4">Hi, I'm Lasse!</h1>
-      <p class="text-xl text-gray-200 mt-2">Product Owner by Day, Singer by Night.</p>
+  <!-- Navbar -->
+  <nav class="top-0 left-0 z-50 w-full absolute flex items-center justify-between px-4 py-4">
+    <a href="#home" class="text-white text-lg font-bold uppercase tracking-wide">Lasse Wingreen</a>
+    <button
+      class="cursor-pointer text-xl px-3 py-1 rounded bg-transparent block lg:hidden focus:outline-none"
+      type="button"
+      onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+    >
+      <i class="fas fa-bars text-white"></i>
+    </button>
+    <div id="mobile-menu" class="hidden lg:flex space-x-6">
+      <a href="#about" class="text-white hover:text-gray-300 transition">About</a>
+      <a href="#contact" class="text-white hover:text-gray-300 transition">Contact</a>
     </div>
+  </nav>
 
+  <!-- Hero Section with Video -->
+  <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Video Background -->
+    <div class="absolute inset-0">
+      <iframe
+        src="https://fast.wistia.net/embed/iframe/to40tf54hb?seo=false&videoFoam=true&autoplay=true&mute=true&loop=true"
+        title="Flow &amp; Green - No Diggity Video"
+        allow="autoplay; fullscreen"
+        frameborder="0"
+        scrolling="no"
+        class="w-full h-full object-cover filter grayscale"
+      ></iframe>
+      <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+    </div>
+    <!-- Hero Text -->
+    <div class="relative z-10 text-center text-white px-4">
+      <img
+        src="./assets/img/team-2-800x800.jpg"
+        alt="Lasse Wingreen"
+        class="mx-auto rounded-full w-32 h-32 border-4 border-white shadow-lg filter grayscale"
+      />
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold">Hi, I'm Lasse!</h1>
+      <p class="mt-2 text-gray-200 text-lg sm:text-xl max-w-xl mx-auto">
+        Product Owner by day, Singer by night.
+      </p>
+    </div>
+    <!-- SVG Wave at Bottom -->
     <div class="absolute bottom-0 w-full">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FFFFFF" fill-opacity="1" d="M0,160L1440,320L1440,320L0,320Z"></polygon></svg>
+      <svg
+        class="block"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#f3f4f6"
+          d="M0,224L48,224C96,224,192,224,288,224C384,224,480,224,576,202.7C672,181,768,139,864,144C960,149,1056,203,1152,229.3C1248,256,1344,256,1392,256L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
     </div>
   </section>
 
-  <!-- Profile Section -->
-  <section class="-mt-32 mb-16 px-4 lg:px-20">
-    <div class="bg-white shadow-xl rounded-lg p-8">
-      <img src="./assets/img/team-2-800x800.jpg" alt="Lasse Wingreen" class="mx-auto h-32 w-32 rounded-full shadow-xl grayscale">
-      <div class="text-center mt-4">
-        <h2 class="text-3xl font-semibold">Lasse Wingreen</h2>
-        <p class="text-gray-500 mt-1"><i class="fas fa-map-marker-alt"></i> Aarhus, Denmark</p>
-        <div class="mt-4 space-y-2">
-          <p class="text-gray-700">🌐 <strong>Product Owner at iPaper</strong> - Crafting digital catalog solutions.</p>
-          <p class="text-gray-700">🎤 <strong>Singer & Guitarist</strong> | Weddings & Events</p>
-          <p class="text-gray-700">🏃‍♂️ Runner, Cyclist & Father of two.</p>
+  <!-- About Section -->
+  <section id="about" class="bg-gray-100 pt-8 pb-12">
+    <div class="container mx-auto px-4 lg:px-8">
+      <div class="bg-white rounded-lg shadow-xl p-6 md:p-10">
+        <h2 class="text-3xl font-semibold text-center mb-4">About Me</h2>
+        <div class="flex flex-col items-center">
+          <img
+            src="./assets/img/team-2-800x800.jpg"
+            alt="Profile"
+            class="w-32 h-32 rounded-full shadow-md filter grayscale"
+          />
+          <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">Lasse Wingreen</h3>
+          <p class="text-gray-500 flex items-center"><i class="fas fa-map-marker-alt mr-2"></i>Aarhus, Denmark</p>
+          <p class="mt-4 text-gray-700 text-center max-w-2xl">
+            <strong>Product Owner</strong> at iPaper – crafting the best digital catalog software. By night,
+            I belch out tunes and strum the guitar at weddings and events.
+          </p>
+          <p class="mt-4 text-gray-700 text-center max-w-2xl">
+            Weekends? I'm all about gravel biking, building my perfect ride, and tackling long-distance runs.
+            As a father of two and a loving husband, I find endless inspiration in my family.
+          </p>
+          <p class="mt-4 text-gray-700 text-center max-w-2xl">
+            These passions share a common thread: creation, connection, and pushing limits. Whether it's
+            building a user-friendly platform, crafting an unforgettable performance, or conquering a challenging ride,
+            each pursuit fuels my drive to innovate and make a difference.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/lassewingreen/"
+            target="_blank"
+            class="inline-block bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600 transition duration-200 mt-8"
+          >
+            Connect on LinkedIn <i class="fab fa-linkedin ml-2"></i>
+          </a>
         </div>
-        <a href="#" class="mt-6 inline-block bg-blue-500 text-white py-2 px-6 rounded shadow hover:bg-blue-600 transition duration-200">Read More</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 py-8 text-white text-center">
-    <h4 class="text-2xl font-semibold">Let's Keep in Touch!</h4>
-    <div class="mt-4">
-      <a href="https://linkedin.com/in/lassewingreen" class="mx-2 text-blue-400 hover:text-blue-600"><i class="fab fa-linkedin fa-2x"></i></a>
-      <a href="mailto:lasse@wingreen.com" class="mx-2 text-gray-500 hover:text-gray-700"><i class="fas fa-envelope fa-2x"></i></a>
+  <footer id="contact" class="bg-gray-800 py-10 text-white text-center">
+    <div class="container mx-auto px-4">
+      <h4 class="text-2xl font-semibold">Let's Keep in Touch!</h4>
+      <p class="text-gray-400 mt-2">Reach out via LinkedIn or email.</p>
+      <div class="mt-4 flex justify-center space-x-4">
+        <a
+          href="https://linkedin.com/in/lassewingreen"
+          target="_blank"
+          class="text-xl hover:text-blue-400"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:youremail@example.com" class="text-xl hover:text-gray-300">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+      <p class="mt-4 text-gray-500 text-sm">
+        &copy; 2024 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span> in Aarhus
+      </p>
     </div>
-    <p class="text-center text-gray-500 mt-8">&copy; 2025 Lasse Wingreen | Made with ❤️ in Aarhus</p>
-  </section>
+  </footer>
 
+  <!-- Toggle Menu Script -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
