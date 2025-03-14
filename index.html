@@ -31,19 +31,15 @@
       <i class="fas fa-bars text-white"></i>
     </button>
     <div id="mobile-menu" class="hidden lg:flex space-x-6">
-      <a href="#about" class="text-white hover:text-gray-300 transition"
-        >About</a
-      >
-      <a href="#contact" class="text-white hover:text-gray-300 transition"
-        >Contact</a
-      >
+      <a href="#about" class="text-white hover:text-gray-300 transition">About</a>
+      <a href="#contact" class="text-white hover:text-gray-300 transition">Contact</a>
     </div>
   </nav>
 
   <!-- Hero Section with Video -->
   <section
     id="home"
-    class="relative h-[50vh] sm:h-[33vh] md:h-50 flex items-center justify-center overflow-hidden"
+    class="relative h-[33vh] md:h-[50vh] flex items-center justify-center overflow-hidden"
   >
     <!-- Video Background -->
     <div class="absolute inset-0 overflow-hidden">
@@ -57,19 +53,67 @@
       ></iframe>
       <div class="absolute inset-0 bg-black bg-opacity-30"></div>
     </div>
-    <!-- Hero Text -->
-    <div class="relative z-10 text-center px-4 hidden lg:block">
+    <!-- Hero Text for large screens -->
+    <div class="relative z-10 text-center text-white px-4 hidden md:block">
       <img
         src="./assets/img/team-2-800x800.jpg"
         alt="Lasse Wingreen"
         class="mx-auto rounded-full w-32 h-32 border-4 border-white shadow-lg filter grayscale"
       />
-      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold text-white">
+      <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold">
         Hi, I'm Lasse!
       </h1>
       <p class="mt-2 text-gray-200 text-lg sm:text-xl max-w-xl mx-auto">
-        <a href="https://flowandgreen.dk" class="text-blue-500 underline">Singer by night</a>, Product Owner by day.
+        Product Owner by day,
+        <a
+          href="https://flowandgreen.dk"
+          class="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Singer by night.
+        </a>
       </p>
+    </div>
+    <!-- SVG Wave at Bottom -->
+    <div class="absolute bottom-0 w-full">
+      <svg
+        class="block"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+      >
+        <path
+          fill="#f3f4f6"
+          d="M0,224L48,224C96,224,192,224,288,224C384,224,480,224,576,224C672,224,768,192,864,176C960,160,1056,160,1152,186.7C1248,213,1344,267,1392,293.3L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Hero Text for small screens (placed before About Me) -->
+  <section class="block md:hidden bg-gray-100 py-6" id="hero-text-mobile">
+    <div class="container mx-auto px-4">
+      <div class="text-center text-black">
+        <img
+          src="./assets/img/team-2-800x800.jpg"
+          alt="Lasse Wingreen"
+          class="mx-auto rounded-full w-32 h-32 border-4 border-white shadow-lg filter grayscale"
+        />
+        <h1 class="mt-4 text-3xl font-extrabold">
+          Hi, I'm Lasse!
+        </h1>
+        <p class="mt-2 text-lg max-w-xl mx-auto">
+          Product Owner by day,
+          <a
+            href="https://flowandgreen.dk"
+            class="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Singer by night.
+          </a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -79,6 +123,7 @@
       <div class="bg-white rounded-lg shadow-xl p-6 md:p-10">
         <h2 class="text-3xl font-semibold text-center mb-4">About Me</h2>
         <div class="flex flex-col items-center">
+          <!-- Fjernet billedet her (som ønsket) -->
           <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">
             Lasse Wingreen
           </h3>
@@ -87,8 +132,15 @@
           </p>
           <p class="mt-4 text-gray-700 text-center max-w-2xl">
             <strong>Product Owner</strong> at iPaper – crafting the best
-            digital catalog software. By night, I belt out tunes and strum the
-            guitar at weddings and events.
+            digital catalog software.
+            <a
+              href="https://flowandgreen.dk"
+              class="text-blue-500 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              By night, I belt out tunes and strum the guitar at weddings and events.
+            </a>
           </p>
           <p class="mt-4 text-gray-700 text-center max-w-2xl">
             Weekends? I'm all about gravel biking, building my perfect ride, and
@@ -123,10 +175,14 @@
           href="https://linkedin.com/in/lassewingreen"
           target="_blank"
           class="text-xl hover:text-blue-400"
+          rel="noopener noreferrer"
         >
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="mailto:lasse@wingreen.dk" class="text-xl hover:text-gray-300">
+        <a
+          href="mailto:lasse@wingreen.dk"
+          class="text-xl hover:text-gray-300"
+        >
           <i class="fas fa-envelope"></i>
         </a>
       </div>
