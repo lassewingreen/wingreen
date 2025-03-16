@@ -35,14 +35,21 @@
     <section id="screen" class="relative h-screen">
         <section id="home" class="relative h-1/3 md:h-1/2 flex items-center justify-center">
             <!-- Video Background -->
+
             <div class="absolute inset-0">
                 <iframe
                     src="https://fast.wistia.net/embed/iframe/to40tf54hb?seo=false&videoFoam=true&autoplay=true&mute=true&loop=true"
                     title="Flow &amp; Green - No Diggity Video" allow="autoplay; fullscreen; picture-in-picture"
-                    frameborder="0" scrolling="no"
-                    class="w-full h-full object-cover object-center filter grayscale"></iframe>
+                    frameborder="0" scrolling="no" class="h-full w-full object-cover object-center filter grayscale">
+
+                </iframe>
                 <!-- Sort overlay over video -->
+
+
                 <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+                <div class="pointer-events-none absolute bottom-0 w-full h-8 
+                bg-gradient-to-b from-gray-700 via-black to-gray-700 
+                block md:hidden"></div>
             </div>
 
 

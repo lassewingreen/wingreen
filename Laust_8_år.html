@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <title>Fødselsdagsinvitation</title>
+
+  <!-- Latest Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Import the local font */
+    @font-face {
+      font-family: 'MoonGetHeavy';
+      src: url('moon_get-Heavy.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'MoonGetHeavy', sans-serif;
+      margin: 0;
+      padding: 0;
+      letter-spacing: 0.5px;
+
+      /* Mario Odyssey-inspired rainbow gradient */
+      background: linear-gradient(
+        90deg,
+        #ff355e 0%,
+        #ff9933 20%,
+        #ffff66 40%,
+        #66ff66 60%,
+        #50bfe6 80%,
+        #ff6eff 100%
+      );
+    }
+
+    /* White text with a thin, uniform black stroke */
+    .text-white-stroke {
+      color: #ffffff;
+      -webkit-text-stroke: 0.5px #000; /* Thinner outline */
+      /* Fallback (optional) for Firefox or older browsers:
+         text-shadow:
+           -0.5px 0 #000,
+            0 0.5px #000,
+            0.5px 0 #000,
+            0 -0.5px #000; */
+    }
+
+    /* Print background if the user enables “Print backgrounds” */
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: linear-gradient(
+          90deg,
+          #ff355e 0%,
+          #ff9933 20%,
+          #ffff66 40%,
+          #66ff66 60%,
+          #50bfe6 80%,
+          #ff6eff 100%
+        ) !important;
+      }
+      @page {
+        margin: 1cm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Centered header image -->
+  <img
+    src="https://images.alphacoders.com/865/thumb-1920-865483.jpg"
+    alt="Mario-fødselsdag-header"
+    class="block w-3/4 mx-auto object-center mb-4"
+  />
+
+  <div class="max-w-md mx-auto p-6">
+    <!-- Greeting -->
+    <p class="text-white-stroke text-lg font-medium mb-3">
+      Hej Ahmad,
+      Ayoub,
+      Bjørn,
+      Frej B,
+      Frej K,
+      Holger,
+      Illia,
+      Kian,
+      Linus,
+      Nikolai,
+      Otto og
+      Thor 🎈
+    </p>
+
+    <!-- Emojis -->
+    <p class="text-white-stroke text-xl mb-4">
+      🥳🎮🍄
+    </p>
+
+    <!-- Heading -->
+    <h2 class="text-white-stroke text-xl font-semibold mb-4">
+      I er inviteret til Lausts 8-års fødselsdag!
+    </h2>
+
+    <!-- Info box -->
+    <div class="text-white-stroke text-sm mb-4">
+      <p>📅 <strong>Dato:</strong> Søndag d. 30/03-2025</p>
+      <p>🕙 <strong>Tid:</strong> Kl. 10:00 - 13:00</p>
+      <p>📍 <strong>Sted:</strong> Septembervej 16, 8210</p>
+    </div>
+
+    <!-- Invitation text -->
+    <p class="text-white-stroke text-sm mb-4">
+      Kom og vær med til en sjov dag fyldt med spil, snacks og eventyrlige overraskelser!
+    </p>
+
+    <p class="text-white-stroke font-medium text-base">
+      Jeg glæder mig rigtig meget til at se jer!
+    </p>
+
+    <p class="text-white-stroke mt-4 font-semibold text-base">
+      Mange hilsner,<br>
+      Laust
+    </p>
+
+    <p class="text-white-stroke font-bold mt-4 text-base">
+      🎈 S.U. senest d. 23/03 🎈
+    </p>
+  </div>
+</body>
+</html>
