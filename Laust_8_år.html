@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>Fødselsdagsinvitation</title>
+  
+  <!-- Ensure responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Latest Tailwind CSS from CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -37,13 +40,14 @@
     /* White text with a thin, uniform black stroke */
     .text-white-stroke {
       color: #ffffff;
-      -webkit-text-stroke: 0.5px #000; /* Thinner outline */
-      /* Fallback (optional) for Firefox or older browsers:
+      -webkit-text-stroke: 0.5px #000; /* Thin outline */
+
+      /* Optional fallback for Firefox or older browsers:
          text-shadow:
            -0.5px 0 #000,
             0 0.5px #000,
-            0.5px 0 #000,
-            0 -0.5px #000; */
+            0 -0.5px #000,
+            0.5px 0 #000; */
     }
 
     /* Print background if the user enables “Print backgrounds” */
@@ -68,16 +72,17 @@
   </style>
 </head>
 <body>
-  <!-- Centered header image -->
+  <!-- Centered header image (full width on small screens; 3/4 on larger) -->
   <img
-    src="https://images.alphacoders.com/865/thumb-1920-865483.jpg"
+    src="Super_Mario_Odyssey.png"
     alt="Mario-fødselsdag-header"
-    class="block w-3/4 mx-auto object-center mb-4"
+    class="block w-full sm:w-3/4 mx-auto object-center mb-4"
   />
 
-  <div class="max-w-md mx-auto p-6">
-    <!-- Greeting -->
-    <p class="text-white-stroke text-lg font-medium mb-3">
+  <!-- Container for content, responsive width, centered text -->
+  <div class="container mx-auto p-6 text-center">
+    <!-- Greeting: text-lg -> text-xl -->
+    <p class="text-white-stroke text-xl font-medium mb-3">
       Hej Ahmad,
       Ayoub,
       Bjørn,
@@ -92,38 +97,41 @@
       Thor 🎈
     </p>
 
-    <!-- Emojis -->
-    <p class="text-white-stroke text-xl mb-4">
+    <!-- Emojis: text-xl -> text-2xl -->
+    <p class="text-white-stroke text-2xl mb-4">
       🥳🎮🍄
     </p>
 
-    <!-- Heading -->
-    <h2 class="text-white-stroke text-xl font-semibold mb-4">
+    <!-- Heading: text-xl -> text-2xl -->
+    <h2 class="text-white-stroke text-2xl font-semibold mb-4">
       I er inviteret til Lausts 8-års fødselsdag!
     </h2>
 
-    <!-- Info box -->
-    <div class="text-white-stroke text-sm mb-4">
+    <!-- Info box: text-sm -> text-base -->
+    <div class="text-white-stroke text-base mb-4">
       <p>📅 <strong>Dato:</strong> Søndag d. 30/03-2025</p>
       <p>🕙 <strong>Tid:</strong> Kl. 10:00 - 13:00</p>
       <p>📍 <strong>Sted:</strong> Septembervej 16, 8210</p>
     </div>
 
-    <!-- Invitation text -->
-    <p class="text-white-stroke text-sm mb-4">
+    <!-- Invitation text: text-sm -> text-base -->
+    <p class="text-white-stroke text-base mb-4">
       Kom og vær med til en sjov dag fyldt med spil, snacks og eventyrlige overraskelser!
     </p>
 
-    <p class="text-white-stroke font-medium text-base">
+    <!-- “Jeg glæder mig…”: text-base -> text-lg -->
+    <p class="text-white-stroke font-medium text-lg">
       Jeg glæder mig rigtig meget til at se jer!
     </p>
 
-    <p class="text-white-stroke mt-4 font-semibold text-base">
+    <!-- “Mange hilsner” block: text-base -> text-lg -->
+    <p class="text-white-stroke mt-4 font-semibold text-lg">
       Mange hilsner,<br>
       Laust
     </p>
 
-    <p class="text-white-stroke font-bold mt-4 text-base">
+    <!-- S.U.: text-base -> text-lg -->
+    <p class="text-white-stroke font-bold mt-4 text-lg">
       🎈 S.U. senest d. 23/03 🎈
     </p>
   </div>
