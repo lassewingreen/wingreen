@@ -6,17 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#111827" />
     <title>Lasse Wingreen | Product Owner & Wedding Singer</title>
-    <!-- Tailwind CSS -->
-    <!-- Hvis din Tailwind-konfiguration ikke tillader arbitrary classes (fx min-h-[33vh]),
-       så opgrader til Tailwind 3+ eller brug inline styles som style="min-height:33vh;" -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 
 <body class="font-sans antialiased bg-gray-100">
 
-    <!-- Navbar -->
     <nav class="top-0 left-0 z-50 w-full absolute flex items-center justify-between px-4 py-4">
         <a href="#home" class="text-white text-lg font-bold uppercase tracking-wide">
             Lasse Wingreen
@@ -31,29 +26,21 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Video -->
-    <section id="screen" class="relative h-screen">
+    <section id="screen" class="relative h-3/4 lg:h-screen">
         <section id="home" class="relative h-1/3 md:h-1/2 flex items-center justify-center">
-            <!-- Video Background -->
-
             <div class="absolute inset-0">
                 <iframe
                     src="https://fast.wistia.net/embed/iframe/to40tf54hb?seo=false&videoFoam=true&autoplay=true&mute=true&loop=true"
                     title="Flow &amp; Green - No Diggity Video" allow="autoplay; fullscreen; picture-in-picture"
                     frameborder="0" scrolling="no" class="h-full w-full object-cover object-center filter grayscale">
-
                 </iframe>
-                <!-- Sort overlay over video -->
-
-
                 <div class="absolute inset-0 bg-black bg-opacity-30"></div>
-                <div class="pointer-events-none absolute bottom-0 w-full h-8 
-                bg-gradient-to-b from-gray-700 via-black to-gray-700 
-                block md:hidden"></div>
+                <!-- Gradient only at the bottom edge of video -->
+                <div class="pointer-events-none absolute bottom-0 w-full h-16 bg-gradient-to-b from-transparent to-gray-500">
+                </div>
             </div>
 
-
-            <div class="relative z-10 text-center text-white px-4 block">
+            <div class="relative z-10 text-center text-white px-4">
                 <img src="./assets/img/team-2-800x800.jpg" alt="Lasse Wingreen"
                     class="mx-auto rounded-full w-32 h-32 border-4 border-white shadow-lg filter grayscale" />
                 <h1 class="mt-4 text-3xl sm:text-5xl font-extrabold">
@@ -66,23 +53,13 @@
                     </a>.
                 </p>
             </div>
-
-            <!-- Gradient fade i bunden af hero -->
-            <div
-                class="pointer-events-none absolute bottom-0 w-full h-16 bg-gradient-to-b from-transparent to-gray-100">
-            </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="bg-gray-100 pt-8 pb-12">
-
-
-
             <div class="container mx-auto px-4 lg:px-8">
                 <div class="bg-white rounded-lg shadow-xl p-6 md:p-10">
                     <h2 class="text-3xl font-semibold text-center mb-4">About Me</h2>
                     <div class="flex flex-col items-center">
-                        <!-- Ingen billede her i About (som ønsket) -->
                         <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">
                             Lasse Wingreen
                         </h3>
@@ -90,23 +67,18 @@
                             <i class="fas fa-map-marker-alt mr-2"></i>Aarhus, Denmark
                         </p>
                         <p class="mt-4 text-gray-700 text-center max-w-2xl">
-                            <strong>Product Owner</strong> at iPaper – crafting the best
-                            digital catalog software.
+                            <strong>Product Owner</strong> at iPaper – crafting the best digital catalog software.
                             <a href="https://flowandgreen.dk" class="text-blue-500 underline" target="_blank"
                                 rel="noopener noreferrer">
                                 By night, I belt out tunes and strum the guitar at weddings and events.
                             </a>
                         </p>
                         <p class="mt-4 text-gray-700 text-center max-w-2xl">
-                            Weekends? I'm all about gravel biking, building my perfect ride, and
-                            tackling long-distance runs. As a father of two and a loving
-                            husband, I find endless inspiration in my family.
+                            Weekends? I'm all about gravel biking, building my perfect ride, and tackling long-distance
+                            runs. As a father of two and a loving husband, I find endless inspiration in my family.
                         </p>
                         <p class="mt-4 text-gray-700 text-center max-w-2xl">
-                            These passions share a common thread: creation, connection, and
-                            pushing limits. Whether it's building a user-friendly platform,
-                            crafting an unforgettable performance, or conquering a challenging
-                            ride, each pursuit fuels my drive to innovate and make a difference.
+                            These passions share a common thread: creation, connection, and pushing limits.
                         </p>
                         <a href="https://www.linkedin.com/in/lassewingreen/" target="_blank"
                             class="inline-block bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600 transition duration-200 mt-8">
@@ -119,7 +91,6 @@
 
     </section>
 
-    <!-- Footer -->
     <footer id="contact" class="bg-gray-800 py-10 text-white text-center">
         <div class="container mx-auto px-4">
             <h4 class="text-2xl font-semibold">Let's Keep in Touch!</h4>
@@ -134,14 +105,11 @@
                 </a>
             </div>
             <p class="mt-4 text-gray-500 text-sm">
-                &copy; 2025 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span>
-                in Aarhus
+                &copy; 2025 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span> in Aarhus
             </p>
         </div>
     </footer>
 
-    <!-- Toggle Menu Script -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
