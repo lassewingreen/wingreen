@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <title>Lasse Wingreen | Product Owner & Wedding Singer</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+</head>
+
+<!-- 
+  1) We apply flex and min-h-screen to the BODY 
+     so we can control the vertical layout.
+
+  2) .flex-col arrangement:
+     - Nav is flex-none (absolute, but that’s fine).
+     - #screen is flex-grow (the main content container).
+     - Footer is flex-none at the bottom.
+-->
+<body class="font-sans antialiased bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navigation (absolute) -->
+  <nav class="top-0 left-0 z-50 w-full absolute flex items-center justify-between px-4 py-4">
+    <a href="#home" class="text-white text-lg font-bold uppercase tracking-wide">
+      <div>Lasse Wingreen</div>
+    </a>
+    <button
+      class="cursor-pointer text-xl px-3 py-1 rounded bg-transparent block lg:hidden focus:outline-none"
+      type="button"
+      onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+    >
+      <i class="fas fa-bars text-white"></i>
+    </button>
+    <div id="mobile-menu" class="hidden lg:flex space-x-6">
+      <a href="#about" class="text-white hover:text-gray-300 transition">About</a>
+      <a href="#contact" class="text-white hover:text-gray-300 transition">Contact</a>
+    </div>
+  </nav>
+
+  <!-- 
+    #screen is the main wrapper, made flex-grow to occupy all space 
+    not used by the footer. Inside, we stack #home (hero) and #about.
+  -->
+  <section id="screen" class="relative flex-grow flex flex-col">
+
+    <!-- 
+      #home gets a min-height so the hero area is tall enough on smaller 
+      screens for the video and text. The hero has a background video 
+      and an overlay. 
+    -->
+    <section
+      id="home"
+      class="relative min-h-[50vh] md:min-h-[60vh] flex items-center justify-center"
+    >
+      <div class="absolute inset-0">
+        <iframe
+          src="https://fast.wistia.net/embed/iframe/to40tf54hb?seo=false&videoFoam=true&autoplay=true&mute=true&loop=true"
+          title="Flow &amp; Green - No Diggity Video"
+          allow="autoplay; fullscreen; picture-in-picture"
+          frameborder="0"
+          scrolling="no"
+          class="h-full w-full object-cover object-center filter grayscale"
+        ></iframe>
+        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+        <div
+          class="pointer-events-none absolute bottom-0 w-full h-16 bg-gradient-to-b from-transparent to-gray-500"
+        ></div>
+      </div>
+
+      <!-- Hero text content -->
+      <div class="relative z-10 text-center text-white px-4 py-6 md:py-32">
+        <img
+          src="./assets/img/team-2-800x800.jpg"
+          alt="Lasse Wingreen"
+          class="mx-auto rounded-full w-20 h-20 md:w-32 md:h-32 border-4 border-white shadow-lg filter grayscale"
+        />
+        <h1 class="mt-4 text-lg md:text-3xl font-extrabold">
+          Hi, I'm Lasse!
+        </h1>
+        <p class="mt-2 text-gray-200 text-base md:text-lg max-w-xl mx-auto">
+          Product Owner by day,
+          <a
+            href="https://flowandgreen.dk"
+            class="underline"ª
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Singer by night
+          </a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 
+      #about must fill remaining vertical space.
+      We use flex-grow on #about to ensure it takes 
+      all available space after #home within #screen.
+    -->
+    <section
+      id="about"
+      class="bg-gray-100 pt-8 pb-12 flex-grow flex items-center"
+    >
+      <!-- 
+        Center the content container within #about vertically and horizontally. 
+        The 'container' below can also be top-aligned if you prefer. 
+      -->
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="bg-white rounded-lg shadow-xl p-6 md:p-10">
+          <h2 class="text-3xl font-semibold text-center mb-4">About Me</h2>
+          <div class="flex flex-col items-center">
+            <h3 class="text-2xl font-medium mt-4 mb-1 text-gray-800">
+              Lasse Wingreen
+            </h3>
+            <p class="text-gray-500 flex items-center">
+              <i class="fas fa-map-marker-alt mr-2"></i>Aarhus, Denmark
+            </p>
+            <p class="mt-4 text-gray-700 text-center max-w-2xl">
+              <strong>Product Owner</strong> at iPaper – crafting the best digital catalog software.
+              <a
+                href="https://flowandgreen.dk"
+                class="text-blue-500 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                By night, I belt out tunes and strum the guitar at weddings and events.
+              </a>
+            </p>
+            <p class="mt-4 text-gray-700 text-center max-w-2xl">
+              Weekends? I'm all about gravel biking, building my perfect ride, and tackling
+              long-distance runs. As a father of two and a loving husband, I find endless
+              inspiration in my family.
+            </p>
+            <p class="mt-4 text-gray-700 text-center max-w-2xl">
+              These passions share a common thread: creation, connection, and pushing limits.
+            </p>
+            <a
+              href="https://www.linkedin.com/in/lassewingreen/"
+              target="_blank"
+              class="inline-block bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600 transition duration-200 mt-8"
+            >
+              Connect on LinkedIn <i class="fab fa-linkedin ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+
+  <!-- Footer is flex-none, so it sits below all main content. -->
+  <footer id="contact" class="bg-gray-800 py-10 text-white text-center flex-none">
+    <div class="container mx-auto px-4">
+      <h4 class="text-2xl font-semibold">Let's Keep in Touch!</h4>
+      <p class="text-gray-400 mt-2">Reach out via LinkedIn or email.</p>
+      <div class="mt-4 flex justify-center space-x-4">
+        <a
+          href="https://linkedin.com/in/name"
+          target="_blank"
+          class="text-xl hover:text-blue-400"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:mail" class="text-xl hover:text-gray-300">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+      <p class="mt-4 text-gray-500 text-sm">
+        &copy; 2025 Lasse Wingreen — Made with <span class="text-red-500">&hearts;</span> in Aarhus
+      </p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
