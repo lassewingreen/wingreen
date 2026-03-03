@@ -108,51 +108,32 @@
       const horizonEl = document.getElementById("horizon");
       await whenHorizonReady(horizonEl);
 
-      dlPush({
-        event: "horizon_ready",
-        horizon: { alias: horizonEl.getAttribute("alias") || null, elementId: horizonEl.id || null }
-      });
-
       const api = await horizonEl.getApi();
-      // Subscribe to content events (from your docs)
-      const subscription = api.content.subscribe((contentEvent) => {
-        const c = contentEvent && contentEvent.value ? contentEvent.value : null;
 
-        // Keep event payload small + stable:
-        // IMPORTANT: base does NOT include "event", so we can set event per push without it being overwritten.
-        const base = {
+      const subscription = api.content.subscribe((contentEvent) => {
+        if (!contentEvent || contentEvent.action !== "viewEnter") return;
+
+        const c = contentEvent.value || null;
+
+        const payload = {
+          event: "horizon_view_enter",
           horizon: { alias: horizonEl.getAttribute("alias") || null },
-          action: contentEvent ? contentEvent.action : null,   // viewEnter | viewLeave | click
-          source: contentEvent ? contentEvent.source : null,   // content | price | splash | cta
-          contentType: c ? c.$type : null,
-          contentGuid: c ? c.contentGuid : null
+          source: contentEvent.source || null,
+          content_type: c ? c.$type : null,
+          content_guid: c ? c.contentGuid : null
         };
 
-        // If offer, add a small offer summary
         const offer = normalizeOfferFields(c);
-        if (offer) base.offer = offer;
+        if (offer) payload.offer = offer;
 
-        // Always push the generic event (nice for one-trigger setups)
-        dlPush({ event: "horizon_content_event", ...base });
-
-        // Convenience events (so GTM triggers are easier)
-        if (base.action === "click") {
-          dlPush({ event: "horizon_click", ...base });
-        } else if (base.action === "viewEnter") {
-          dlPush({ event: "horizon_view_enter", ...base });
-        } else if (base.action === "viewLeave") {
-          dlPush({ event: "horizon_view_leave", ...base });
-        }
+        dlPush(payload);
       });
-
-      dlPush({ event: "horizon_subscription_active", hasUnsubscribe: !!(subscription && subscription.unsubscribe) });
 
       // Optional: expose unsubscribe for debugging
       window.__horizonUnsubscribe = () => subscription && subscription.unsubscribe && subscription.unsubscribe();
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      dlPush({ event: "horizon_testpage_loaded" });
       initHorizonToDataLayer().catch((err) => {
         dlPush({ event: "horizon_init_error", message: String(err && err.message ? err.message : err) });
         console.error(err);
