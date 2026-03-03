@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -21,12 +22,35 @@
   <!-- End Google Tag Manager -->
 
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
-    header { padding: 16px; border-bottom: 1px solid #ddd; }
-    .wrap { padding: 16px; display: grid; gap: 12px; }
-    ip-embed-leaflet { display: block; width: 100%; min-height: 75vh; }
-    .log { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-           white-space: pre-wrap; background: #f6f6f6; padding: 12px; border-radius: 8px; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      padding: 16px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .wrap {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    ip-embed-leaflet {
+      display: block;
+      width: 100%;
+      min-height: 75vh;
+    }
+
+    .log {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      background: #f6f6f6;
+      padding: 12px;
+      border-radius: 8px;
+    }
   </style>
 
   <script>
@@ -90,14 +114,13 @@
       });
 
       const api = await horizonEl.getApi();
-
       // Subscribe to content events (from your docs)
       const subscription = api.content.subscribe((contentEvent) => {
         const c = contentEvent && contentEvent.value ? contentEvent.value : null;
 
         // Keep event payload small + stable:
+        // IMPORTANT: base does NOT include "event", so we can set event per push without it being overwritten.
         const base = {
-          event: "horizon_content_event",
           horizon: { alias: horizonEl.getAttribute("alias") || null },
           action: contentEvent ? contentEvent.action : null,   // viewEnter | viewLeave | click
           source: contentEvent ? contentEvent.source : null,   // content | price | splash | cta
@@ -109,9 +132,10 @@
         const offer = normalizeOfferFields(c);
         if (offer) base.offer = offer;
 
-        dlPush(base);
+        // Always push the generic event (nice for one-trigger setups)
+        dlPush({ event: "horizon_content_event", ...base });
 
-        // Optional convenience events (so GTM triggers are easier):
+        // Convenience events (so GTM triggers are easier)
         if (base.action === "click") {
           dlPush({ event: "horizon_click", ...base });
         } else if (base.action === "viewEnter") {
@@ -140,8 +164,8 @@
 <body>
   <!-- Google Tag Manager (noscript) -->
   <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K9P6972K"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K9P6972K" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
@@ -162,4 +186,5 @@
   <!-- Load the embed web component ONCE -->
   <script defer src="https://embed.ipaper.io/web.js" type="module"></script>
 </body>
+
 </html>
