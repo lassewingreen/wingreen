@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Horizon GA4 — API via GTM Custom HTML tag v1.0</title>
+
+  <!-- Google Tag Manager -->
+  <!-- ⚠️ Replace GTM-XXXXXXX with your new container ID -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-N9BNXV2M");
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      padding: 16px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .wrap {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    ip-embed-leaflet {
+      display: block;
+      width: 100%;
+      min-height: 75vh;
+    }
+
+    .log {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      background: #f6f6f6;
+      padding: 12px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <!-- ⚠️ Replace GTM-XXXXXXX with your new container ID -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N9BNXV2M" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <strong>Horizon GA4 — API via GTM Custom HTML tag v1.0</strong><br />
+    Alias: <code>kleemarkt/kleemarktstore</code>
+  </header>
+
+  <div class="wrap">
+    <ip-embed-leaflet id="horizon" alias="kleemarkt/kleemarktstore"></ip-embed-leaflet>
+
+    <div>
+      <div style="margin: 6px 0;"><strong>Debug dataLayer pushes:</strong></div>
+      <div id="debug-log" class="log"></div>
+    </div>
+  </div>
+
+  <!-- Load the Horizon embed web component -->
+  <script defer src="https://embed.ipaper.io/web.js" type="module"></script>
+</body>
+
+</html>
