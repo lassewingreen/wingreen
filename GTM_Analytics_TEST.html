@@ -109,6 +109,8 @@
       const alias = horizonEl.getAttribute("alias") || null;
       const api = await horizonEl.getApi();
 
+      const seenOffers = new Set();
+
       const subscription = api.content.subscribe((contentEvent) => {
         if (!contentEvent) return;
         const { action, source, value: c } = contentEvent;
@@ -118,10 +120,17 @@
         // Only track viewEnter and click
         if (action !== "viewEnter" && action !== "click") return;
 
+        // view_item_list fires once per offer — ignore re-entries from scrolling
+        if (action === "viewEnter") {
+          if (seenOffers.has(c.contentGuid)) return;
+          seenOffers.add(c.contentGuid);
+        }
+
         const ecommerce = mapOfferToEcommerce(c, alias);
 
-        // GA4 requires clearing ecommerce before each push to prevent data bleed
-        dlPush({ ecommerce: null });
+        // GA4 requires clearing ecommerce before each push to prevent data bleed.
+        // Pushed directly to avoid showing as a "Message" event in GTM debug / our log.
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
 
         if (action === "viewEnter") {
           dlPush({ event: "view_item_list", horizon_alias: alias, ecommerce });
