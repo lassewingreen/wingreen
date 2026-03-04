@@ -78,11 +78,11 @@
     }
 
     // Maps a Horizon offer + all its products to a GA4 ecommerce object.
-    // Horizon stores prices as micro-units — divide by 1,000,000 to get decimal value.
     function mapOfferToEcommerce(offer, alias) {
       const products = Array.isArray(offer.products) ? offer.products : [];
-      const toDecimal = (v) => typeof v === "number" ? v / 1_000_000 : null;
-      const offerPrice = offer.sales_price ? toDecimal(offer.sales_price.value) : null;
+      const offerPrice = offer.sales_price && typeof offer.sales_price.value === "number"
+        ? offer.sales_price.value
+        : null;
 
       return {
         item_list_id: offer.contentGuid || null,
@@ -90,8 +90,8 @@
         value: offerPrice,    // GA4 standard: total monetary value of the event
         currency: "DKK",      // Update per integration
         items: products.map((p, index) => {
-          const price = p.price ? toDecimal(p.price.value) : null;
-          const salePrice = p.sale_price ? toDecimal(p.sale_price.value) : null;
+          const price = p.price && typeof p.price.value === "number" ? p.price.value : null;
+          const salePrice = p.sale_price && typeof p.sale_price.value === "number" ? p.sale_price.value : null;
           return {
             index,
             item_id: p.sku || null,
