@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Horizon GA4 e-commerce tracking test v9.3</title>
+  <title>Horizon GA4 e-commerce tracking test v9.4</title>
 
   <!-- Google Tag Manager -->
   <script>
@@ -78,11 +78,12 @@
     }
 
     // Maps a Horizon offer + all its products to a GA4 ecommerce object.
+    // GA4 processes prices in micro-units (×1,000,000 internally), so raw API values
+    // must be divided by 1,000,000 before pushing to the dataLayer.
     function mapOfferToEcommerce(offer, alias) {
       const products = Array.isArray(offer.products) ? offer.products : [];
-      const offerPrice = offer.sales_price && typeof offer.sales_price.value === "number"
-        ? offer.sales_price.value
-        : null;
+      const toGA4Price = (v) => typeof v === "number" ? v / 1_000_000 : null;
+      const offerPrice = offer.sales_price ? toGA4Price(offer.sales_price.value) : null;
 
       return {
         item_list_id: offer.contentGuid || null,
@@ -90,8 +91,8 @@
         value: offerPrice,    // GA4 standard: total monetary value of the event
         currency: "DKK",      // Update per integration
         items: products.map((p, index) => {
-          const price = p.price && typeof p.price.value === "number" ? p.price.value : null;
-          const salePrice = p.sale_price && typeof p.sale_price.value === "number" ? p.sale_price.value : null;
+          const price = p.price ? toGA4Price(p.price.value) : null;
+          const salePrice = p.sale_price ? toGA4Price(p.sale_price.value) : null;
           return {
             index,
             item_id: p.sku || null,
@@ -171,7 +172,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <header>
-    <strong>Horizon GA4 e-commerce tracking test v9.3</strong><br />
+    <strong>Horizon GA4 e-commerce tracking test v9.4</strong><br />
     Alias: <code>kleemarkt/kleemarktstore</code>
   </header>
 
