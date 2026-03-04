@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Horizon Content Subscribe → dataLayer test</title>
+  <title>Horizon GA4 e-commerce tracking test</title>
 
   <!-- Google Tag Manager -->
   <script>
@@ -65,14 +65,11 @@
     function dlPush(obj) {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(obj);
-
-      // visible debug output
       const el = document.getElementById("debug-log");
       if (el) el.textContent += JSON.stringify(obj) + "\n";
       console.log("dataLayer.push:", obj);
     }
 
-    // Prevent double init (important if anything re-runs scripts)
     function ensureSingleInit(key) {
       window.__horizonInit = window.__horizonInit || {};
       if (window.__horizonInit[key]) return false;
@@ -80,25 +77,26 @@
       return true;
     }
 
-    function normalizeOfferFields(content) {
-      if (!content || content.$type !== "offer") return null;
-
-      const firstProduct = Array.isArray(content.products) && content.products.length ? content.products[0] : null;
-
+    // Maps a Horizon offer + all its products to a GA4 ecommerce object.
+    function mapOfferToEcommerce(offer, alias) {
+      const products = Array.isArray(offer.products) ? offer.products : [];
       return {
-        header: content.header || null,
-        summary: content.summary || null,
-        sales_price: content.sales_price && typeof content.sales_price.value === "number" ? content.sales_price.value : null,
-        product_count: Array.isArray(content.products) ? content.products.length : 0,
-        // optional: include first product fields only to keep payload small
-        product: firstProduct ? {
-          sku: firstProduct.sku || null,
-          title: firstProduct.title || null,
-          brand: firstProduct.brand || null,
-          price: firstProduct.price && typeof firstProduct.price.value === "number" ? firstProduct.price.value : null,
-          sale_price: firstProduct.sale_price && typeof firstProduct.sale_price.value === "number" ? firstProduct.sale_price.value : null,
-          url: firstProduct.url || null
-        } : null
+        item_list_id: offer.contentGuid || null,
+        item_list_name: offer.header || null,
+        items: products.map((p, index) => ({
+          index,
+          item_id: p.sku || null,
+          item_name: p.title || null,
+          item_brand: p.brand || null,
+          price: p.price && typeof p.price.value === "number" ? p.price.value : null,
+          discount: p.price && p.sale_price &&
+            typeof p.price.value === "number" && typeof p.sale_price.value === "number"
+            ? parseFloat((p.price.value - p.sale_price.value).toFixed(2))
+            : null,
+          item_list_id: offer.contentGuid || null,
+          item_list_name: offer.header || null,
+          affiliation: alias || null
+        }))
       };
     }
 
@@ -108,28 +106,31 @@
       const horizonEl = document.getElementById("horizon");
       await whenHorizonReady(horizonEl);
 
+      const alias = horizonEl.getAttribute("alias") || null;
       const api = await horizonEl.getApi();
 
       const subscription = api.content.subscribe((contentEvent) => {
-        if (!contentEvent || contentEvent.action !== "viewEnter") return;
+        if (!contentEvent) return;
+        const { action, source, value: c } = contentEvent;
 
-        const c = contentEvent.value || null;
+        // Only track offer content
+        if (!c || c.$type !== "offer") return;
+        // Only track viewEnter and click
+        if (action !== "viewEnter" && action !== "click") return;
 
-        const payload = {
-          event: "horizon_view_enter",
-          horizon: { alias: horizonEl.getAttribute("alias") || null },
-          source: contentEvent.source || null,
-          content_type: c ? c.$type : null,
-          content_guid: c ? c.contentGuid : null
-        };
+        const ecommerce = mapOfferToEcommerce(c, alias);
 
-        const offer = normalizeOfferFields(c);
-        if (offer) payload.offer = offer;
+        // GA4 requires clearing ecommerce before each push to prevent data bleed
+        dlPush({ ecommerce: null });
 
-        dlPush(payload);
+        if (action === "viewEnter") {
+          dlPush({ event: "view_item_list", horizon_alias: alias, ecommerce });
+        } else {
+          // source: 'content' | 'price' | 'splash' | 'cta' — useful for GTM triggers
+          dlPush({ event: "select_item", horizon_alias: alias, horizon_source: source || null, ecommerce });
+        }
       });
 
-      // Optional: expose unsubscribe for debugging
       window.__horizonUnsubscribe = () => subscription && subscription.unsubscribe && subscription.unsubscribe();
     }
 
@@ -151,7 +152,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <header>
-    <strong>Horizon Content Subscribe → dataLayer test</strong><br />
+    <strong>Horizon GA4 e-commerce tracking test</strong><br />
     Alias: <code>kleemarkt/kleemarktstore</code>
   </header>
 
