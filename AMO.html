@@ -444,36 +444,76 @@
 
     /* ─── Print styles ───────────────────────────────────────────── */
     @media print {
-      @page { size: A4; margin: 18mm 18mm 20mm; }
+      @page { size: A4; margin: 15mm 16mm 18mm; }
+      @page :first { margin-top: 0; }
 
-      html { font-size: 11pt; }
+      /* ── Base ── */
+      html { font-size: 9.5pt; }
+      body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
-      body {
-        background: white;
+      /* ── Page wrapper ── */
+      .page { max-width: 100%; margin: 0; box-shadow: none; }
+
+      /* ── Cover: compact, full-bleed, own page ── */
+      .cover {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        padding: 28mm 16mm 20mm;
+        break-after: page;
+        margin: -15mm -16mm 0;
+        width: calc(100% + 32mm);
       }
+      .cover h1 { font-size: 22pt; margin-bottom: 8px; }
+      .cover-logo svg { width: 90px; }
+      .cover-logo { margin-bottom: 18px; }
+      .cover-sub { margin-bottom: 20px; }
+      .cover-meta { padding-top: 16px; }
 
-      .page {
-        max-width: 100%;
-        margin: 0;
-        box-shadow: none;
-      }
+      /* ── Content ── */
+      .content { padding: 6mm 0 0; }
 
-      .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      /* ── Headings ── */
+      h2 { font-size: 13pt; margin: 18px 0 8px; padding-bottom: 4px; }
+      .chapter h2 { font-size: 14pt; }
+      h3 { font-size: 9.5pt; margin: 12px 0 5px; }
+      h4 { font-size: 9pt; margin: 10px 0 4px; }
 
-      /* avoid breaks inside cards/tables where possible */
-      .section-block, .role-card, .solution-card, .callout { break-inside: avoid; }
+      /* ── Spacing ── */
+      .section-block { margin-bottom: 18px; }
+      .section-block + .section-block { padding-top: 16px; }
+      p { margin-bottom: 6px; }
+      ul, ol { margin: 4px 0 8px 16px; }
+      li { margin-bottom: 3px; }
+
+      /* ── Page-break control ── */
+      .section-block, .callout, .role-card, .solution-card { break-inside: avoid; }
       h2, h3, h4 { break-after: avoid; }
-      table { break-inside: auto; }
-      tr { break-inside: avoid; }
       thead { display: table-header-group; }
-
-      /* keep cover on its own page */
-      .cover { break-after: page; }
-
-      /* no hover color in print */
+      tr { break-inside: avoid; }
+      table { break-inside: auto; font-size: 8pt; }
+      td, th { padding: 6px 8px; }
       tbody tr:hover { background: transparent; }
+
+      /* ── Grids: keep multi-col but tighter ── */
+      .role-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .role-card { padding: 8px 10px; }
+      .stat-row { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .stat-card { padding: 10px 8px; }
+      .stat-card-value { font-size: 1.4rem; }
+      .solution-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+      .solution-card { padding: 10px; }
+      .img-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .img-placeholder { min-height: 80px; padding: 10px; }
+
+      /* ── Misc ── */
+      .chapter-num { width: 26px; height: 26px; font-size: .7rem; }
+      .chapter { gap: 10px; margin-bottom: 12px; }
+      .summary-box { padding: 12px 14px; }
+      .callout { padding: 8px 12px; }
+      .img-placeholder-file { display: none; }
+      .survey-table { font-size: 7pt; }
+      .survey-table td, .survey-table th { padding: 4px 6px; }
+      .doc-footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 0; font-size: 7.5pt; }
     }
 
     /* ─── Responsive (narrow screens) ───────────────────────────── */
@@ -747,22 +787,22 @@
         <div class="img-placeholder">
           <img src="images/lux_N4_1331.jpg" alt="Luxmåling N4 1331 lux" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur A1 &mdash; N4: 1331 lux</div>
-          <div class="img-placeholder-file">images/lux_N4_1331.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lux_N1_939.jpg" alt="Luxmåling N1 939 lux" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur A2 &mdash; N1: 939 lux</div>
-          <div class="img-placeholder-file">images/lux_N1_939.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lux_S2_199.jpg" alt="Luxmåling S2 199 lux" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur A5 &mdash; S2: 199 lux (amber + gardin)</div>
-          <div class="img-placeholder-file">images/lux_S2_199.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lux_N6_415.jpg" alt="Luxmåling N6 415 lux" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur A9 &mdash; N6: 415 lux (diffus test)</div>
-          <div class="img-placeholder-file">images/lux_N6_415.jpg</div>
+          
         </div>
       </div>
 
@@ -771,22 +811,22 @@
         <div class="img-placeholder">
           <img src="images/lamp_standard_no_filter.jpg" alt="Armatur uden filter" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur B1 &mdash; Standard (ingen filter)</div>
-          <div class="img-placeholder-file">images/lamp_standard_no_filter.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lamp_white_bakingpaper_insert.jpg" alt="Hvid diffus indsats" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur B2 &mdash; Hvid diffus indsats (valgt)</div>
-          <div class="img-placeholder-file">images/lamp_white_bakingpaper_insert.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lamp_amber_bakingpaper_insert.jpg" alt="Amber indsats" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur B3 &mdash; Amber indsats (fravalgt)</div>
-          <div class="img-placeholder-file">images/lamp_amber_bakingpaper_insert.jpg</div>
+          
         </div>
         <div class="img-placeholder">
           <img src="images/lamp_frosted_external.jpg" alt="Frosted folie på yderside" onerror="this.style.display='none'" />
                     <div class="img-placeholder-title">Figur B4 &mdash; Frosted folie (fravalgt)</div>
-          <div class="img-placeholder-file">images/lamp_frosted_external.jpg</div>
+          
       </div>
     </div>
 
