@@ -85,25 +85,25 @@
     .cover-logo svg path.st00 { fill: none; }
 
     .cover-label {
-      font-size: .72rem;
+      font-size: .64rem;
       font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
     .cover h1 {
       font-family: 'Noe Display', Georgia, serif;
-      font-size: 2.8rem;
+      font-size: 1.8rem;
       font-weight: 700;
       line-height: 1.2;
       max-width: 580px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .cover-sub {
-      font-size: .9rem;
+      font-size: .76rem;
       color: rgba(255,255,255,.65);
-      margin-bottom: 40px;
+      margin-bottom: 28px;
       font-style: italic;
     }
     .cover-meta {
@@ -117,15 +117,15 @@
     .cover-meta-item { padding-right: 24px; }
     .cover-meta-item + .cover-meta-item { border-left: 1px solid rgba(255,255,255,.12); padding-left: 24px; }
     .cover-meta-label {
-      font-size: .68rem;
+      font-size: .62rem;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: rgba(255,255,255,.45);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .cover-meta-value {
-      font-size: .85rem;
+      font-size: .76rem;
       font-weight: 500;
       color: rgba(255,255,255,.9);
     }
@@ -442,78 +442,118 @@
     .source-list li:last-child { border-bottom: none; }
     .source-list a { color: var(--blue); word-break: break-word; }
 
-    /* ─── Print styles ───────────────────────────────────────────── */
-    @media print {
-      @page { size: A4; margin: 15mm 16mm 18mm; }
-      @page :first { margin-top: 0; }
+    /* ─── Paged.js — @page rules (read directly by Paged.js) ───────── */
+    @page {
+      size: A4;
+      margin: 16mm 16mm 20mm;
 
-      /* ── Base ── */
-      html { font-size: 9.5pt; }
-      body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-      /* ── Page wrapper ── */
-      .page { max-width: 100%; margin: 0; box-shadow: none; }
-
-      /* ── Cover: compact, full-bleed, own page ── */
-      .cover {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        padding: 28mm 16mm 20mm;
-        break-after: page;
-        margin: -15mm -16mm 0;
-        width: calc(100% + 32mm);
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 7.5pt;
+        color: #6a6c6c;
+        vertical-align: middle;
       }
-      .cover h1 { font-size: 22pt; margin-bottom: 8px; }
-      .cover-logo svg { width: 90px; }
-      .cover-logo { margin-bottom: 18px; }
-      .cover-sub { margin-bottom: 20px; }
-      .cover-meta { padding-top: 16px; }
+      @top-left {
+        content: element(running-header);
+      }
+    }
 
-      /* ── Content ── */
-      .content { padding: 6mm 0 0; }
+    /* Cover page: no margins so gradient bleeds edge-to-edge */
+    @page :first {
+      margin: 0;
+      @top-left    { content: none; }
+      @bottom-right { content: none; }
+    }
 
-      /* ── Headings ── */
-      h2 { font-size: 13pt; margin: 18px 0 8px; padding-bottom: 4px; }
-      .chapter h2 { font-size: 14pt; }
-      h3 { font-size: 9.5pt; margin: 12px 0 5px; }
-      h4 { font-size: 9pt; margin: 10px 0 4px; }
+    /* Running header element — invisible in normal flow */
+    .running-header {
+      position: running(running-header);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 7.5pt;
+      color: #6a6c6c;
+      border-bottom: 0.5pt solid #d1dce8;
+      padding-bottom: 3pt;
+      width: 100%;
+    }
 
-      /* ── Spacing ── */
-      .section-block { margin-bottom: 18px; }
-      .section-block + .section-block { padding-top: 16px; }
-      p { margin-bottom: 6px; }
-      ul, ol { margin: 4px 0 8px 16px; }
-      li { margin-bottom: 3px; }
+    /* When Paged.js is active: reset the .page wrapper */
+    html.pagedjs_paginated body {
+      background: #c8d4e0;
+      padding: 0;
+    }
+    html.pagedjs_paginated .page {
+      max-width: 100%;
+      margin: 0;
+      box-shadow: none;
+      background: transparent;
+    }
 
-      /* ── Page-break control ── */
-      .section-block, .callout, .role-card, .solution-card { break-inside: avoid; }
-      h2, h3, h4 { break-after: avoid; }
-      thead { display: table-header-group; }
-      tr { break-inside: avoid; }
-      table { break-inside: auto; font-size: 8pt; }
-      td, th { padding: 6px 8px; }
-      tbody tr:hover { background: transparent; }
+    /* Cover: fill the entire first page (no page margin) */
+    html.pagedjs_paginated .cover {
+      width: 100%;
+      min-height: 297mm;
+      margin: 0;
+      padding: 32mm 18mm 24mm;
+    }
 
-      /* ── Grids: keep multi-col but tighter ── */
-      .role-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .role-card { padding: 8px 10px; }
-      .stat-row { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-      .stat-card { padding: 10px 8px; }
-      .stat-card-value { font-size: 1.4rem; }
-      .solution-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-      .solution-card { padding: 10px; }
-      .img-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .img-placeholder { min-height: 80px; padding: 10px; }
+    /* Content area: tighter for print proportions */
+    html.pagedjs_paginated .content {
+      padding: 8mm 0 0;
+      font-size: 9.5pt;
+    }
+    html.pagedjs_paginated h2 { font-size: 13pt; margin: 16px 0 8px; padding-bottom: 4px; }
+    html.pagedjs_paginated .chapter h2 { font-size: 14pt; }
+    html.pagedjs_paginated h3 { font-size: 9.5pt; margin: 11px 0 5px; }
+    html.pagedjs_paginated h4 { font-size: 9pt; margin: 9px 0 4px; }
+    html.pagedjs_paginated p { margin-bottom: 6px; }
+    html.pagedjs_paginated ul, html.pagedjs_paginated ol { margin: 4px 0 8px 16px; }
+    html.pagedjs_paginated li { margin-bottom: 3px; }
+    html.pagedjs_paginated .section-block { margin-bottom: 18px; }
+    html.pagedjs_paginated .section-block + .section-block { padding-top: 14px; }
+    html.pagedjs_paginated table { font-size: 8pt; }
+    html.pagedjs_paginated td, html.pagedjs_paginated th { padding: 6px 8px; }
+    html.pagedjs_paginated .survey-table { font-size: 7pt; }
+    html.pagedjs_paginated .survey-table td,
+    html.pagedjs_paginated .survey-table th { padding: 4px 6px; }
+    html.pagedjs_paginated .stat-card { padding: 10px 8px; }
+    html.pagedjs_paginated .stat-card-value { font-size: 1.3rem; }
+    html.pagedjs_paginated .chapter-num { width: 26px; height: 26px; font-size: .7rem; }
+    html.pagedjs_paginated .chapter { gap: 10px; margin-bottom: 12px; }
+    html.pagedjs_paginated .summary-box { padding: 12px 14px; }
+    html.pagedjs_paginated .callout { padding: 8px 12px; }
+    html.pagedjs_paginated .img-placeholder { min-height: 80px; padding: 10px; }
+    html.pagedjs_paginated .img-placeholder-file { display: none; }
+    html.pagedjs_paginated .doc-footer { padding: 10px 0; font-size: 7.5pt; }
 
-      /* ── Misc ── */
-      .chapter-num { width: 26px; height: 26px; font-size: .7rem; }
-      .chapter { gap: 10px; margin-bottom: 12px; }
-      .summary-box { padding: 12px 14px; }
-      .callout { padding: 8px 12px; }
-      .img-placeholder-file { display: none; }
-      .survey-table { font-size: 7pt; }
-      .survey-table td, .survey-table th { padding: 4px 6px; }
-      .doc-footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 10px 0; font-size: 7.5pt; }
+    /* Page-break control */
+    .section-block, .callout, .role-card, .solution-card { break-inside: avoid; }
+    h2, h3, h4 { break-after: avoid; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    table { break-inside: auto; }
+    .cover { break-after: page; }
+
+    /* Paged.js screen chrome */
+    .pagedjs_pages {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 0 48px;
+      gap: 18px;
+    }
+    .pagedjs_page {
+      background: white;
+      box-shadow: 0 3px 24px rgba(0,0,0,.18);
+    }
+
+    /* ─── Fallback @media print (if Paged.js not loaded) ────────── */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { max-width: 100%; margin: 0; box-shadow: none; }
+      .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; break-after: page; }
+      .pagedjs_pages { padding: 0; gap: 0; }
+      .pagedjs_page { box-shadow: none; }
     }
 
     /* ─── Responsive (narrow screens) ───────────────────────────── */
@@ -532,6 +572,9 @@
 <body>
 
 <div class="page">
+
+  <!-- Running header: hidden in normal flow, shown by Paged.js in page top margin -->
+  <div class="running-header">iPaper &middot; AMO Arbejdsmiljørapport &middot; 09/03/2026</div>
 
   <!-- ══════════════════════════════════════════════ COVER -->
   <div class="cover">
@@ -778,58 +821,6 @@
         <p><strong>Note:</strong> Berøring af ydersiden dokumenterer ikke temperaturen ved alle interne komponenter. Bagepapir anvendes <strong>kun som testmateriale</strong>. Før permanent udrulning skal der vælges en armatur-egnet indsats med dokumenterede materialeegenskaber og driftssikker montage.</p>
       </div>
 
-      <!-- Bilag 3: Foto-oversigt -->
-      <h3>Billeddokumentation</h3>
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Udskift filnavne med egne billeder til endelig aflevering.</p>
-
-      <h4>Luxmåler-billeder</h4>
-      <div class="img-grid">
-        <div class="img-placeholder">
-          <img src="images/lux_N4_1331.jpg" alt="Luxmåling N4 1331 lux" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur A1 &mdash; N4: 1331 lux</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lux_N1_939.jpg" alt="Luxmåling N1 939 lux" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur A2 &mdash; N1: 939 lux</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lux_S2_199.jpg" alt="Luxmåling S2 199 lux" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur A5 &mdash; S2: 199 lux (amber + gardin)</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lux_N6_415.jpg" alt="Luxmåling N6 415 lux" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur A9 &mdash; N6: 415 lux (diffus test)</div>
-          
-        </div>
-      </div>
-
-      <h4>Armaturer med/uden filter</h4>
-      <div class="img-grid">
-        <div class="img-placeholder">
-          <img src="images/lamp_standard_no_filter.jpg" alt="Armatur uden filter" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur B1 &mdash; Standard (ingen filter)</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lamp_white_bakingpaper_insert.jpg" alt="Hvid diffus indsats" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur B2 &mdash; Hvid diffus indsats (valgt)</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lamp_amber_bakingpaper_insert.jpg" alt="Amber indsats" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur B3 &mdash; Amber indsats (fravalgt)</div>
-          
-        </div>
-        <div class="img-placeholder">
-          <img src="images/lamp_frosted_external.jpg" alt="Frosted folie på yderside" onerror="this.style.display='none'" />
-                    <div class="img-placeholder-title">Figur B4 &mdash; Frosted folie (fravalgt)</div>
-          
-      </div>
-    </div>
-
     <!-- ── 2) KAN-fasen ── -->
     <div class="section-block">
       <div class="chapter">
@@ -936,29 +927,57 @@
       <p><strong>Opfølgning:</strong> Efter 2 uger evalueres pilot (lux + feedback), hvorefter AMO/ledelse beslutter udrulning eller justering.</p>
     </div>
 
-    <!-- ── 15-min præsentation ── -->
+
+
+    <!-- ── Bilag 1 Billeddokumentation ── -->
     <div class="section-block">
-      <h2>15-minutters præsentationsdisposition</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>#</th><th>Punkt</th><th>Tid</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>Problem og hvorfor det er relevant</td><td>1 min</td></tr>
-            <tr><td>2</td><td>VED: survey + dagslysindsigt + luxvariation + fotos</td><td>4 min</td></tr>
-            <tr><td>3</td><td>KAN: løsninger – hvad var muligt/ikke muligt</td><td>2 min</td></tr>
-            <tr><td>4</td><td>VIL: valgt løsning (100 lux diffuser/indsats) + begrundelse</td><td>4 min</td></tr>
-            <tr><td>5</td><td>GØR: handlingsplan + evaluering</td><td>3 min</td></tr>
-            <tr><td>6</td><td>Læring og næste skridt</td><td>1 min</td></tr>
-          </tbody>
-        </table>
+      <h2>Bilag 1 &mdash; Billeddokumentation</h2>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Udskift filnavne med egne billeder til endelig aflevering.</p>
+
+      <h4>Luxmåler-billeder</h4>
+      <div class="img-grid">
+        <div class="img-placeholder">
+          <img src="images/lux_N4_1331.jpg" alt="Luxmåling N4 1331 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A1 &mdash; N4: 1331 lux</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_N1_939.jpg" alt="Luxmåling N1 939 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A2 &mdash; N1: 939 lux</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_S2_199.jpg" alt="Luxmåling S2 199 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A5 &mdash; S2: 199 lux (amber + gardin)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_N6_415.jpg" alt="Luxmåling N6 415 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A9 &mdash; N6: 415 lux (diffus test)</div>
+        </div>
+      </div>
+
+      <h4>Armaturer med/uden filter</h4>
+      <div class="img-grid">
+        <div class="img-placeholder">
+          <img src="images/lamp_standard_no_filter.jpg" alt="Armatur uden filter" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B1 &mdash; Standard (ingen filter)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_white_bakingpaper_insert.jpg" alt="Hvid diffus indsats" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B2 &mdash; Hvid diffus indsats (valgt)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_amber_bakingpaper_insert.jpg" alt="Amber indsats" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B3 &mdash; Amber indsats (fravalgt)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_frosted_external.jpg" alt="Frosted folie på yderside" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B4 &mdash; Frosted folie (fravalgt)</div>
+        </div>
       </div>
     </div>
 
-    <!-- ── Bilag 1 Survey rådata ── -->
+    <!-- ── Bilag 2 Survey rådata ── -->
     <div class="section-block">
-      <h2>Bilag 1 &mdash; Brugerundersøgelse (rådata, n=13)</h2>
+      <h2>Bilag 2 &mdash; Brugerundersøgelse (rådata, n=13)</h2>
       <div class="table-wrap">
         <table class="survey-table">
           <thead>
@@ -989,9 +1008,9 @@
       </div>
     </div>
 
-    <!-- ── Bilag 2 Lux ── -->
+    <!-- ── Bilag 3 Lux ── -->
     <div class="section-block">
-      <h2>Bilag 2 &mdash; Luxmålinger (komplet oversigt)</h2>
+      <h2>Bilag 3 &mdash; Luxmålinger (komplet oversigt)</h2>
       <div class="table-wrap">
         <table>
           <thead>
@@ -1034,5 +1053,6 @@
 
 </div><!-- /page -->
 
+<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
 </body>
 </html>
