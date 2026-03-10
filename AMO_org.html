@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reduktion af skarp belysning og blænding – iPaper AMO Rapport</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Noe Display: load via your Adobe Fonts kit or @font-face below -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/XXXXXXX.css"> -->
+  <style>
+    /* Uncomment and point to your Noe Display files if self-hosting:
+    @font-face {
+      font-family: 'Noe Display';
+      src: url('fonts/NoeDisplay-Regular.woff2') format('woff2');
+      font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: 'Noe Display';
+      src: url('fonts/NoeDisplay-Bold.woff2') format('woff2');
+      font-weight: 700; font-style: normal;
+    }
+    */
+  </style>
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #091722;
+      --blue:   #2563a8;
+      --accent: #f12836;
+      --gold:   #c89b3c;
+      --light:  #f0f4f8;
+      --border: #d1dce8;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --white:  #ffffff;
+      --page-w: 794px;   /* A4 at 96dpi ≈ 793.7px */
+      --margin: 56px;
+    }
+
+    html { font-size: 15px; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #e8eef5;
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Page wrapper ───────────────────────────────────────────── */
+    .page {
+      max-width: var(--page-w);
+      margin: 40px auto;
+      background: var(--white);
+      box-shadow: 0 4px 40px rgba(0,0,0,.18);
+    }
+
+    /* ─── Cover ─────────────────────────────────────────────────── */
+    .cover {
+      background: linear-gradient(155deg, var(--navy) 0%, #0f2744 60%, #0a1e36 100%);
+      color: var(--white);
+      padding: 72px var(--margin) 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,.015) 40px,
+        rgba(255,255,255,.015) 80px
+      );
+    }
+    .cover-logo { margin-bottom: 28px; }
+    .cover-logo svg { width: 110px; height: auto; display: block; }
+    .cover-logo svg path { fill: #ffffff; }
+    .cover-logo svg path.st00 { fill: none; }
+
+    .cover-label {
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .cover h1 {
+      font-family: 'Noe Display', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 580px;
+      margin-bottom: 8px;
+    }
+    .cover-sub {
+      font-size: .76rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+    .cover-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.15);
+      padding-top: 28px;
+      margin-top: 10px;
+    }
+    .cover-meta-item { padding-right: 24px; }
+    .cover-meta-item + .cover-meta-item { border-left: 1px solid rgba(255,255,255,.12); padding-left: 24px; }
+    .cover-meta-label {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 3px;
+    }
+    .cover-meta-value {
+      font-size: .76rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.9);
+    }
+
+    /* ─── Content area ───────────────────────────────────────────── */
+    .content {
+      padding: 52px var(--margin);
+    }
+
+    /* ─── Section divider ────────────────────────────────────────── */
+    .section-block {
+      margin-bottom: 44px;
+    }
+    .section-block + .section-block {
+      padding-top: 40px;
+      border-top: 2px solid var(--border);
+    }
+
+    /* ─── Chapter heading (big) ──────────────────────────────────── */
+    .chapter {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .chapter-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .78rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .chapter h2 {
+      font-family: 'Noe Display', Georgia, serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: none;
+    }
+
+    /* ─── Headings ───────────────────────────────────────────────── */
+    h2 {
+      font-family: 'Noe Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 32px 0 12px;
+      padding-bottom: 7px;
+      border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-size: .95rem;
+      font-weight: 600;
+      color: #091722;
+      margin: 22px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    h4 {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 16px 0 6px;
+    }
+
+    /* ─── Paragraph & lists ──────────────────────────────────────── */
+    p { margin-bottom: 12px; }
+    ul, ol { margin: 8px 0 14px 20px; }
+    li { margin-bottom: 5px; }
+    strong { font-weight: 600; color: var(--navy); }
+    em { color: var(--muted); }
+
+    /* ─── Role grid ──────────────────────────────────────────────── */
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .role-card {
+      background: var(--light);
+      border-left: 3px solid var(--blue);
+      border-radius: 4px;
+      padding: 12px 14px;
+    }
+    .role-card-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .role-card-name {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--navy);
+    }
+    .role-card-note {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── Summary box ────────────────────────────────────────────── */
+    .summary-box {
+      background: var(--light);
+      border-radius: 6px;
+      padding: 22px 24px;
+      margin-bottom: 24px;
+    }
+    .summary-box p:last-child { margin-bottom: 0; }
+
+    /* ─── Callout / note ─────────────────────────────────────────── */
+    .callout {
+      background: #fff8e6;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 13px 16px;
+      margin: 14px 0;
+      font-size: .88rem;
+    }
+    .callout-info {
+      background: #eff6ff;
+      border-left-color: var(--blue);
+    }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* ─── Tables ─────────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin: 16px 0 24px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .83rem;
+    }
+    thead th {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 600;
+      font-size: .75rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: #f7fafc; }
+    tbody tr:hover { background: #eef4fb; }
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+
+    /* ─── Survey table (small font) ──────────────────────────────── */
+    .survey-table { font-size: .74rem; }
+    .survey-table td, .survey-table th { padding: 7px 9px; }
+
+    /* ─── Stat row ───────────────────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0 20px;
+    }
+    .stat-card {
+      background: var(--light);
+      border-radius: 6px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-card-value {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .stat-card-pct {
+      font-size: .75rem;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .stat-card-label {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ─── Solution cards ─────────────────────────────────────────── */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin: 14px 0 20px;
+    }
+    .solution-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      position: relative;
+    }
+    .solution-card.chosen {
+      border-color: var(--blue);
+      background: #f0f7ff;
+    }
+    .solution-card.chosen::after {
+      content: 'VALGT';
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--blue);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+    .solution-card.rejected { opacity: .65; }
+    .solution-card h4 { margin-top: 0; }
+    .solution-reduction {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 6px 0 2px;
+    }
+    .solution-verdict {
+      font-size: .76rem;
+      color: var(--muted);
+    }
+
+    /* ─── Image placeholders ─────────────────────────────────────── */
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 14px 0 20px;
+    }
+    .img-placeholder {
+      background: var(--light);
+      border: 1.5px dashed var(--border);
+      border-radius: 6px;
+      padding: 24px 16px;
+      text-align: center;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .img-placeholder img {
+      max-width: 100%;
+      max-height: 160px;
+      object-fit: contain;
+      border-radius: 4px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .img-placeholder svg {
+      opacity: .3;
+      margin-bottom: 10px;
+    }
+    .img-placeholder-title {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .img-placeholder-file {
+      font-size: .68rem;
+      color: #aab;
+      font-family: monospace;
+      margin-top: 4px;
+    }
+
+    /* ─── Timeline / action plan ─────────────────────────────────── */
+    .action-table thead th:last-child,
+    .action-table td:last-child { width: 180px; }
+
+    /* ─── Lux badge ──────────────────────────────────────────────── */
+    .lux-badge {
+      display: inline-block;
+      font-weight: 700;
+      font-size: .8rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .lux-low    { background: #fee2e2; color: #991b1b; }
+    .lux-ok     { background: #d1fae5; color: #065f46; }
+    .lux-high   { background: #dbeafe; color: #1e40af; }
+    .lux-vhigh  { background: #ede9fe; color: #4c1d95; }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .doc-footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.55);
+      font-size: .72rem;
+      padding: 18px var(--margin);
+      display: flex;
+      justify-content: space-between;
+    }
+    .doc-footer a { color: rgba(255,255,255,.7); }
+
+    /* ─── Source list ────────────────────────────────────────────── */
+    .source-list { list-style: none; margin: 0; padding: 0; }
+    .source-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+    }
+    .source-list li:last-child { border-bottom: none; }
+    .source-list a { color: var(--blue); word-break: break-word; }
+
+    /* ─── Paged.js — @page rules (read directly by Paged.js) ───────── */
+    @page {
+      size: A4;
+      margin: 16mm 16mm 20mm;
+
+      @bottom-right {
+        content: counter(page) " / " counter(pages);
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 7.5pt;
+        color: #6a6c6c;
+        vertical-align: middle;
+      }
+      @top-left {
+        content: element(running-header);
+      }
+    }
+
+    /* Cover page: no margins so gradient bleeds edge-to-edge */
+    @page :first {
+      margin: 0;
+      @top-left    { content: none; }
+      @bottom-right { content: none; }
+    }
+
+    /* Running header element — invisible in normal flow */
+    .running-header {
+      position: running(running-header);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 7.5pt;
+      color: #6a6c6c;
+      border-bottom: 0.5pt solid #d1dce8;
+      padding-bottom: 3pt;
+      width: 100%;
+    }
+
+    /* When Paged.js is active: reset the .page wrapper */
+    html.pagedjs_paginated body {
+      background: #c8d4e0;
+      padding: 0;
+    }
+    html.pagedjs_paginated .page {
+      max-width: 100%;
+      margin: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    /* Cover: fill the entire first page (no page margin) */
+    html.pagedjs_paginated .cover {
+      width: 100%;
+      min-height: 297mm;
+      margin: 0;
+      padding: 32mm 18mm 24mm;
+    }
+
+    /* Content area: tighter for print proportions */
+    html.pagedjs_paginated .content {
+      padding: 8mm 0 0;
+      font-size: 9.5pt;
+    }
+    html.pagedjs_paginated h2 { font-size: 13pt; margin: 16px 0 8px; padding-bottom: 4px; }
+    html.pagedjs_paginated .chapter h2 { font-size: 14pt; }
+    html.pagedjs_paginated h3 { font-size: 9.5pt; margin: 11px 0 5px; }
+    html.pagedjs_paginated h4 { font-size: 9pt; margin: 9px 0 4px; }
+    html.pagedjs_paginated p { margin-bottom: 6px; }
+    html.pagedjs_paginated ul, html.pagedjs_paginated ol { margin: 4px 0 8px 16px; }
+    html.pagedjs_paginated li { margin-bottom: 3px; }
+    html.pagedjs_paginated .section-block { margin-bottom: 18px; }
+    html.pagedjs_paginated .section-block + .section-block { padding-top: 14px; }
+    html.pagedjs_paginated table { font-size: 8pt; }
+    html.pagedjs_paginated td, html.pagedjs_paginated th { padding: 6px 8px; }
+    html.pagedjs_paginated .survey-table { font-size: 7pt; }
+    html.pagedjs_paginated .survey-table td,
+    html.pagedjs_paginated .survey-table th { padding: 4px 6px; }
+    html.pagedjs_paginated .stat-card { padding: 10px 8px; }
+    html.pagedjs_paginated .stat-card-value { font-size: 1.3rem; }
+    html.pagedjs_paginated .chapter-num { width: 26px; height: 26px; font-size: .7rem; }
+    html.pagedjs_paginated .chapter { gap: 10px; margin-bottom: 12px; }
+    html.pagedjs_paginated .summary-box { padding: 12px 14px; }
+    html.pagedjs_paginated .callout { padding: 8px 12px; }
+    html.pagedjs_paginated .img-placeholder { min-height: 80px; padding: 10px; }
+    html.pagedjs_paginated .img-placeholder-file { display: none; }
+    html.pagedjs_paginated .doc-footer { padding: 10px 0; font-size: 7.5pt; }
+
+    /* Page-break control */
+    .section-block, .callout, .role-card, .solution-card { break-inside: avoid; }
+    h2, h3, h4 { break-after: avoid; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    table { break-inside: auto; }
+    .cover { break-after: page; }
+
+    /* Paged.js screen chrome */
+    .pagedjs_pages {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 0 48px;
+      gap: 18px;
+    }
+    .pagedjs_page {
+      background: white;
+      box-shadow: 0 3px 24px rgba(0,0,0,.18);
+    }
+
+    /* ─── Fallback @media print (if Paged.js not loaded) ────────── */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { max-width: 100%; margin: 0; box-shadow: none; }
+      .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; break-after: page; }
+      .pagedjs_pages { padding: 0; gap: 0; }
+      .pagedjs_page { box-shadow: none; }
+    }
+
+    /* ─── Responsive (narrow screens) ───────────────────────────── */
+    @media (max-width: 860px) {
+      :root { --margin: 24px; }
+      .cover h1 { font-size: 1.6rem; }
+      .cover-meta { grid-template-columns: 1fr; gap: 14px; }
+      .cover-meta-item + .cover-meta-item { border-left: none; border-top: 1px solid rgba(255,255,255,.12); padding-left: 0; padding-top: 14px; }
+      .role-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .solution-grid { grid-template-columns: 1fr; }
+      .img-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Running header: hidden in normal flow, shown by Paged.js in page top margin -->
+  <div class="running-header">iPaper &middot; AMO Arbejdsmiljørapport &middot; 09/03/2026</div>
+
+  <!-- ══════════════════════════════════════════════ COVER -->
+  <div class="cover">
+    <div class="cover-logo">
+      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 110 25.5" style="enable-background:new 0 0 110 25.5;" xml:space="preserve">
+        <rect class="st00"></rect>
+        <path d="M68,25.5L68,25.5l1.3-1.3c0.2-0.2,0.2-0.3,0.2-0.7V7.8c0-0.2,0-0.3,0-0.4s-0.1-0.2-0.2-0.3L68,5.7l0,0h6.1v2.9c0.1-0.3,0.2-0.5,0.4-0.8c0.1-0.2,0.3-0.4,0.4-0.6C75,7,75.2,6.8,75.4,6.7c0.2-0.2,0.3-0.3,0.5-0.4C76.2,6,76.6,5.8,77,5.7c0.2-0.1,0.4-0.1,0.6-0.1s0.4,0,0.7,0c0.8,0,1.5,0.2,2.1,0.5s1.2,0.8,1.6,1.3c0.5,0.6,0.8,1.3,1.1,2.1c0.3,0.8,0.4,1.8,0.4,2.8c0,1.1-0.1,2.1-0.4,3c-0.1,0.4-0.3,0.8-0.5,1.2s-0.4,0.7-0.7,1.1c-0.3,0.3-0.5,0.6-0.9,0.8c-0.3,0.2-0.6,0.5-1,0.6c-0.4,0.2-0.7,0.3-1.1,0.4s-0.8,0.1-1.2,0.1c-0.2,0-0.5,0-0.7,0s-0.4-0.1-0.6-0.1s-0.4-0.1-0.6-0.2s-0.3-0.1-0.5-0.2c-0.1-0.1-0.3-0.2-0.4-0.3c-0.1-0.1-0.2-0.2-0.3-0.4c-0.1-0.1-0.2-0.3-0.3-0.4c-0.1-0.1-0.2-0.3-0.2-0.5v6c0,0.1,0,0.1,0,0.2s0,0.1,0.1,0.2s0.2,0.2,0.4,0.3l2,1.4v0.1H68V25.5z M74.1,9v8.3c0.4,0.4,1.1,0.7,1.8,0.7c0.8,0,1.5-0.4,2-1.2c0.3-0.5,0.5-1,0.7-1.7s0.3-1.6,0.3-2.5c0-1.6-0.2-2.8-0.7-3.6c-0.4-0.7-1.1-1.1-1.9-1.1C75.4,7.7,74.7,8.2,74.1,9L74.1,9z M90.2,19.4c-0.4-0.1-0.8-0.2-1.2-0.3c-0.4-0.1-0.8-0.3-1.1-0.5c-0.4-0.2-0.7-0.5-1-0.7c-0.6-0.6-1.2-1.3-1.5-2.1c-0.1-0.2-0.2-0.5-0.2-0.7c-0.1-0.2-0.1-0.5-0.2-0.7c0-0.3-0.1-0.5-0.1-0.8s0-0.6,0-0.9c0-0.3,0-0.6,0-0.9c0-0.3,0.1-0.6,0.1-0.8c0-0.3,0.1-0.5,0.2-0.8c0.1-0.2,0.1-0.5,0.2-0.7s0.2-0.4,0.3-0.6c0.1-0.2,0.2-0.4,0.4-0.6c0.1-0.2,0.3-0.4,0.4-0.5c0.1-0.2,0.3-0.3,0.5-0.5c0.6-0.6,1.3-1,2.2-1.3c0.8-0.3,1.7-0.4,2.6-0.4c0.4,0,0.7,0,1.1,0.1c0.4,0,0.7,0.1,1.1,0.2c0.7,0.2,1.4,0.5,1.9,1C96,7,96.2,7.1,96.3,7.3c0.1,0.1,0.3,0.3,0.4,0.4C96.8,7.9,96.9,8,97,8.2s0.2,0.3,0.3,0.5c0.1,0.2,0.2,0.4,0.2,0.6c0.1,0.2,0.1,0.4,0.2,0.7c0,0.2,0.1,0.5,0.1,0.7c0,0.3,0,0.5,0,0.8c0,0.1,0,0.3,0,0.6h-8.2v0.1c0,3.1,1.5,5,3.9,5c1.9,0,3.4-0.9,4.2-2.5h0.1c-0.1,0.4-0.2,0.8-0.3,1.2c-0.1,0.4-0.3,0.7-0.5,1c-0.2,0.3-0.4,0.6-0.6,0.9s-0.4,0.5-0.7,0.7c-0.3,0.2-0.5,0.4-0.8,0.5c-0.3,0.2-0.6,0.3-0.9,0.4s-0.7,0.2-1,0.2c-0.4,0.1-0.8,0.1-1.2,0.1C91,19.5,90.6,19.4,90.2,19.4L90.2,19.4z M90,7.2c-0.4,0.9-0.6,2.2-0.6,4.2h4c0-0.4,0-0.7,0-0.8c0-1.7-0.2-2.9-0.5-3.6c-0.2-0.7-0.7-1-1.3-1C90.9,6,90.4,6.4,90,7.2L90,7.2z M63.8,19.3c-0.3-0.1-0.7-0.3-0.9-0.5c-0.3-0.2-0.5-0.5-0.7-0.8s-0.3-0.7-0.3-1.1c-0.3,0.8-0.8,1.5-1.4,1.9c-0.3,0.2-0.7,0.4-1.1,0.5c-0.4,0.1-0.8,0.2-1.3,0.2c-0.2,0-0.5,0-0.7-0.1c-0.2,0-0.5-0.1-0.7-0.2c-0.4-0.2-0.8-0.4-1.2-0.7c-0.4-0.3-0.6-0.8-0.8-1.2c-0.2-0.5-0.3-1.1-0.3-1.7s0.1-1.3,0.4-1.8c0.3-0.5,0.6-0.9,1.1-1.3c0.2-0.2,0.5-0.3,0.7-0.5c0.2-0.1,0.5-0.2,0.8-0.3s0.5-0.2,0.8-0.2s0.6-0.1,0.8-0.1c0.3,0,0.6,0,0.8,0c0.3,0,0.5,0.1,0.8,0.1c0.2,0.1,0.5,0.1,0.7,0.2c0.2,0.1,0.4,0.2,0.6,0.3L62,9.3V9.1c0-1-0.2-1.8-0.5-2.3S60.7,6,60,6c-0.3,0-0.4,0-0.5,0.1c-0.1,0-0.1,0.1-0.2,0.3l-2.2,4.1H57l-1.7-3.9c0.9-0.3,1.9-0.6,2.8-0.8c1-0.2,1.9-0.3,2.7-0.3c1,0,1.8,0.1,2.4,0.3c0.2,0,0.3,0.1,0.5,0.2s0.3,0.1,0.5,0.2c0.1,0.1,0.3,0.2,0.4,0.3c0.1,0.1,0.3,0.2,0.4,0.3c0.1,0.1,0.2,0.2,0.3,0.3c0.1,0.1,0.2,0.3,0.3,0.4c0.1,0.1,0.2,0.3,0.2,0.4C66,8.1,66,8.2,66.1,8.4s0.1,0.4,0.2,0.6c0,0.2,0.1,0.4,0.1,0.6c0,0.2,0.1,0.4,0.1,0.7c0,0.2,0,0.5,0,0.8c0,0.2,0,0.5,0,0.7c0,0.1,0,0.2,0,0.3L66.3,16c0,0.3,0,0.6,0,0.9s0.1,0.4,0.2,0.5s0.3,0.2,0.5,0.2c0.4,0,0.6-0.2,0.8-0.5h0.1c0,0.2,0,0.3,0,0.5c0,0.1,0,0.2-0.1,0.3c0,0.1-0.1,0.2-0.1,0.3c-0.1,0.2-0.3,0.4-0.4,0.6c-0.2,0.2-0.4,0.3-0.6,0.5c-0.2,0.1-0.5,0.2-0.8,0.3c-0.3,0.1-0.6,0.1-0.9,0.1C64.5,19.5,64.2,19.4,63.8,19.3z M59.3,13.2c-0.2,0.3-0.3,0.6-0.4,0.9c-0.1,0.4-0.1,0.7-0.1,1.1c0,0.7,0.2,1.3,0.5,1.7s0.7,0.6,1.2,0.6c0.6,0,1.2-0.4,1.6-1l0,0l0.1-4c-0.3-0.1-0.7-0.2-1-0.2C60.2,12.4,59.7,12.6,59.3,13.2z M98.5,19.3L98.5,19.3l1.3-1.3c0.2-0.2,0.2-0.3,0.2-0.7V7.8c0-0.4,0-0.4-0.2-0.7l-1.3-1.4l0,0h6.1v3.5c0.5-1.9,1.6-3.7,3.5-3.7c0.8,0,1.4,0.4,1.9,0.9l-1.5,4.3h-0.1l-2.2-2.6c-0.1-0.2-0.3-0.3-0.5-0.1c-0.5,0.3-0.8,0.8-1.2,1.6V17c0,0.3,0,0.4,0.4,0.7l2.7,1.6v0.1L98.5,19.3z M37.2,19.3L37.2,19.3l1.8-1.8c0.2-0.2,0.2-0.3,0.2-0.7V2.4c0-0.4,0-0.4-0.2-0.7L37.2,0l0,0h9.5c1,0,2,0.1,2.8,0.3c0.4,0.1,0.9,0.2,1.3,0.4C51,0.8,51.2,0.9,51.4,1s0.4,0.2,0.5,0.3c0.2,0.1,0.3,0.2,0.5,0.4c0.2,0.1,0.3,0.3,0.5,0.4c0.3,0.3,0.5,0.6,0.7,1c0.1,0.2,0.2,0.4,0.3,0.6C54,3.8,54,4.1,54.1,4.3c0.1,0.2,0.1,0.5,0.1,0.7c0,0.3,0,0.5,0,0.8s0,0.5,0,0.8c0,0.2-0.1,0.5-0.1,0.7C54,7.6,54,7.8,53.9,8s-0.2,0.4-0.3,0.6c-0.2,0.4-0.4,0.8-0.7,1.1c-0.1,0.2-0.3,0.3-0.5,0.5c-0.2,0.1-0.3,0.3-0.5,0.4c-0.2,0.1-0.4,0.3-0.6,0.4c-0.2,0.1-0.4,0.2-0.6,0.3c-0.2,0.1-0.4,0.2-0.7,0.3c-0.2,0.1-0.5,0.2-0.7,0.2c-0.5,0.1-1,0.2-1.6,0.3s-1.2,0.1-1.7,0.1h-1.8v4.5c0,0.2,0,0.3,0,0.4s0.1,0.2,0.3,0.3l2.6,1.9v0.1L37.2,19.3L37.2,19.3z M44.4,0.6c-0.1,0.1-0.1,0.2-0.1,0.4v10.5h1.3c1.1,0,2-0.5,2.6-1.5s0.9-2.4,0.9-4.1c0-1.6-0.3-3-0.9-3.9c-0.6-1-1.4-1.5-2.4-1.5h-1C44.6,0.5,44.5,0.5,44.4,0.6z M36.6,19.3L36.6,19.3z M36.6,19.3h-7.7v-0.1l1.3-1.3c0.2-0.2,0.2-0.3,0.2-0.7V7.8c0-0.2,0-0.3,0-0.4s-0.1-0.2-0.2-0.3l-1.3-1.4l0,0H35v11.6c0,0.4,0,0.4,0.2,0.7L36.6,19.3L36.6,19.3L36.6,19.3z M31.8,4c-0.3-0.1-0.5-0.2-0.7-0.4S30.7,3.2,30.6,3c-0.1-0.3-0.2-0.5-0.2-0.8s0.1-0.6,0.2-0.9s0.3-0.5,0.5-0.7s0.4-0.3,0.7-0.4C32.1,0,32.3,0,32.6,0s0.6,0,0.9,0.1c0.3,0.1,0.5,0.2,0.7,0.4s0.4,0.4,0.5,0.7s0.2,0.6,0.2,0.9s-0.1,0.6-0.2,0.8c-0.1,0.2-0.3,0.5-0.5,0.6C34,3.8,33.8,3.9,33.5,4s-0.6,0.1-0.9,0.1C32.3,4.2,32.1,4.1,31.8,4z"></path>
+        <path d="M12,19.3l7.2-7.2v7.2H12z M0,19.3V0h19.3v10.8c0,0.7-0.5,1.2-1.2,1.2h-6v6c0,0.7-0.5,1.2-1.2,1.2l0,0L0,19.3L0,19.3z"></path>
+      </svg>
+    </div>
+    <div class="cover-label">Arbejdsmiljørapport &middot; AMO Hjemmeopgave</div>
+    <h1>Reduktion af skarp belysning og blænding på kontor hos iPaper</h1>
+    <p class="cover-sub">Den lovpligtige arbejdsmiljøuddannelse (AMO) &middot; Praktisk hjemmeopgave</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Virksomhed</div>
+        <div class="cover-meta-value">iPaper</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Data indsamlet</div>
+        <div class="cover-meta-value">06 / 03 / 2026</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Udarbejdet</div>
+        <div class="cover-meta-value">09 / 03 / 2026 &mdash; v2</div>
+      </div>
+      <div class="cover-meta-item" style="margin-top:16px">
+        <div class="cover-meta-label">Metode</div>
+        <div class="cover-meta-value">Ved &ndash; Kan &ndash; Vil &ndash; Gør (PDCA)</div>
+      </div>
+
+      <div class="cover-meta-item" style="margin-top:16px">
+        <div class="cover-meta-label">Tidsforbrug</div>
+        <div class="cover-meta-value">ca. 4 timer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ CONTENT -->
+  <div class="content">
+
+    <!-- ── Deltagere ── -->
+    <div class="section-block">
+      <h2>Deltagere og roller</h2>
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-card-label">Opgaveansvarlig / AMR</div>
+          <div class="role-card-name">Lasse Wingreen</div>
+          <div class="role-card-note">Medlem af arbejdsmiljøgruppen</div>
+        </div>
+        <div class="role-card">
+          <div class="role-card-label">Arbejdsgiverrepræsentant (HR)</div>
+          <div class="role-card-name">Kirsten Tilsted</div>
+          <div class="role-card-note">Indkøb af luxmåler + sparring om løsning</div>
+        </div>
+        <div class="role-card">
+          <div class="role-card-label">Ledelsesrepræsentant</div>
+          <div class="role-card-name">Rune Rødbro</div>
+          <div class="role-card-note">Inddraget i ramme/økonomi og beslutningsproces</div>
+        </div>
+        <div class="role-card">
+          <div class="role-card-label">Berørte områder</div>
+          <div class="role-card-name">Storrumskontor, Canteen, Walkway</div>
+          <div class="role-card-note">Main work room (primært)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Resumé ── -->
+    <div class="section-block">
+      <h2>Resumé</h2>
+      <div class="summary-box">
+        <p>På iPapers kontor oplever nogle medarbejdere gener fra loftbelysningen i form af <strong>blænding/skarphed</strong>, især når det er <strong>mørkt udenfor</strong> (typisk vinterperioder) og i bestemte zoner (særligt <strong>canteen/walkway</strong> og enkelte skriveborde tæt på større armaturer).</p>
+        <p>Luxmålingerne varierer meget (<strong>199–1331 lux</strong>) og påvirkes i høj grad af dagslys og gardiner. En vigtig indsigt er, at <strong>nordvendte gulv-til-loft vinduer</strong> giver høje luxmålinger, men dagslyset opleves som <strong>behageligt og uden blænding</strong>, da solen ikke skinner direkte ind.</p>
+        <p>Den primære arbejdsmiljøudfordring vurderes at være <strong>blænding fra den kunstige belysning (loftarmaturer)</strong> og ikke dagslyset. Da iPaper <strong>ikke ønsker at udskifte armaturer</strong>, og teknisk zoneopdeling/dæmpning ikke er mulig, vælges en løsning baseret på <strong>diffusering</strong>.</p>
+        <p style="margin-bottom:0"><strong>Valgt retning:</strong> En <strong>ikke-klæbende diffuser/indsats</strong> med <strong>moderat dæmpning (~100 lux)</strong>, som pilottestes og evalueres via lux + kort opfølgende medarbejderfeedback.</p>
+      </div>
+      <h3>Gennemført i projektet</h3>
+      <ul>
+        <li><strong>Brugerundersøgelse</strong> &mdash; n=13 medarbejdere</li>
+        <li><strong>Luxmålinger</strong> ved bordplade på udvalgte arbejdsstationer (11 målepunkter)</li>
+        <li><strong>Test af diffusion/dæmpning</strong> via midlertidige filterløsninger i udvalgte armaturer</li>
+        <li><strong>Billeddokumentation</strong> &mdash; luxmeter-aflæsninger + lamper med/uden filter</li>
+      </ul>
+
+      <h3>Formål og afgrænsning</h3>
+      <p><strong>Formål:</strong> At reducere generende blænding og "skarp" loftbelysning, så kontor- og skærmarbejde kan foregå komfortabelt og forsvarligt.</p>
+      <ul>
+        <li>Opgaven omhandler primært <strong>loftbelysning og blænding</strong> – ikke et fuldt nyt belysningsprojekt.</li>
+        <li>Løsninger skal være <strong>lav-omkostnings</strong> og <strong>uden armaturudskiftning</strong>.</li>
+        <li>Lux bruges som datagrundlag, men blænding afhænger også af <strong>luminans/kontrast og synsretning</strong> (ikke kun lux).</li>
+      </ul>
+    </div>
+
+    <!-- ════════════════════════════════════ VED–KAN–VIL–GØR -->
+
+    <!-- ── 1) VED-fasen ── -->
+    <div class="section-block">
+      <div class="chapter">
+        <div class="chapter-num">1</div>
+        <h2>VED-fasen &mdash; Situationsanalyse</h2>
+      </div>
+
+      <h3>Problemformulering</h3>
+      <div class="callout callout-info">
+        <p>Hvordan reducerer iPaper generende blænding fra loftarmaturer (særligt i canteen/walkway og ved enkelte skriveborde) <strong>uden at udskifte armaturerne</strong>, så belysningen fortsat er passende til kontor- og skærmarbejde?</p>
+      </div>
+
+      <h3>Lovkrav og rammer</h3>
+      <p>I <strong>Bekendtgørelse om faste arbejdssteders indretning (BEK nr. 835 af 16/06/2023)</strong> fremgår bl.a.:</p>
+      <ul>
+        <li><strong>§ 38:</strong> Belysningen skal være sådan, at arbejde og færdsel kan foregå forsvarligt.</li>
+        <li><strong>§ 39:</strong> Der skal være tilstrækkelig almen belysning og passende særbelysning.</li>
+        <li><strong>§ 40, stk. 2:</strong> Belysningen må ikke give anledning til sundhedsskadelig påvirkning og skal indrettes, så den <strong>ikke giver blænding, generende reflekser eller medfører generende varme</strong>.</li>
+      </ul>
+      <p>Som praktisk pejlemærke (DS 700 via BFA Kontor): <strong>500 lux</strong> til kontorarbejde, <strong>min. 50 lux</strong> til gangarealer.</p>
+
+      <h3>Uønsket tilstand</h3>
+      <ul>
+        <li>Loftarmaturer opleves af nogle som <strong>skarpe/blændende</strong>, særligt ved direkte indkig.</li>
+        <li>Gener opstår især når det er <strong>mørkt udenfor</strong> (vinter/overskyede dage).</li>
+        <li>Nuværende coping: knibe øjne, vinkle skærm, undgå at kigge op, uformelle "blødgøringsforsøg" i lamperne.</li>
+      </ul>
+
+      <h3>Ønsket tilstand og succeskriterier</h3>
+      <ul>
+        <li>Kunstig belysning opleves ikke som skarp/blændende i berørte zoner.</li>
+        <li>Lysniveau fortsat passende til kontor- og skærmarbejde (pejlemærke ca. 500 lux).</li>
+        <li>Der findes en <strong>standardiseret og driftssikker</strong> løsning.</li>
+      </ul>
+      <ol>
+        <li>"Sometimes/Often" falder tydeligt i opfølgende mini-survey (mål: tæt på 0–1 svar).</li>
+        <li>Luxmålinger ved <strong>lavt dagslys</strong> viser, at niveauet fortsat er passende.</li>
+        <li>Løsningen kan vedligeholdes uden at beskadige armaturer.</li>
+      </ol>
+    </div>
+
+    <!-- ── Data og dokumentation ── -->
+    <div class="section-block">
+      <h2>Data og dokumentation</h2>
+
+      <!-- A) Survey -->
+      <h3>A) Brugerundersøgelse &mdash; 06/03/2026 (n=13)</h3>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-card-value">6</div>
+          <div class="stat-card-pct">46%</div>
+          <div class="stat-card-label">Never</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value">4</div>
+          <div class="stat-card-pct">31%</div>
+          <div class="stat-card-label">Rarely</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value">2</div>
+          <div class="stat-card-pct">15%</div>
+          <div class="stat-card-label">Sometimes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value">1</div>
+          <div class="stat-card-pct">8%</div>
+          <div class="stat-card-label">Often</div>
+        </div>
+      </div>
+
+      <p><strong>Tendenser:</strong> Gener opstår især når det er mørkt udenfor/vinter. Lokationer: main work room, ved skriveborde, samt canteen/walkway. Enkelte beskriver følsomme øjne og irritation efter lang skærmdag.</p>
+      <div class="callout">
+        <p>Samlet vurdering: Problemet er ikke stort for alle, men tydeligt i specifikke zoner og for nogle personer – derfor vælges en målrettet løsning fremfor et stort og dyrt projekt.</p>
+      </div>
+
+      <!-- B) Dagslys -->
+      <h3>B) Indsigt om dagslys</h3>
+      <ul>
+        <li><strong>Nordvendte gulv-til-loft vinduer</strong> giver høje luxmålinger via kraftigt, diffust dagslys.</li>
+        <li>Dagslyset fra nordvinduer <strong>blænder ikke</strong> – solen skinner ikke direkte ind.</li>
+        <li>På <strong>sydsiden er semitransparente rullegardiner altid trukket</strong>, hvilket dæmper dagslyset.</li>
+      </ul>
+      <div class="callout callout-info">
+        <p><strong>Konklusion:</strong> Høje lux-tal på nordsiden er ikke i sig selv et problem. Fokus bør være <strong>kunstig belysning</strong>, fordi bekendtgørelsen kræver, at belysningen ikke må give blænding og generende reflekser/varme.</p>
+      </div>
+
+      <!-- C) Lux -->
+      <h3>C) Luxmålinger &mdash; 06/03/2026</h3>
+      <p>Målt ved bordplade på udvalgte stationer (~0,75 m højde). Målingerne er påvirket af dagslys og gardiner.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Punkt</th>
+              <th>Placering</th>
+              <th style="text-align:right">Lux</th>
+              <th>Lysopsætning / Noter</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>N1</td><td>Nord, tæt på vindue (række 1)</td><td class="num"><span class="lux-badge lux-vhigh">939</span></td><td>Diffust dagslys</td></tr>
+            <tr><td>N2</td><td>Nord, 1 bord ind fra vindue</td><td class="num"><span class="lux-badge lux-vhigh">800</span></td><td>Diffust dagslys</td></tr>
+            <tr><td>N3</td><td>Nord, længere nede</td><td class="num"><span class="lux-badge lux-vhigh">862</span></td><td>Diffust dagslys</td></tr>
+            <tr><td>N4</td><td>Nord, tæt på vindue (ende)</td><td class="num"><span class="lux-badge lux-vhigh">1331</span></td><td>Meget højt diffust dagslys</td></tr>
+            <tr><td>S1</td><td>Syd, amber test + gardiner</td><td class="num"><span class="lux-badge lux-low">274</span></td><td>Dæmpet af filter + gardin</td></tr>
+            <tr><td>S2</td><td>Syd, amber test + gardiner</td><td class="num"><span class="lux-badge lux-low">199</span></td><td>Dæmpet af filter + gardin</td></tr>
+            <tr><td>S3</td><td>Syd, uden filter</td><td class="num"><span class="lux-badge lux-ok">433</span></td><td>Sammenligningspunkt</td></tr>
+            <tr><td>S4</td><td>Syd, uden filter</td><td class="num"><span class="lux-badge lux-ok">433</span></td><td>Sammenligningspunkt</td></tr>
+            <tr><td>M1</td><td>Midterzone (nordsiden af midtergang)</td><td class="num"><span class="lux-badge lux-ok">534</span></td><td>"Typisk" område</td></tr>
+            <tr><td>N5</td><td>Nord, hjørne</td><td class="num"><span class="lux-badge lux-high">645</span></td><td>"Typisk" område</td></tr>
+            <tr><td>N6</td><td>Nord, hvid diffus test</td><td class="num"><span class="lux-badge lux-ok">415</span></td><td>Diffuser-test</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.8rem;color:var(--muted)">
+        <span class="lux-badge lux-low">≤ 300</span>&ensp;For lavt / risiko for mørkt ved dæmpning&ensp;
+        <span class="lux-badge lux-ok">300–700</span>&ensp;Passende til kontorarbejde&ensp;
+        <span class="lux-badge lux-high">700–999</span>&ensp;Højt – diffust dagslys&ensp;
+        <span class="lux-badge lux-vhigh">≥ 1000</span>&ensp;Meget højt – primært dagslys
+      </p>
+      <p>De laveste målinger (199–274) er i zone med <strong>amber filter + gardiner</strong> – understøtter, at amber-løsningen kan gøre det for mørkt til kontorarbejde.</p>
+
+      <!-- D) Testfiltre -->
+      <h3>D) Testfiltre &mdash; hvordan de er lavet og effekt</h3>
+      <div class="solution-grid">
+        <div class="solution-card rejected">
+          <h4>Amber (kraftig dæmpning)</h4>
+          <div class="solution-reduction">&minus;400 lux</div>
+          <p class="solution-verdict">Brunt bagepapir lagt ind i LED-armatur. For stor dæmpning til kontorarbejde i de fleste zoner.</p>
+        </div>
+        <div class="solution-card chosen">
+          <h4>Hvid diffus (moderat)</h4>
+          <div class="solution-reduction">&minus;100 lux</div>
+          <p class="solution-verdict">Hvidt bagepapir lagt ind i LED-armatur. Relevant kompromis – reducerer skarphed uden at kvæle arbejdslyset.</p>
+        </div>
+        <div class="solution-card rejected">
+          <h4>Frosted folie (udvendig)</h4>
+          <div class="solution-reduction">&minus;100 lux</div>
+          <p class="solution-verdict">Klistret på ydersiden. Fravalgt: risiko for limrester/skade ved fjernelse (bekymring fra Kirsten).</p>
+        </div>
+      </div>
+
+      <!-- E) Temperatur -->
+      <h3>E) Temperatur- og driftobservation (12 timer tændt)</h3>
+      <p>Relevante LED-armaturer er testet i normal drift i ca. <strong>12 timer uafbrudt</strong>. Efter perioden oplevedes armaturerne <strong>ikke varme ved overfladen</strong>, hvilket indikerer begrænset varmeudvikling ved normal drift og understøtter, at en indlagt diffuser ikke umiddelbart påvirkes af høj varme.</p>
+      <div class="callout">
+        <p><strong>Note:</strong> Berøring af ydersiden dokumenterer ikke temperaturen ved alle interne komponenter. Bagepapir anvendes <strong>kun som testmateriale</strong>. Før permanent udrulning skal der vælges en armatur-egnet indsats med dokumenterede materialeegenskaber og driftssikker montage.</p>
+      </div>
+
+    <!-- ── 2) KAN-fasen ── -->
+    <div class="section-block">
+      <div class="chapter">
+        <div class="chapter-num">2</div>
+        <h2>KAN-fasen &mdash; Mulige løsninger</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Løsningsspor</th>
+              <th>Status</th>
+              <th>Begrundelse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Udskiftning af armaturer</strong></td><td>❌ Fravalgt</td><td>iPaper ønsker ikke armaturudskiftning (økonomi vs. problemets omfang)</td></tr>
+            <tr><td>2</td><td><strong>Styring / dæmpning / zoneopdeling</strong></td><td>❌ Fravalgt</td><td>Ikke teknisk muligt i nuværende installation</td></tr>
+            <tr><td>3</td><td><strong>Diffuser/indsats i armatur</strong></td><td>✅ Valgt</td><td>Ikke-klæbende indsats, skalerbar og skånsom for armaturer</td></tr>
+            <tr><td>4</td><td><strong>Specialrondeller (laser-skåret)</strong></td><td>⚠️ Overvejet</td><td>Usikkert ift. pasform og drift – risiko for at det ikke passer</td></tr>
+            <tr><td>5</td><td><strong>Indretning/skærm-justering</strong></td><td>⚠️ Supplerende</td><td>Løser ikke årsagen i armaturet, men kan bruges ved enkeltpladser</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Prioriteringskriterier</h3>
+      <ul>
+        <li>Effekt på blænding og "skarphed"</li>
+        <li>Pris (lav) – da iPaper ikke vil udskifte lamper</li>
+        <li>Skalerbarhed og drift (nem at vedligeholde)</li>
+        <li>Ikke-permanent påvirkning af armatur (ingen limrester)</li>
+        <li>Overholdelse af krav om, at belysning ikke må give blænding/reflekser/varme</li>
+      </ul>
+    </div>
+
+    <!-- ── 3) VIL-fasen ── -->
+    <div class="section-block">
+      <div class="chapter">
+        <div class="chapter-num">3</div>
+        <h2>VIL-fasen &mdash; Valg og plan</h2>
+      </div>
+
+      <div class="callout callout-info">
+        <p><strong>Valgt løsning:</strong> Pilot og efterfølgende mulig udrulning af en <strong>ikke-klæbende diffuser/indsats med ca. 100 lux reduktion</strong>, baseret på den hvidt-diffuse test (eller tilsvarende professionel/armatur-egnet indsats).</p>
+      </div>
+
+      <h3>Begrundelse</h3>
+      <ul>
+        <li>100 lux reduktion giver moderat dæmpning og forventes at reducere blænding uden at "kvæle" lysniveauet.</li>
+        <li>400 lux reduktion (amber/brun) bliver for meget i flere zoner – kan bringe arbejdslyset under pejlemærket 500 lux.</li>
+        <li>"Frosted" klæbefolie fravælges som standardløsning pga. risiko for limrester/skade på armaturer.</li>
+      </ul>
+
+      <h3>Krav til endelig løsning</h3>
+      <ul>
+        <li>Løsningen skal kunne <strong>standardiseres</strong> (samme metode/materiale).</li>
+        <li>Løsningen skal kunne rengøres/vedligeholdes uden skade på armaturer.</li>
+        <li>Løsningen må ikke skabe nye gener (for mørkt, ujævnt lys) og skal fortsat leve op til §40, stk. 2.</li>
+      </ul>
+
+      <h3>Handlingsplan</h3>
+      <div class="table-wrap">
+        <table class="action-table">
+          <thead>
+            <tr>
+              <th>Aktivitet</th>
+              <th>Ansvarlig</th>
+              <th>Deadline</th>
+              <th>Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Afgrænse præcise zoner/armaturer til pilot</td><td>Lasse + Kirsten + Rune</td><td>12/03/2026</td><td>Liste over pilot-armaturer</td></tr>
+            <tr><td>Identificere armaturtype og undersøge egnet indsats</td><td>Kirsten + facility</td><td>18/03/2026</td><td>Valgt indsatsmateriale</td></tr>
+            <tr><td>Installere pilot (ikke-klæbende)</td><td>Facility / elektriker</td><td>20/03/2026</td><td>Pilot installeret</td></tr>
+            <tr><td>Luxmåling før/efter pilot ved lavt dagslys + foto</td><td>Lasse</td><td>25/03/2026</td><td>Sammenlignelige målinger</td></tr>
+            <tr><td>Mini-survey (samme spørgsmål som baseline)</td><td>Lasse</td><td>27/03/2026</td><td>Feedback før/efter</td></tr>
+            <tr><td>AMO/ledelse beslutning: udrulning/justering</td><td>AMO + Rune</td><td>01/04/2026</td><td>Beslutning + evt. budget</td></tr>
+            <tr><td>Udrulning i relevante zoner</td><td>Facility</td><td>15/04/2026</td><td>Implementeret løsning</td></tr>
+            <tr><td>Slutevaluering og dokumentation</td><td>Lasse</td><td>22/04/2026</td><td>Evalueringsnotat + læring</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Evalueringsplan</h3>
+      <ul>
+        <li><strong>Lux:</strong> Gentag målinger på samme punkter. Mindst én runde ved lavt dagslys. Tjek at skrivebordsniveauer stadig er passende.</li>
+        <li><strong>Medarbejderoplevelse:</strong> Gentag mini-survey. Succeskriterie: færre "Sometimes/Often".</li>
+        <li><strong>Drift og vedligehold:</strong> Tjek at indsatsen sidder stabilt, ikke misfarves, og kan rengøres. Ingen nye gener (mørke zoner, ujævnt lys).</li>
+      </ul>
+    </div>
+
+    <!-- ── 4) GØR-fasen ── -->
+    <div class="section-block">
+      <div class="chapter">
+        <div class="chapter-num">4</div>
+        <h2>GØR-fasen &mdash; Gennemførsel og opfølgning</h2>
+      </div>
+
+      <p><strong>Gennemførsel:</strong> Pilot i de mest relevante zoner (walkway/canteen og udvalgte armaturer ved skriveborde).</p>
+      <p><strong>Kommunikation:</strong> Kort info til medarbejdere om testperiode og feedbackkanal.</p>
+      <p><strong>Opfølgning:</strong> Efter 2 uger evalueres pilot (lux + feedback), hvorefter AMO/ledelse beslutter udrulning eller justering.</p>
+    </div>
+
+
+
+    <!-- ── Bilag 1 Billeddokumentation ── -->
+    <div class="section-block">
+      <h2>Bilag 1 &mdash; Billeddokumentation</h2>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Udskift filnavne med egne billeder til endelig aflevering.</p>
+
+      <h4>Luxmåler-billeder</h4>
+      <div class="img-grid">
+        <div class="img-placeholder">
+          <img src="images/lux_N4_1331.jpg" alt="Luxmåling N4 1331 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A1 &mdash; N4: 1331 lux</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_N1_939.jpg" alt="Luxmåling N1 939 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A2 &mdash; N1: 939 lux</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_S2_199.jpg" alt="Luxmåling S2 199 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A5 &mdash; S2: 199 lux (amber + gardin)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lux_N6_415.jpg" alt="Luxmåling N6 415 lux" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur A9 &mdash; N6: 415 lux (diffus test)</div>
+        </div>
+      </div>
+
+      <h4>Armaturer med/uden filter</h4>
+      <div class="img-grid">
+        <div class="img-placeholder">
+          <img src="images/lamp_standard_no_filter.jpg" alt="Armatur uden filter" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B1 &mdash; Standard (ingen filter)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_white_bakingpaper_insert.jpg" alt="Hvid diffus indsats" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B2 &mdash; Hvid diffus indsats (valgt)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_amber_bakingpaper_insert.jpg" alt="Amber indsats" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B3 &mdash; Amber indsats (fravalgt)</div>
+        </div>
+        <div class="img-placeholder">
+          <img src="images/lamp_frosted_external.jpg" alt="Frosted folie på yderside" onerror="this.style.display='none'" />
+          <div class="img-placeholder-title">Figur B4 &mdash; Frosted folie (fravalgt)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Bilag 2 Survey rådata ── -->
+    <div class="section-block">
+      <h2>Bilag 2 &mdash; Brugerundersøgelse (rådata, n=13)</h2>
+      <div class="table-wrap">
+        <table class="survey-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Frekvens</th>
+              <th>Hvornår</th>
+              <th>Hvor</th>
+              <th>Hvad gøres i dag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>06/03/2026 11:27</td><td>Rarely</td><td>On dark days in winter.</td><td>Main work room.</td><td>Nothing ;-) It's really not that bad.</td></tr>
+            <tr><td>06/03/2026 11:28</td><td>Never</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>06/03/2026 11:28</td><td>Sometimes</td><td>When it's dark outside</td><td>At my desk</td><td>Squint or try and angle monitor</td></tr>
+            <tr><td>06/03/2026 11:29</td><td>Sometimes</td><td>When it is dark outside</td><td>By my desk</td><td>Asked for extra filter… very sensitive eyes…</td></tr>
+            <tr><td>06/03/2026 11:43</td><td>Never</td><td>Never</td><td>Nowhere</td><td>Nothing</td></tr>
+            <tr><td>06/03/2026 12:03</td><td>Never</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>06/03/2026 12:32</td><td>Never</td><td>—</td><td>Canteen (winter after fairy lights)</td><td>—</td></tr>
+            <tr><td>06/03/2026 12:41</td><td>Never</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>06/03/2026 12:45</td><td>Never</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>06/03/2026 12:53</td><td>Rarely</td><td>Not while working. Only when playing Playstation.</td><td>Funzone</td><td>Turn off the lights, when possible</td></tr>
+            <tr><td>06/03/2026 13:01</td><td>Rarely</td><td>When I look up into them</td><td>At my desk</td><td>Try not to look at the lamps</td></tr>
+            <tr><td>06/03/2026 13:19</td><td>Rarely</td><td>Have never really thought about it</td><td>At my desk</td><td>nothing</td></tr>
+            <tr><td>06/03/2026 13:25</td><td><strong>Often</strong></td><td>Walking towards ceiling lights…</td><td><strong>Canteen and walkway</strong></td><td>Gels and baking paper in lamps</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Bilag 3 Lux ── -->
+    <div class="section-block">
+      <h2>Bilag 3 &mdash; Luxmålinger (komplet oversigt)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Målepunkt</th><th>Beskrivelse</th><th style="text-align:right">Lux</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>N1</td><td>Nord, tæt på vindue (række 1)</td><td class="num">939</td></tr>
+            <tr><td>N2</td><td>Nord, 1 bord ind</td><td class="num">800</td></tr>
+            <tr><td>N3</td><td>Nord, længere nede</td><td class="num">862</td></tr>
+            <tr><td>N4</td><td>Nord, tæt på vindue (ende)</td><td class="num">1331</td></tr>
+            <tr><td>S1</td><td>Syd, amber test + gardiner</td><td class="num">274</td></tr>
+            <tr><td>S2</td><td>Syd, amber test + gardiner</td><td class="num">199</td></tr>
+            <tr><td>S3</td><td>Syd, uden filter</td><td class="num">433</td></tr>
+            <tr><td>S4</td><td>Syd, uden filter</td><td class="num">433</td></tr>
+            <tr><td>M1</td><td>Midterzone (nordsiden af midtergang)</td><td class="num">534</td></tr>
+            <tr><td>N5</td><td>Nord, hjørne</td><td class="num">645</td></tr>
+            <tr><td>N6</td><td>Nord, hvid diffus test</td><td class="num">415</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Kilder ── -->
+    <div class="section-block">
+      <h2>Kilder</h2>
+      <ul class="source-list">
+        <li><strong>Bekendtgørelse om faste arbejdssteders indretning (BEK nr. 835 af 16/06/2023), Kapitel 9 Belysning §38–40.</strong><br /><a href="https://www.retsinformation.dk/api/pdf/238094" target="_blank">retsinformation.dk</a></li>
+        <li><strong>BFA Kontor – "Fakta om lysforhold"</strong> (500 lux til kontorarbejde, 50 lux i gangarealer, blænding/reflekser/varme).<br /><a href="https://bfakontor.dk/materialer/fakta-om-kontorarbejdspladsen/lysforhold" target="_blank">bfakontor.dk</a></li>
+        <li><strong>Bygningsreglementets vejledning – Elektrisk belysning</strong> (DS/EN 12464-1 som reference).<br /><a href="https://www.bygningsreglementet.dk/Historisk/Version-9/Tekniske-bestemmelser/18/Vejledninger/Generel_vejledning/Elektrisk-belysning" target="_blank">bygningsreglementet.dk</a></li>
+      </ul>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ══════════════════════════════════════════════ FOOTER -->
+  <div class="doc-footer">
+    <span>iPaper &mdash; AMO Arbejdsmiljørapport &mdash; v2 &mdash; 09/03/2026</span>
+    <span>Lasse Wingreen &mdash; Arbejdsmiljørepræsentant</span>
+  </div>
+
+</div><!-- /page -->
+
+<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+</body>
+</html>
