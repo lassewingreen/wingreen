@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="da" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reduktion af skarp belysning — iPaper AMO Rapport</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#091722',
+            'navy-light': '#0f2744',
+            brand: '#2563a8',
+            accent: '#f12836',
+            gold: '#c89b3c',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- GLightbox -->
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet" />
+  <style>
+    [x-cloak] { display: none !important; }
+    .hero-grid { background-image: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,.018) 40px, rgba(255,255,255,.018) 80px); }
+    .stat-counter { font-variant-numeric: tabular-nums; }
+    .section-line::before { content: ''; display: block; width: 48px; height: 3px; background: #f12836; margin-bottom: 1rem; }
+    .img-card { overflow: hidden; position: relative; cursor: zoom-in; }
+    .img-card img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
+    .img-card:hover img { transform: scale(1.06); }
+    .img-card .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(9,23,34,0.85) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; }
+    .img-card:hover .overlay { opacity: 1; }
+    .lux-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 9999px; font-size: .75rem; font-weight: 700; }
+    .chosen-badge { position: absolute; top: 12px; right: 12px; background: #2563a8; color: #fff; font-size: .65rem; font-weight: 800; letter-spacing: .1em; padding: 3px 10px; border-radius: 9999px; text-transform: uppercase; }
+  </style>
+</head>
+<body class="bg-navy font-sans text-white antialiased">
+
+<!-- ── FIXED NAV ───────────────────────────────────────────────────────── -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-navy/80 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+    <div class="flex items-center gap-3">
+      <svg viewBox="0 0 19.3 19.3" class="w-8 h-8 fill-white"><path d="M12,19.3l7.2-7.2v7.2H12z M0,19.3V0h19.3v10.8c0,0.7-0.5,1.2-1.2,1.2h-6v6c0,0.7-0.5,1.2-1.2,1.2l0,0L0,19.3L0,19.3z"/></svg>
+      <span class="text-sm font-semibold tracking-widest uppercase text-white/60">AMO Rapport</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-xs font-medium text-white/50 uppercase tracking-widest">
+      <a href="#cover"    class="hover:text-white transition">Start</a>
+      <a href="#ved"      class="hover:text-white transition">VED</a>
+      <a href="#data"     class="hover:text-white transition">Data</a>
+      <a href="#kan"      class="hover:text-white transition">KAN</a>
+      <a href="#vil"      class="hover:text-white transition">VIL</a>
+      <a href="#gor"      class="hover:text-white transition">GØR</a>
+      <a href="#bilag"    class="hover:text-white transition">Bilag</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO / COVER ────────────────────────────────────────────────────── -->
+<section id="cover" class="relative min-h-screen flex flex-col justify-center overflow-hidden hero-grid pt-16">
+  <div class="absolute inset-0 bg-gradient-to-br from-navy via-navy-light to-[#0a1e36]"></div>
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 text-[22rem] font-black text-white/[0.03] select-none leading-none pr-8 hidden lg:block">lux</div>
+
+  <div class="relative max-w-7xl mx-auto px-6 py-24 w-full">
+    <div data-aos="fade-up" data-aos-duration="800">
+      <p class="text-accent text-xs font-bold tracking-[.2em] uppercase mb-4">Arbejdsmiljørapport &middot; AMO Hjemmeopgave</p>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] max-w-4xl mb-6">
+        Reduktion af<br/>
+        <span class="text-white/40">skarp belysning</span><br/>
+        <span class="text-white">og blænding</span>
+      </h1>
+      <p class="text-white/50 text-lg mb-12 max-w-xl">iPaper kontor &mdash; Den lovpligtige arbejdsmiljøuddannelse &mdash; Praktisk hjemmeopgave</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-16" data-aos="fade-up" data-aos-delay="150">
+      <span class="bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-medium">iPaper</span>
+      <span class="bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-medium">06&nbsp;/&nbsp;03&nbsp;/&nbsp;2026</span>
+      <span class="bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-medium">v2&nbsp;&mdash;&nbsp;09&nbsp;/&nbsp;03&nbsp;/&nbsp;2026</span>
+      <span class="bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-medium">VED &middot; KAN &middot; VIL &middot; GØR&nbsp;(PDCA)</span>
+      <span class="bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-medium">~&nbsp;4 timer</span>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="250">
+      <div class="bg-navy/70 backdrop-blur p-8 flex flex-col gap-1">
+        <span class="text-5xl font-black stat-counter text-white">13</span>
+        <span class="text-white/40 text-xs uppercase tracking-widest font-semibold">Respondenter</span>
+      </div>
+      <div class="bg-navy/70 backdrop-blur p-8 flex flex-col gap-1">
+        <span class="text-5xl font-black stat-counter text-white">11</span>
+        <span class="text-white/40 text-xs uppercase tracking-widest font-semibold">Målepunkter</span>
+      </div>
+      <div class="bg-navy/70 backdrop-blur p-8 flex flex-col gap-1">
+        <span class="text-5xl font-black stat-counter text-accent">1331</span>
+        <span class="text-white/40 text-xs uppercase tracking-widest font-semibold">Maks lux målt</span>
+      </div>
+      <div class="bg-navy/70 backdrop-blur p-8 flex flex-col gap-1">
+        <span class="text-5xl font-black stat-counter text-white">8</span>
+        <span class="text-white/40 text-xs uppercase tracking-widest font-semibold">Foto dokumenteret</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 text-xs tracking-widest uppercase" data-aos="fade-in" data-aos-delay="600">
+    <span>Scroll</span>
+    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ── TEAM ────────────────────────────────────────────────────────────── -->
+<section class="bg-[#0b1e2e] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <p class="text-white/30 text-xs uppercase tracking-[.2em] font-bold mb-8" data-aos="fade-up">Deltagere og roller</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03]" data-aos="fade-up" data-aos-delay="0">
+        <p class="text-brand text-xs font-bold uppercase tracking-wider mb-2">Opgaveansvarlig / AMR</p>
+        <p class="font-bold text-lg">Lasse Wingreen</p>
+        <p class="text-white/40 text-sm">Medlem af arbejdsmiljøgruppen</p>
+      </div>
+      <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03]" data-aos="fade-up" data-aos-delay="60">
+        <p class="text-brand text-xs font-bold uppercase tracking-wider mb-2">Arbejdsgiverrepræsentant (HR)</p>
+        <p class="font-bold text-lg">Kirsten Tilsted</p>
+        <p class="text-white/40 text-sm">Indkøb af luxmåler + sparring om løsning</p>
+      </div>
+      <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03]" data-aos="fade-up" data-aos-delay="120">
+        <p class="text-brand text-xs font-bold uppercase tracking-wider mb-2">Ledelsesrepræsentant</p>
+        <p class="font-bold text-lg">Rune Rødbro</p>
+        <p class="text-white/40 text-sm">Inddraget i ramme/økonomi og beslutning</p>
+      </div>
+      <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03]" data-aos="fade-up" data-aos-delay="180">
+        <p class="text-brand text-xs font-bold uppercase tracking-wider mb-2">Berørte Områder</p>
+        <p class="font-bold text-lg">Storrum · Canteen · Walkway</p>
+        <p class="text-white/40 text-sm">Main work room (primært fokus)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESUMÉ ──────────────────────────────────────────────────────────── -->
+<section class="bg-navy py-24">
+  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
+    <div data-aos="fade-right">
+      <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]">Resumé</p>
+      <h2 class="text-4xl font-black mb-6 leading-tight">Hvad handler denne rapport om?</h2>
+      <p class="text-white/60 leading-relaxed mb-4">På iPapers kontor oplever nogle medarbejdere gener fra loftbelysningen i form af <strong class="text-white">blænding/skarphed</strong>, især når det er <strong class="text-white">mørkt udenfor</strong> (typisk vinterperioder) og i bestemte zoner.</p>
+      <p class="text-white/60 leading-relaxed mb-4">Luxmålingerne varierer meget (<strong class="text-white">199–1331 lux</strong>) og påvirkes i høj grad af dagslys og gardiner. En vigtig indsigt er, at <strong class="text-white">nordvendte gulv-til-loft vinduer</strong> giver høje luxmålinger, men dagslyset opleves som behageligt og uden blænding.</p>
+      <p class="text-white/60 leading-relaxed">Den primære udfordring er <strong class="text-white">blænding fra kunstig belysning (loftarmaturer)</strong>. Da iPaper ikke ønsker at udskifte armaturer, vælges en løsning baseret på <strong class="text-white">diffusering</strong>.</p>
+    </div>
+    <div data-aos="fade-left" data-aos-delay="100">
+      <div class="bg-accent/10 border border-accent/30 rounded-2xl p-8 mb-6">
+        <p class="text-accent text-xs font-bold uppercase tracking-widest mb-3">Valgt retning</p>
+        <p class="text-xl font-bold leading-snug">En ikke-klæbende diffuser/indsats med moderat dæmpning (~100 lux), som pilottestes og evalueres via lux + kort medarbejderfeedback.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white/5 rounded-xl p-4">
+          <p class="text-white/40 text-xs uppercase tracking-wider mb-1">Brugerundersøgelse</p>
+          <p class="font-bold">n=13 medarbejdere</p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-4">
+          <p class="text-white/40 text-xs uppercase tracking-wider mb-1">Luxmålinger</p>
+          <p class="font-bold">11 målepunkter</p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-4">
+          <p class="text-white/40 text-xs uppercase tracking-wider mb-1">Diffusionstest</p>
+          <p class="font-bold">3 filtertyper</p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-4">
+          <p class="text-white/40 text-xs uppercase tracking-wider mb-1">Dokumentation</p>
+          <p class="font-bold">8 fotografier</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 1) VED-FASEN ────────────────────────────────────────────────────── -->
+<section id="ved" class="bg-[#0b1e2e] py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-5 mb-16" data-aos="fade-up">
+      <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">1</div>
+      <div>
+        <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 1</p>
+        <h2 class="text-4xl font-black">VED-fasen &mdash; Situationsanalyse</h2>
+      </div>
+    </div>
+
+    <div class="bg-brand/20 border border-brand/40 rounded-2xl p-8 mb-10" data-aos="fade-up">
+      <p class="text-brand text-xs font-bold uppercase tracking-widest mb-3">Problemformulering</p>
+      <p class="text-xl font-semibold leading-relaxed">Hvordan reducerer iPaper generende blænding fra loftarmaturer (særligt i canteen/walkway og ved enkelte skriveborde) <span class="text-white">uden at udskifte armaturerne</span>, så belysningen fortsat er passende til kontor- og skærmarbejde?</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div data-aos="fade-up" data-aos-delay="0">
+        <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-4">Lovkrav og rammer</h3>
+        <p class="text-white/60 text-sm mb-4">BEK nr. 835 af 16/06/2023 — Faste arbejdssteders indretning:</p>
+        <div class="space-y-3">
+          <div class="flex gap-3 bg-white/5 rounded-xl p-4">
+            <span class="text-accent font-black text-sm w-8 shrink-0">§38</span>
+            <p class="text-white/70 text-sm">Belysningen skal være sådan, at arbejde og færdsel kan foregå forsvarligt.</p>
+          </div>
+          <div class="flex gap-3 bg-white/5 rounded-xl p-4">
+            <span class="text-accent font-black text-sm w-8 shrink-0">§39</span>
+            <p class="text-white/70 text-sm">Der skal være tilstrækkelig almen belysning og passende særbelysning.</p>
+          </div>
+          <div class="flex gap-3 bg-accent/15 border border-accent/30 rounded-xl p-4">
+            <span class="text-accent font-black text-sm w-8 shrink-0">§40</span>
+            <p class="text-white/80 text-sm">Belysningen må <strong class="text-white">ikke give blænding, generende reflekser eller medfører generende varme.</strong></p>
+          </div>
+        </div>
+        <p class="text-white/40 text-xs mt-4">Pejlemærke (DS 700 via BFA Kontor): <strong class="text-white">500 lux</strong> til kontorarbejde, <strong class="text-white">min. 50 lux</strong> til gangarealer.</p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100">
+        <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-4">Ønsket tilstand</h3>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 mt-1">✓</span>
+            <p class="text-white/70 text-sm">Kunstig belysning opleves ikke som skarp/blændende i berørte zoner.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 mt-1">✓</span>
+            <p class="text-white/70 text-sm">Lysniveau fortsat passende til kontor- og skærmarbejde (ca. 500 lux).</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 mt-1">✓</span>
+            <p class="text-white/70 text-sm">Der findes en <strong class="text-white">standardiseret og driftssikker</strong> løsning.</p>
+          </div>
+        </div>
+        <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-4">Uønsket tilstand (nu)</h3>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-accent mt-1">✗</span>
+            <p class="text-white/70 text-sm">Loftarmaturer opleves som skarpe/blændende ved direkte indkig.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-accent mt-1">✗</span>
+            <p class="text-white/70 text-sm">Gener opstår især når det er mørkt udenfor (vinter/overskyede dage).</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-accent mt-1">✗</span>
+            <p class="text-white/70 text-sm">Coping: knibe øjne, vinkle skærm, undgå at kigge op.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA ───────────────────────────────────────────────────────────── -->
+<section id="data" class="bg-navy py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Data og dokumentation</p>
+    <h2 class="text-4xl font-black mb-16" data-aos="fade-up">Hvad viser tallene?</h2>
+
+    <div class="mb-16">
+      <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-8" data-aos="fade-up">A) Brugerundersøgelse &mdash; 06/03/2026 (n=13)</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center" data-aos="zoom-in" data-aos-delay="0">
+          <div class="text-6xl font-black text-white mb-1">6</div>
+          <div class="text-brand font-bold text-sm mb-1">46%</div>
+          <div class="text-white/40 text-xs uppercase tracking-widest">Never</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center" data-aos="zoom-in" data-aos-delay="80">
+          <div class="text-6xl font-black text-white mb-1">4</div>
+          <div class="text-brand font-bold text-sm mb-1">31%</div>
+          <div class="text-white/40 text-xs uppercase tracking-widest">Rarely</div>
+        </div>
+        <div class="bg-white/5 border border-gold/40 rounded-2xl p-8 text-center" data-aos="zoom-in" data-aos-delay="160">
+          <div class="text-6xl font-black text-gold mb-1">2</div>
+          <div class="text-gold font-bold text-sm mb-1">15%</div>
+          <div class="text-white/40 text-xs uppercase tracking-widest">Sometimes</div>
+        </div>
+        <div class="bg-accent/10 border border-accent/40 rounded-2xl p-8 text-center" data-aos="zoom-in" data-aos-delay="240">
+          <div class="text-6xl font-black text-accent mb-1">1</div>
+          <div class="text-accent font-bold text-sm mb-1">8%</div>
+          <div class="text-white/40 text-xs uppercase tracking-widest">Often</div>
+        </div>
+      </div>
+      <div class="bg-gold/10 border border-gold/30 rounded-xl p-5 text-sm text-white/70" data-aos="fade-up">
+        Samlet vurdering: Problemet er ikke stort for alle, men tydeligt i <strong class="text-white">specifikke zoner</strong> og for <strong class="text-white">visse personer</strong> – derfor vælges en målrettet løsning fremfor et stort og dyrt projekt.
+      </div>
+    </div>
+
+    <div class="mb-16" data-aos="fade-up">
+      <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-8">C) Luxmålinger &mdash; 06/03/2026</h3>
+      <div class="overflow-x-auto rounded-2xl border border-white/10">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-white/10 text-white/50 text-xs uppercase tracking-wider">
+              <th class="text-left px-6 py-4 font-semibold">Punkt</th>
+              <th class="text-left px-6 py-4 font-semibold">Placering</th>
+              <th class="text-right px-6 py-4 font-semibold">Lux</th>
+              <th class="text-left px-6 py-4 font-semibold">Noter</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5">
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">N1</td><td class="px-6 py-3 text-white/80">Nord, tæt på vindue (række 1)</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-purple-900/80 text-purple-200">939</span></td><td class="px-6 py-3 text-white/40 text-xs">Diffust dagslys</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">N2</td><td class="px-6 py-3 text-white/80">Nord, 1 bord ind fra vindue</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-purple-900/80 text-purple-200">800</span></td><td class="px-6 py-3 text-white/40 text-xs">Diffust dagslys</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">N3</td><td class="px-6 py-3 text-white/80">Nord, længere nede</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-purple-900/80 text-purple-200">862</span></td><td class="px-6 py-3 text-white/40 text-xs">Diffust dagslys</td></tr>
+            <tr class="bg-accent/5 hover:bg-accent/10 transition"><td class="px-6 py-3 font-mono text-accent font-bold">N4</td><td class="px-6 py-3 text-white">Nord, tæt på vindue (ende)</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-accent/30 text-accent font-black">1331</span></td><td class="px-6 py-3 text-white/40 text-xs">Meget højt diffust dagslys</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">S1</td><td class="px-6 py-3 text-white/80">Syd, amber test + gardiner</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-red-900/60 text-red-300">274</span></td><td class="px-6 py-3 text-white/40 text-xs">Dæmpet af filter + gardin</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">S2</td><td class="px-6 py-3 text-white/80">Syd, amber test + gardiner</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-red-900/60 text-red-300">199</span></td><td class="px-6 py-3 text-white/40 text-xs">Dæmpet af filter + gardin</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">S3</td><td class="px-6 py-3 text-white/80">Syd, uden filter</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-green-900/60 text-green-300">433</span></td><td class="px-6 py-3 text-white/40 text-xs">Sammenligningspunkt</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">S4</td><td class="px-6 py-3 text-white/80">Syd, uden filter</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-green-900/60 text-green-300">433</span></td><td class="px-6 py-3 text-white/40 text-xs">Sammenligningspunkt</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">M1</td><td class="px-6 py-3 text-white/80">Midterzone (nordsiden af midtergang)</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-green-900/60 text-green-300">534</span></td><td class="px-6 py-3 text-white/40 text-xs">"Typisk" område</td></tr>
+            <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 font-mono text-white/60">N5</td><td class="px-6 py-3 text-white/80">Nord, hjørne</td><td class="px-6 py-3 text-right"><span class="lux-pill bg-blue-900/60 text-blue-300">645</span></td><td class="px-6 py-3 text-white/40 text-xs">"Typisk" område</td></tr>
+            <tr class="bg-green-900/10 hover:bg-green-900/20 transition"><td class="px-6 py-3 font-mono text-green-400 font-bold">N6</td><td class="px-6 py-3 text-white">Nord, <strong>hvid diffus test</strong></td><td class="px-6 py-3 text-right"><span class="lux-pill bg-green-900/60 text-green-300 font-black">415</span></td><td class="px-6 py-3 text-green-400/70 text-xs font-semibold">Diffuser-test ✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-4 text-xs">
+        <span class="lux-pill bg-red-900/60 text-red-300">≤ 300 — For lavt</span>
+        <span class="lux-pill bg-green-900/60 text-green-300">300–700 — Passende</span>
+        <span class="lux-pill bg-blue-900/60 text-blue-300">700–999 — Højt</span>
+        <span class="lux-pill bg-purple-900/80 text-purple-200">≥ 1000 — Meget højt</span>
+      </div>
+    </div>
+
+    <div data-aos="fade-up">
+      <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-8">D) Testfiltre</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03] relative opacity-60">
+          <div class="text-3xl font-black text-white/30 mb-3">&minus;400 lux</div>
+          <h4 class="font-bold text-lg mb-2">Amber (kraftig dæmpning)</h4>
+          <p class="text-white/50 text-sm">Brunt bagepapir lagt ind i LED-armatur. For stor dæmpning til kontorarbejde i de fleste zoner.</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-red-400 text-xs font-bold uppercase tracking-wider"><span>✗</span> Fravalgt</div>
+        </div>
+        <div class="border-2 border-brand rounded-2xl p-6 bg-brand/10 relative">
+          <div class="chosen-badge">VALGT</div>
+          <div class="text-3xl font-black text-brand mb-3">&minus;100 lux</div>
+          <h4 class="font-bold text-lg mb-2">Hvid diffus (moderat)</h4>
+          <p class="text-white/70 text-sm">Hvidt bagepapir lagt ind i LED-armatur. Relevant kompromis – reducerer skarphed uden at kvæle arbejdslyset.</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-green-400 text-xs font-bold uppercase tracking-wider"><span>✓</span> Valgt</div>
+        </div>
+        <div class="border border-white/10 rounded-2xl p-6 bg-white/[.03] relative opacity-60">
+          <div class="text-3xl font-black text-white/30 mb-3">&minus;100 lux</div>
+          <h4 class="font-bold text-lg mb-2">Frosted folie (udvendig)</h4>
+          <p class="text-white/50 text-sm">Klistret på ydersiden. Fravalgt: risiko for limrester/skade ved fjernelse.</p>
+          <div class="mt-4 inline-flex items-center gap-1.5 text-red-400 text-xs font-bold uppercase tracking-wider"><span>✗</span> Fravalgt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2) KAN-FASEN ────────────────────────────────────────────────────── -->
+<section id="kan" class="bg-[#0b1e2e] py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-5 mb-16" data-aos="fade-up">
+      <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">2</div>
+      <div>
+        <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 2</p>
+        <h2 class="text-4xl font-black">KAN-fasen &mdash; Mulige løsninger</h2>
+      </div>
+    </div>
+
+    <div class="space-y-3 mb-12">
+      <div class="flex items-center gap-4 bg-white/[.03] border border-white/10 rounded-xl px-6 py-4 opacity-50" data-aos="fade-up" data-aos-delay="0">
+        <span class="text-red-400 text-xl w-8">✗</span>
+        <div class="flex-1">
+          <p class="font-semibold">1 — Udskiftning af armaturer</p>
+          <p class="text-white/40 text-sm">iPaper ønsker ikke armaturudskiftning (økonomi vs. problemets omfang)</p>
+        </div>
+        <span class="text-red-400 text-xs font-bold uppercase tracking-wider shrink-0">Fravalgt</span>
+      </div>
+      <div class="flex items-center gap-4 bg-white/[.03] border border-white/10 rounded-xl px-6 py-4 opacity-50" data-aos="fade-up" data-aos-delay="60">
+        <span class="text-red-400 text-xl w-8">✗</span>
+        <div class="flex-1">
+          <p class="font-semibold">2 — Styring / dæmpning / zoneopdeling</p>
+          <p class="text-white/40 text-sm">Ikke teknisk muligt i nuværende installation</p>
+        </div>
+        <span class="text-red-400 text-xs font-bold uppercase tracking-wider shrink-0">Fravalgt</span>
+      </div>
+      <div class="flex items-center gap-4 bg-brand/15 border-2 border-brand rounded-xl px-6 py-4" data-aos="fade-up" data-aos-delay="120">
+        <span class="text-green-400 text-xl w-8">✓</span>
+        <div class="flex-1">
+          <p class="font-bold text-lg">3 — Diffuser/indsats i armatur</p>
+          <p class="text-white/60 text-sm">Ikke-klæbende indsats, skalerbar og skånsom for armaturer</p>
+        </div>
+        <span class="text-green-400 text-xs font-bold uppercase tracking-wider shrink-0">VALGT</span>
+      </div>
+      <div class="flex items-center gap-4 bg-white/[.03] border border-white/10 rounded-xl px-6 py-4 opacity-60" data-aos="fade-up" data-aos-delay="180">
+        <span class="text-gold text-xl w-8">⚠</span>
+        <div class="flex-1">
+          <p class="font-semibold">4 — Specialrondeller (laser-skåret)</p>
+          <p class="text-white/40 text-sm">Usikkert ift. pasform og drift</p>
+        </div>
+        <span class="text-gold text-xs font-bold uppercase tracking-wider shrink-0">Overvejet</span>
+      </div>
+      <div class="flex items-center gap-4 bg-white/[.03] border border-white/10 rounded-xl px-6 py-4 opacity-60" data-aos="fade-up" data-aos-delay="240">
+        <span class="text-gold text-xl w-8">⚠</span>
+        <div class="flex-1">
+          <p class="font-semibold">5 — Indretning/skærm-justering</p>
+          <p class="text-white/40 text-sm">Løser ikke årsagen i armaturet, men kan bruges ved enkeltpladser</p>
+        </div>
+        <span class="text-gold text-xs font-bold uppercase tracking-wider shrink-0">Supplerende</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3) VIL-FASEN ────────────────────────────────────────────────────── -->
+<section id="vil" class="bg-navy py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-5 mb-16" data-aos="fade-up">
+      <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">3</div>
+      <div>
+        <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 3</p>
+        <h2 class="text-4xl font-black">VIL-fasen &mdash; Valg og plan</h2>
+      </div>
+    </div>
+
+    <div class="bg-brand/20 border border-brand/40 rounded-2xl p-8 mb-12" data-aos="fade-up">
+      <p class="text-brand text-xs font-bold uppercase tracking-widest mb-3">Valgt løsning</p>
+      <p class="text-xl font-bold leading-snug">Pilot og efterfølgende mulig udrulning af en <span class="text-white">ikke-klæbende diffuser/indsats med ca. 100 lux reduktion</span>, baseret på den hvidt-diffuse test (eller tilsvarende professionel/armatur-egnet indsats).</p>
+    </div>
+
+    <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-6" data-aos="fade-up">Handlingsplan</h3>
+    <div class="overflow-x-auto rounded-2xl border border-white/10" data-aos="fade-up">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-white/10 text-white/50 text-xs uppercase tracking-wider">
+            <th class="text-left px-6 py-4 font-semibold">Aktivitet</th>
+            <th class="text-left px-6 py-4 font-semibold">Ansvarlig</th>
+            <th class="text-left px-6 py-4 font-semibold">Deadline</th>
+            <th class="text-left px-6 py-4 font-semibold">Output</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5">
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Afgrænse præcise zoner/armaturer til pilot</td><td class="px-6 py-3 text-white/50 text-xs">Lasse + Kirsten + Rune</td><td class="px-6 py-3 text-white/60 font-mono">12/03</td><td class="px-6 py-3 text-white/40 text-xs">Liste over pilot-armaturer</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Identificere armaturtype og egnet indsats</td><td class="px-6 py-3 text-white/50 text-xs">Kirsten + facility</td><td class="px-6 py-3 text-white/60 font-mono">18/03</td><td class="px-6 py-3 text-white/40 text-xs">Valgt indsatsmateriale</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Installere pilot (ikke-klæbende)</td><td class="px-6 py-3 text-white/50 text-xs">Facility / elektriker</td><td class="px-6 py-3 text-white/60 font-mono">20/03</td><td class="px-6 py-3 text-white/40 text-xs">Pilot installeret</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Luxmåling før/efter pilot ved lavt dagslys</td><td class="px-6 py-3 text-white/50 text-xs">Lasse</td><td class="px-6 py-3 text-white/60 font-mono">25/03</td><td class="px-6 py-3 text-white/40 text-xs">Sammenlignelige målinger</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Mini-survey (samme spørgsmål som baseline)</td><td class="px-6 py-3 text-white/50 text-xs">Lasse</td><td class="px-6 py-3 text-white/60 font-mono">27/03</td><td class="px-6 py-3 text-white/40 text-xs">Feedback før/efter</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">AMO/ledelse beslutning: udrulning/justering</td><td class="px-6 py-3 text-white/50 text-xs">AMO + Rune</td><td class="px-6 py-3 text-white/60 font-mono">01/04</td><td class="px-6 py-3 text-white/40 text-xs">Beslutning + evt. budget</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Udrulning i relevante zoner</td><td class="px-6 py-3 text-white/50 text-xs">Facility</td><td class="px-6 py-3 text-white/60 font-mono">15/04</td><td class="px-6 py-3 text-white/40 text-xs">Implementeret løsning</td></tr>
+          <tr class="hover:bg-white/[.04] transition"><td class="px-6 py-3 text-white/80">Slutevaluering og dokumentation</td><td class="px-6 py-3 text-white/50 text-xs">Lasse</td><td class="px-6 py-3 text-white/60 font-mono">22/04</td><td class="px-6 py-3 text-white/40 text-xs">Evalueringsnotat + læring</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4) GØR-FASEN ────────────────────────────────────────────────────── -->
+<section id="gor" class="bg-[#0b1e2e] py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center gap-5 mb-16" data-aos="fade-up">
+      <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">4</div>
+      <div>
+        <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 4</p>
+        <h2 class="text-4xl font-black">GØR-fasen &mdash; Gennemførsel</h2>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="0">
+        <p class="text-brand text-xs font-bold uppercase tracking-widest mb-3">Gennemførsel</p>
+        <p class="text-white/70">Pilot i de mest relevante zoner (walkway/canteen og udvalgte armaturer ved skriveborde).</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="80">
+        <p class="text-brand text-xs font-bold uppercase tracking-widest mb-3">Kommunikation</p>
+        <p class="text-white/70">Kort info til medarbejdere om testperiode og feedbackkanal.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="160">
+        <p class="text-brand text-xs font-bold uppercase tracking-widest mb-3">Opfølgning</p>
+        <p class="text-white/70">Efter 2 uger evalueres pilot (lux + feedback), hvorefter AMO/ledelse beslutter udrulning eller justering.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BILAG — PHOTO GALLERY ──────────────────────────────────────────── -->
+<section id="bilag" class="bg-navy py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Bilag 1</p>
+    <h2 class="text-4xl font-black mb-4" data-aos="fade-up">Billeddokumentation</h2>
+    <p class="text-white/40 mb-12" data-aos="fade-up">Klik på billederne for at se dem i fuld størrelse.</p>
+
+    <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-6" data-aos="fade-up">Luxmåler-billeder</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+      <a href="images/lux_N4_1331.jpg" class="glightbox img-card rounded-2xl aspect-square" data-gallery="lux" data-description="Figur A1 — N4: 1331 lux (Meget højt diffust dagslys)" data-aos="zoom-in" data-aos-delay="0">
+        <img src="images/lux_N4_1331.jpg" alt="N4: 1331 lux" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 z-10 translate-y-2 opacity-0 hover:opacity-100 hover:translate-y-0 transition-all duration-300">
+          <p class="text-white/60 text-xs">N4</p>
+          <p class="text-accent font-black text-lg leading-none">1331 lux</p>
+        </div>
+      </a>
+      <a href="images/lux_N1_939.jpg" class="glightbox img-card rounded-2xl aspect-square" data-gallery="lux" data-description="Figur A2 — N1: 939 lux (Diffust dagslys)" data-aos="zoom-in" data-aos-delay="80">
+        <img src="images/lux_N1_939.jpg" alt="N1: 939 lux" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 z-10 translate-y-2 opacity-0 hover:opacity-100 hover:translate-y-0 transition-all duration-300">
+          <p class="text-white/60 text-xs">N1</p>
+          <p class="text-purple-300 font-black text-lg leading-none">939 lux</p>
+        </div>
+      </a>
+      <a href="images/lux_S2_199.jpg" class="glightbox img-card rounded-2xl aspect-square" data-gallery="lux" data-description="Figur A5 — S2: 199 lux (Amber + gardin)" data-aos="zoom-in" data-aos-delay="160">
+        <img src="images/lux_S2_199.jpg" alt="S2: 199 lux" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 z-10 translate-y-2 opacity-0 hover:opacity-100 hover:translate-y-0 transition-all duration-300">
+          <p class="text-white/60 text-xs">S2</p>
+          <p class="text-red-300 font-black text-lg leading-none">199 lux</p>
+        </div>
+      </a>
+      <a href="images/lux_N6_415.jpg" class="glightbox img-card rounded-2xl aspect-square" data-gallery="lux" data-description="Figur A9 — N6: 415 lux (Diffus test — valgt retning)" data-aos="zoom-in" data-aos-delay="240">
+        <img src="images/lux_N6_415.jpg" alt="N6: 415 lux" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 z-10 translate-y-2 opacity-0 hover:opacity-100 hover:translate-y-0 transition-all duration-300">
+          <p class="text-white/60 text-xs">N6 — Diffus test</p>
+          <p class="text-green-300 font-black text-lg leading-none">415 lux ✓</p>
+        </div>
+      </a>
+    </div>
+
+    <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-6" data-aos="fade-up">Armaturer med/uden filter</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href="images/lamp_standard_no_filter.jpg" class="glightbox img-card rounded-2xl h-72 md:h-96" data-gallery="lamps" data-description="Figur B1 — Standard armatur (ingen filter)" data-aos="fade-up" data-aos-delay="0">
+        <img src="images/lamp_standard_no_filter.jpg" alt="Armatur uden filter" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <p class="text-white/50 text-xs uppercase tracking-wider font-bold">Figur B1</p>
+          <p class="text-white font-bold text-xl">Standard — ingen filter</p>
+        </div>
+      </a>
+      <a href="images/lamp_white_bakingpaper_insert.jpg" class="glightbox img-card rounded-2xl h-72 md:h-96 ring-2 ring-brand" data-gallery="lamps" data-description="Figur B2 — Hvid diffus indsats (VALGT)" data-aos="fade-up" data-aos-delay="100">
+        <img src="images/lamp_white_bakingpaper_insert.jpg" alt="Hvid diffus indsats" />
+        <div class="overlay" style="background:linear-gradient(to top,rgba(9,23,34,.9) 0%,transparent 50%);"></div>
+        <div class="absolute top-4 right-4 z-10 bg-brand text-white text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full">VALGT</div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <p class="text-brand text-xs uppercase tracking-wider font-bold">Figur B2</p>
+          <p class="text-white font-bold text-xl">Hvid diffus indsats</p>
+          <p class="text-white/50 text-sm">~100 lux reduktion</p>
+        </div>
+      </a>
+      <a href="images/lamp_amber_bakingpaper_insert.jpg" class="glightbox img-card rounded-2xl h-64" data-gallery="lamps" data-description="Figur B3 — Amber indsats (fravalgt)" data-aos="fade-up" data-aos-delay="0">
+        <img src="images/lamp_amber_bakingpaper_insert.jpg" alt="Amber indsats" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <p class="text-white/50 text-xs uppercase tracking-wider font-bold">Figur B3</p>
+          <p class="text-white font-bold">Amber indsats — fravalgt</p>
+        </div>
+      </a>
+      <a href="images/lamp_frosted_external.jpg" class="glightbox img-card rounded-2xl h-64" data-gallery="lamps" data-description="Figur B4 — Frosted folie (fravalgt)" data-aos="fade-up" data-aos-delay="80">
+        <img src="images/lamp_frosted_external.jpg" alt="Frosted folie" />
+        <div class="overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <p class="text-white/50 text-xs uppercase tracking-wider font-bold">Figur B4</p>
+          <p class="text-white font-bold">Frosted folie — fravalgt</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SURVEY RAW DATA ─────────────────────────────────────────────────── -->
+<section class="bg-[#0b1e2e] py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Bilag 2</p>
+    <h2 class="text-4xl font-black mb-12" data-aos="fade-up">Brugerundersøgelse — rådata (n=13)</h2>
+    <div class="overflow-x-auto rounded-2xl border border-white/10" data-aos="fade-up">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="bg-white/10 text-white/50 uppercase tracking-wider">
+            <th class="text-left px-5 py-3 font-semibold">Timestamp</th>
+            <th class="text-left px-5 py-3 font-semibold">Frekvens</th>
+            <th class="text-left px-5 py-3 font-semibold">Hvornår</th>
+            <th class="text-left px-5 py-3 font-semibold">Hvor</th>
+            <th class="text-left px-5 py-3 font-semibold">Hvad gøres i dag</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5">
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 11:27</td><td class="px-5 py-3"><span class="lux-pill bg-green-900/40 text-green-400">Rarely</span></td><td class="px-5 py-3 text-white/60">On dark days in winter.</td><td class="px-5 py-3 text-white/60">Main work room.</td><td class="px-5 py-3 text-white/40">Nothing. It's really not that bad.</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 11:28</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 11:28</td><td class="px-5 py-3"><span class="lux-pill bg-gold/20 text-gold">Sometimes</span></td><td class="px-5 py-3 text-white/60">When it's dark outside</td><td class="px-5 py-3 text-white/60">At my desk</td><td class="px-5 py-3 text-white/40">Squint or try and angle monitor</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 11:29</td><td class="px-5 py-3"><span class="lux-pill bg-gold/20 text-gold">Sometimes</span></td><td class="px-5 py-3 text-white/60">When it is dark outside</td><td class="px-5 py-3 text-white/60">By my desk</td><td class="px-5 py-3 text-white/40">Asked for extra filter… very sensitive eyes…</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 11:43</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">Never</td><td class="px-5 py-3 text-white/30">Nowhere</td><td class="px-5 py-3 text-white/30">Nothing</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 12:03</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 12:32</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/60">Canteen (winter after fairy lights)</td><td class="px-5 py-3 text-white/30">—</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 12:41</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 12:45</td><td class="px-5 py-3"><span class="lux-pill bg-white/10 text-white/50">Never</span></td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td><td class="px-5 py-3 text-white/30">—</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 12:53</td><td class="px-5 py-3"><span class="lux-pill bg-green-900/40 text-green-400">Rarely</span></td><td class="px-5 py-3 text-white/60">Not while working. Only when playing Playstation.</td><td class="px-5 py-3 text-white/60">Funzone</td><td class="px-5 py-3 text-white/40">Turn off the lights, when possible</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 13:01</td><td class="px-5 py-3"><span class="lux-pill bg-green-900/40 text-green-400">Rarely</span></td><td class="px-5 py-3 text-white/60">When I look up into them</td><td class="px-5 py-3 text-white/60">At my desk</td><td class="px-5 py-3 text-white/40">Try not to look at the lamps</td></tr>
+          <tr class="hover:bg-white/[.03] transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 13:19</td><td class="px-5 py-3"><span class="lux-pill bg-green-900/40 text-green-400">Rarely</span></td><td class="px-5 py-3 text-white/60">Have never really thought about it</td><td class="px-5 py-3 text-white/60">At my desk</td><td class="px-5 py-3 text-white/40">nothing</td></tr>
+          <tr class="bg-accent/5 hover:bg-accent/10 transition"><td class="px-5 py-3 text-white/40 font-mono">06/03 13:25</td><td class="px-5 py-3"><span class="lux-pill bg-accent/30 text-accent font-black">Often</span></td><td class="px-5 py-3 text-white/80">Walking towards ceiling lights…</td><td class="px-5 py-3 text-accent font-bold">Canteen and walkway</td><td class="px-5 py-3 text-white/60">Gels and baking paper in lamps</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── KILDER ──────────────────────────────────────────────────────────── -->
+<section class="bg-navy py-20 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-6">
+    <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/30 mb-8">Kilder</h3>
+    <div class="space-y-4">
+      <div class="border border-white/10 rounded-xl p-5 hover:border-white/20 transition">
+        <p class="font-semibold text-white/80 mb-1">Bekendtgørelse om faste arbejdssteders indretning (BEK nr. 835 af 16/06/2023), Kapitel 9 §38–40.</p>
+        <a href="https://www.retsinformation.dk/api/pdf/238094" target="_blank" class="text-brand text-sm hover:text-white transition">retsinformation.dk</a>
+      </div>
+      <div class="border border-white/10 rounded-xl p-5 hover:border-white/20 transition">
+        <p class="font-semibold text-white/80 mb-1">BFA Kontor — "Fakta om lysforhold" (500 lux til kontorarbejde, 50 lux i gangarealer)</p>
+        <a href="https://bfakontor.dk/materialer/fakta-om-kontorarbejdspladsen/lysforhold" target="_blank" class="text-brand text-sm hover:text-white transition">bfakontor.dk</a>
+      </div>
+      <div class="border border-white/10 rounded-xl p-5 hover:border-white/20 transition">
+        <p class="font-semibold text-white/80 mb-1">Bygningsreglementets vejledning — Elektrisk belysning (DS/EN 12464-1)</p>
+        <a href="https://www.bygningsreglementet.dk/Historisk/Version-9/Tekniske-bestemmelser/18/Vejledninger/Generel_vejledning/Elektrisk-belysning" target="_blank" class="text-brand text-sm hover:text-white transition">bygningsreglementet.dk</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer class="bg-[#050e14] py-8 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/30 text-xs">
+    <div class="flex items-center gap-3">
+      <svg viewBox="0 0 19.3 19.3" class="w-5 h-5 fill-white/30"><path d="M12,19.3l7.2-7.2v7.2H12z M0,19.3V0h19.3v10.8c0,0.7-0.5,1.2-1.2,1.2h-6v6c0,0.7-0.5,1.2-1.2,1.2l0,0L0,19.3L0,19.3z"/></svg>
+      <span>iPaper &mdash; AMO Arbejdsmiljørapport &mdash; v2 &mdash; 09/03/2026</span>
+    </div>
+    <span>Lasse Wingreen &mdash; Arbejdsmiljørepræsentant</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  AOS.init({ once: true, duration: 700, offset: 60 });
+  GLightbox({ touchNavigation: true, loop: true, openEffect: 'fade', closeEffect: 'fade' });
+</script>
+</body>
+</html>
