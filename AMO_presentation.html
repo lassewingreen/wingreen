@@ -18,6 +18,7 @@
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Noe Display', 'Georgia', 'serif'],
           }
         }
       }
@@ -25,6 +26,15 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Noe Display';
+      src: url('fonts/Noe Display Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
   <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <!-- GLightbox -->
@@ -72,7 +82,7 @@
   <div class="relative max-w-7xl mx-auto px-6 py-24 w-full">
     <div data-aos="fade-up" data-aos-duration="800">
       <p class="text-accent text-xs font-bold tracking-[.2em] uppercase mb-4">Arbejdsmiljørapport &middot; AMO Hjemmeopgave</p>
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] max-w-4xl mb-6">
+      <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] max-w-4xl mb-6">
         Reduktion af<br/>
         <span class="text-white/40">skarp belysning</span><br/>
         <span class="text-white">og blænding</span>
@@ -148,7 +158,7 @@
   <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
     <div data-aos="fade-right">
       <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]">Resumé</p>
-      <h2 class="text-4xl font-black mb-6 leading-tight">Hvad handler denne rapport om?</h2>
+      <h2 class="font-display text-4xl font-black mb-6 leading-tight">Hvad handler denne rapport om?</h2>
       <p class="text-white/60 leading-relaxed mb-4">På iPapers kontor oplever nogle medarbejdere gener fra loftbelysningen i form af <strong class="text-white">blænding/skarphed</strong>, især når det er <strong class="text-white">mørkt udenfor</strong> (typisk vinterperioder) og i bestemte zoner.</p>
       <p class="text-white/60 leading-relaxed mb-4">Luxmålingerne varierer meget (<strong class="text-white">199–1331 lux</strong>) og påvirkes i høj grad af dagslys og gardiner. En vigtig indsigt er, at <strong class="text-white">nordvendte gulv-til-loft vinduer</strong> giver høje luxmålinger, men dagslyset opleves som behageligt og uden blænding.</p>
       <p class="text-white/60 leading-relaxed">Den primære udfordring er <strong class="text-white">blænding fra kunstig belysning (loftarmaturer)</strong>. Da iPaper ikke ønsker at udskifte armaturer, vælges en løsning baseret på <strong class="text-white">diffusering</strong>.</p>
@@ -187,7 +197,7 @@
       <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">1</div>
       <div>
         <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 1</p>
-        <h2 class="text-4xl font-black">VED-fasen &mdash; Situationsanalyse</h2>
+        <h2 class="font-display text-4xl font-black">VED-fasen &mdash; Situationsanalyse</h2>
       </div>
     </div>
 
@@ -257,7 +267,7 @@
 <section id="data" class="bg-navy py-24">
   <div class="max-w-7xl mx-auto px-6">
     <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Data og dokumentation</p>
-    <h2 class="text-4xl font-black mb-16" data-aos="fade-up">Hvad viser tallene?</h2>
+    <h2 class="font-display text-4xl font-black mb-16" data-aos="fade-up">Hvad viser tallene?</h2>
 
     <div class="mb-16">
       <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-8" data-aos="fade-up">A) Brugerundersøgelse &mdash; 06/03/2026 (n=13)</h3>
@@ -357,7 +367,7 @@
       <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">2</div>
       <div>
         <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 2</p>
-        <h2 class="text-4xl font-black">KAN-fasen &mdash; Mulige løsninger</h2>
+        <h2 class="font-display text-4xl font-black">KAN-fasen &mdash; Mulige løsninger</h2>
       </div>
     </div>
 
@@ -413,7 +423,7 @@
       <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">3</div>
       <div>
         <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 3</p>
-        <h2 class="text-4xl font-black">VIL-fasen &mdash; Valg og plan</h2>
+        <h2 class="font-display text-4xl font-black">VIL-fasen &mdash; Valg og plan</h2>
       </div>
     </div>
 
@@ -455,7 +465,7 @@
       <div class="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center text-white text-xl font-black">4</div>
       <div>
         <p class="text-brand text-xs font-bold uppercase tracking-[.2em]">Fase 4</p>
-        <h2 class="text-4xl font-black">GØR-fasen &mdash; Gennemførsel</h2>
+        <h2 class="font-display text-4xl font-black">GØR-fasen &mdash; Gennemførsel</h2>
       </div>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
@@ -479,7 +489,7 @@
 <section id="bilag" class="bg-navy py-24">
   <div class="max-w-7xl mx-auto px-6">
     <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Bilag 1</p>
-    <h2 class="text-4xl font-black mb-4" data-aos="fade-up">Billeddokumentation</h2>
+    <h2 class="font-display text-4xl font-black mb-4" data-aos="fade-up">Billeddokumentation</h2>
     <p class="text-white/40 mb-12" data-aos="fade-up">Klik på billederne for at se dem i fuld størrelse.</p>
 
     <h3 class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-6" data-aos="fade-up">Luxmåler-billeder</h3>
@@ -562,7 +572,7 @@
 <section class="bg-[#0b1e2e] py-24">
   <div class="max-w-7xl mx-auto px-6">
     <p class="section-line text-accent text-xs font-bold uppercase tracking-[.2em]" data-aos="fade-up">Bilag 2</p>
-    <h2 class="text-4xl font-black mb-12" data-aos="fade-up">Brugerundersøgelse — rådata (n=13)</h2>
+    <h2 class="font-display text-4xl font-black mb-12" data-aos="fade-up">Brugerundersøgelse — rådata (n=13)</h2>
     <div class="overflow-x-auto rounded-2xl border border-white/10" data-aos="fade-up">
       <table class="w-full text-xs">
         <thead>

@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Horizon GA4 Data Layer — Integration Guide</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+      color: #1a1a1a;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .page {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #e5e7eb;
+      padding: 32px 20px;
+      background: #fafafa;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 24px;
+      color: #111;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li + li { margin-top: 4px; }
+
+    nav a {
+      display: block;
+      padding: 5px 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13.5px;
+      color: #444;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    nav a:hover { background: #ececec; color: #111; }
+
+    nav .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #888;
+      margin: 20px 0 6px 8px;
+    }
+
+    main {
+      max-width: 860px;
+      padding: 48px 56px 80px;
+    }
+
+    /* ── Typography ── */
+    h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
+    h2 { font-size: 1.35rem; font-weight: 700; margin: 48px 0 12px; padding-top: 8px; border-top: 1px solid #e5e7eb; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin: 28px 0 8px; }
+    p  { margin: 0 0 14px; }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: #555;
+      margin-bottom: 32px;
+    }
+
+    /* ── Badges / pills ── */
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+    .badge-green  { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+
+    /* ── Code ── */
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.85em;
+      background: #f3f4f6;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    pre {
+      position: relative;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 22px;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    /* syntax colours (minimal) */
+    .kw  { color: #93c5fd; }  /* keywords / html tags */
+    .str { color: #86efac; }  /* strings */
+    .cmt { color: #64748b; }  /* comments */
+    .fn  { color: #fde68a; }  /* function names */
+    .nm  { color: #f9a8d4; }  /* property names */
+    .num { color: #fdba74; }  /* numbers */
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .callout-info    { border-color: #3b82f6; background: #eff6ff; }
+    .callout-warning { border-color: #f59e0b; background: #fffbeb; }
+    .callout-tip     { border-color: #10b981; background: #f0fdf4; }
+
+    .callout strong { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ── Table ── */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0 24px; }
+    th { text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #555; padding: 8px 12px; border-bottom: 2px solid #e5e7eb; }
+    td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Step list ── */
+    .steps { counter-reset: step; list-style: none; padding: 0; margin: 0 0 24px; }
+    .steps li { counter-increment: step; display: flex; gap: 14px; margin-bottom: 18px; }
+    .steps li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #1d4ed8;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      margin-top: 2px;
+    }
+    .steps li p { margin: 0; }
+
+    /* ── Event payload card ── */
+    .payload-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+    }
+    .payload-card-header {
+      background: #f8fafc;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #555;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .payload-card pre {
+      margin: 0;
+      border-radius: 0;
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- ── Sidebar ── -->
+  <nav>
+    <div class="logo">Horizon Analytics</div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+    </ul>
+
+    <div class="section-label">Setup</div>
+    <ul>
+      <li><a href="#gtm">1. Install GTM</a></li>
+      <li><a href="#embed">2. Add the embed</a></li>
+      <li><a href="#init">3. Initialise tracking</a></li>
+    </ul>
+
+    <div class="section-label">Reference</div>
+    <ul>
+      <li><a href="#api-ready">whenHorizonReady()</a></li>
+      <li><a href="#api-getapi">getApi()</a></li>
+      <li><a href="#api-subscribe">content.subscribe()</a></li>
+      <li><a href="#api-map">mapOfferToEcommerce()</a></li>
+      <li><a href="#datalayer">dataLayer events</a></li>
+      <li><a href="#price-units">Price units</a></li>
+    </ul>
+
+    <div class="section-label">Advanced</div>
+    <ul>
+      <li><a href="#single-init">Preventing double-init</a></li>
+      <li><a href="#unsubscribe">Cleanup</a></li>
+      <li><a href="#error-handling">Error handling</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Main content ── -->
+  <main>
+
+    <h1>Horizon GA4 Data Layer Integration</h1>
+    <p class="subtitle">A step-by-step guide to wiring the Horizon embed API to a Google Analytics 4 ecommerce <code>dataLayer</code> via Google Tag Manager.</p>
+
+    <!-- ── Overview ── -->
+    <h2 id="overview">Overview</h2>
+    <p>The Horizon embed (<code>&lt;ip-embed-leaflet&gt;</code>) exposes a JavaScript API you can use to listen for user interactions — such as clicking an offer — and forward structured ecommerce events to the browser's <code>window.dataLayer</code>. GTM then picks those events up and sends them to GA4.</p>
+
+    <p>The diagram below shows the data flow:</p>
+
+    <pre><code>User clicks offer
+       │
+       ▼
+Horizon embed API  ──►  mapOfferToEcommerce()  ──►  dataLayer.push()
+                                                          │
+                                                          ▼
+                                                   Google Tag Manager
+                                                          │
+                                                          ▼
+                                                    Google Analytics 4</code></pre>
+
+    <!-- ── Prerequisites ── -->
+    <h2 id="prerequisites">Prerequisites</h2>
+    <ul>
+      <li>A <strong>GTM container</strong> with a GA4 configuration tag already set up.</li>
+      <li>Access to add scripts to your page's <code>&lt;head&gt;</code>.</li>
+      <li>Your Horizon <strong>alias</strong> (e.g. <code>mystore/mystorefront</code>).</li>
+    </ul>
+
+    <!-- ── Step 1: GTM ── -->
+    <h2 id="gtm">Step 1 — Install Google Tag Manager</h2>
+    <p>Paste the GTM snippet into the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> of every page. Replace <code>GTM-XXXXXXXX</code> with your own container ID.</p>
+
+    <pre><code><span class="cmt">&lt;!-- ① Paste inside &lt;head&gt;, as high as possible --&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ <span class="str">"gtm.start"</span>: <span class="kw">new</span> Date().getTime(), event: <span class="str">"gtm.js"</span> });
+    var f = d.getElementsByTagName(s)[<span class="num">0</span>],
+        j = d.createElement(s),
+        dl = l != <span class="str">"dataLayer"</span> ? <span class="str">"&amp;l="</span> + l : <span class="str">""</span>;
+    j.async = <span class="kw">true</span>;
+    j.src = <span class="str">"https://www.googletagmanager.com/gtm.js?id="</span> + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, <span class="str">"script"</span>, <span class="str">"dataLayer"</span>, <span class="str">"GTM-XXXXXXXX"</span>);
+<span class="kw">&lt;/script&gt;</span>
+
+<span class="cmt">&lt;!-- ② Paste immediately after the opening &lt;body&gt; tag --&gt;</span>
+<span class="kw">&lt;noscript&gt;</span>
+  <span class="kw">&lt;iframe</span> src=<span class="str">"https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXXX"</span>
+    height=<span class="str">"0"</span> width=<span class="str">"0"</span> style=<span class="str">"display:none;visibility:hidden"</span><span class="kw">&gt;&lt;/iframe&gt;</span>
+<span class="kw">&lt;/noscript&gt;</span></code></pre>
+
+    <!-- ── Step 2: Embed ── -->
+    <h2 id="embed">Step 2 — Add the Horizon embed component</h2>
+    <p>Place the web component anywhere in your <code>&lt;body&gt;</code>, and load the embed script once at the bottom of the page. Set the <code>alias</code> attribute to your Horizon alias.</p>
+
+    <pre><code><span class="cmt">&lt;!-- Horizon embed --&gt;</span>
+<span class="kw">&lt;ip-embed-leaflet</span>
+  id=<span class="str">"horizon"</span>
+  alias=<span class="str">"mystore/mystorefront"</span>
+<span class="kw">&gt;&lt;/ip-embed-leaflet&gt;</span>
+
+<span class="cmt">&lt;!-- Load the embed bundle once, at the end of &lt;body&gt; --&gt;</span>
+<span class="kw">&lt;script</span> defer src=<span class="str">"https://embed.ipaper.io/web.js"</span> type=<span class="str">"module"</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre>
+
+    <div class="callout callout-info">
+      <strong>Note</strong>
+      The <code>defer</code> + <code>type="module"</code> attributes ensure the bundle is loaded without blocking page render.
+    </div>
+
+    <!-- ── Step 3: Init ── -->
+    <h2 id="init">Step 3 — Initialise tracking</h2>
+    <p>Add the following script block to your <code>&lt;head&gt;</code> (after GTM, before <code>&lt;/head&gt;</code>). It waits for both the DOM and the Horizon component to be ready, then subscribes to content events.</p>
+
+    <pre><code><span class="kw">&lt;script&gt;</span>
+  <span class="cmt">// ── Helpers ────────────────────────────────────────────────</span>
+
+  <span class="cmt">// Returns a Promise that resolves once the Horizon element fires "ready".</span>
+  <span class="kw">function</span> <span class="fn">whenHorizonReady</span>(horizonEl) {
+    <span class="kw">if</span> (!horizonEl) <span class="kw">return</span> Promise.reject(<span class="kw">new</span> Error(<span class="str">"No horizon element found"</span>));
+    <span class="kw">if</span> (horizonEl.getAttribute(<span class="str">"ready"</span>) === <span class="str">"true"</span>) <span class="kw">return</span> Promise.resolve(<span class="kw">true</span>);
+    <span class="kw">return new</span> Promise((resolve) => {
+      horizonEl.addEventListener(<span class="str">"ready"</span>, () => resolve(<span class="kw">true</span>), { once: <span class="kw">true</span> });
+    });
+  }
+
+  <span class="cmt">// Pushes an object to window.dataLayer and optionally logs it on-screen.</span>
+  <span class="kw">function</span> <span class="fn">dlPush</span>(obj) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(obj);
+  }
+
+  <span class="cmt">// Prevents the subscription being registered more than once (e.g. in SPAs).</span>
+  <span class="kw">function</span> <span class="fn">ensureSingleInit</span>(key) {
+    window.__horizonInit = window.__horizonInit || {};
+    <span class="kw">if</span> (window.__horizonInit[key]) <span class="kw">return false</span>;
+    window.__horizonInit[key] = <span class="kw">true</span>;
+    <span class="kw">return true</span>;
+  }
+
+  <span class="cmt">// ── Offer → GA4 mapper ─────────────────────────────────────</span>
+
+  <span class="kw">function</span> <span class="fn">mapOfferToEcommerce</span>(offer, alias) {
+    <span class="kw">const</span> products = Array.isArray(offer.products) ? offer.products : [];
+    <span class="cmt">// Horizon prices are in micro-units; divide by 1 000 000 for real currency.</span>
+    <span class="kw">const</span> <span class="fn">toGA4Price</span> = (v) => <span class="kw">typeof</span> v === <span class="str">"number"</span> ? v / <span class="num">1_000_000</span> : <span class="kw">null</span>;
+    <span class="kw">const</span> offerPrice = offer.sales_price ? <span class="fn">toGA4Price</span>(offer.sales_price.value) : <span class="kw">null</span>;
+
+    <span class="kw">return</span> {
+      item_list_id:   offer.contentGuid || <span class="kw">null</span>,
+      item_list_name: offer.header      || <span class="kw">null</span>,
+      value:    offerPrice,
+      currency: <span class="str">"DKK"</span>,           <span class="cmt">// ← update to match your currency</span>
+      items: products.map((p, index) => {
+        <span class="kw">const</span> price     = p.price      ? <span class="fn">toGA4Price</span>(p.price.value)      : <span class="kw">null</span>;
+        <span class="kw">const</span> salePrice = p.sale_price ? <span class="fn">toGA4Price</span>(p.sale_price.value) : <span class="kw">null</span>;
+        <span class="kw">return</span> {
+          index,
+          item_id:        p.sku   || <span class="kw">null</span>,
+          item_name:      p.title || <span class="kw">null</span>,
+          item_brand:     p.brand || <span class="kw">null</span>,
+          price,
+          discount: price !== <span class="kw">null</span> && salePrice !== <span class="kw">null</span>
+            ? parseFloat((price - salePrice).toFixed(<span class="num">2</span>))
+            : <span class="kw">null</span>,
+          quantity:       <span class="num">1</span>,
+          item_list_id:   offer.contentGuid || <span class="kw">null</span>,
+          item_list_name: offer.header      || <span class="kw">null</span>,
+          affiliation:    alias             || <span class="kw">null</span>,
+        };
+      }),
+    };
+  }
+
+  <span class="cmt">// ── Main init ──────────────────────────────────────────────</span>
+
+  <span class="kw">async function</span> <span class="fn">initHorizonToDataLayer</span>() {
+    <span class="kw">if</span> (!<span class="fn">ensureSingleInit</span>(<span class="str">"content-subscribe"</span>)) <span class="kw">return</span>;
+
+    <span class="kw">const</span> horizonEl = document.getElementById(<span class="str">"horizon"</span>);
+    <span class="kw">await</span> <span class="fn">whenHorizonReady</span>(horizonEl);
+
+    <span class="kw">const</span> alias = horizonEl.getAttribute(<span class="str">"alias"</span>) || <span class="kw">null</span>;
+    <span class="kw">const</span> api   = <span class="kw">await</span> horizonEl.getApi();
+
+    <span class="kmt">const</span> subscription = api.content.subscribe((contentEvent) => {
+      <span class="kw">if</span> (!contentEvent) <span class="kw">return</span>;
+      <span class="kw">const</span> { action, source, value: c } = contentEvent;
+
+      <span class="cmt">// Filter: only track offer clicks</span>
+      <span class="kw">if</span> (!c || c.$type !== <span class="str">"offer"</span> || action !== <span class="str">"click"</span>) <span class="kw">return</span>;
+
+      <span class="kw">const</span> ecommerce = <span class="fn">mapOfferToEcommerce</span>(c, alias);
+
+      <span class="cmt">// GA4 requires clearing ecommerce before each push to prevent data bleed.</span>
+      (window.dataLayer = window.dataLayer || []).push({ ecommerce: <span class="kw">null</span> });
+
+      <span class="fn">dlPush</span>({
+        event:            <span class="str">"select_item"</span>,
+        horizon_alias:    alias,
+        horizon_source:   source || <span class="kw">null</span>,  <span class="cmt">// "content" | "price" | "splash" | "cta"</span>
+        ecommerce,
+      });
+    });
+
+    <span class="cmt">// Expose cleanup function for SPAs</span>
+    window.__horizonUnsubscribe = () =>
+      subscription?.unsubscribe?.();
+  }
+
+  document.addEventListener(<span class="str">"DOMContentLoaded"</span>, () => {
+    <span class="fn">initHorizonToDataLayer</span>().catch((err) => {
+      <span class="fn">dlPush</span>({ event: <span class="str">"horizon_init_error"</span>, message: String(err?.message ?? err) });
+      console.error(err);
+    });
+  });
+<span class="kw">&lt;/script&gt;</span></code></pre>
+
+    <!-- ── API Reference ── -->
+    <h2 id="api-ready">API — <code>whenHorizonReady(element)</code></h2>
+    <p>Resolves when the Horizon web component has finished bootstrapping. Safe to call at any time — if the component is already ready it resolves immediately.</p>
+
+    <table>
+      <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>element</code></td><td><code>HTMLElement</code></td><td>The <code>&lt;ip-embed-leaflet&gt;</code> DOM node.</td></tr>
+      <tr><th>Returns</th><th colspan="2"><code>Promise&lt;true&gt;</code></th></tr>
+    </table>
+
+    <h2 id="api-getapi">API — <code>element.getApi()</code></h2>
+    <p>Async method exposed by the Horizon web component. Returns the top-level API object once the embed is initialised.</p>
+
+    <pre><code><span class="kw">const</span> api = <span class="kw">await</span> horizonEl.getApi();</code></pre>
+
+    <table>
+      <tr><th>Returns</th><th>Description</th></tr>
+      <tr><td><code>Promise&lt;HorizonApi&gt;</code></td><td>Resolves to the Horizon API object. Contains the <code>content</code> namespace.</td></tr>
+    </table>
+
+    <h2 id="api-subscribe">API — <code>api.content.subscribe(callback)</code></h2>
+    <p>Registers a listener that fires on every content interaction event inside the embed.</p>
+
+    <pre><code><span class="kw">const</span> subscription = api.content.subscribe((contentEvent) => {
+  <span class="kw">const</span> { action, source, value } = contentEvent;
+  <span class="cmt">// action: "click" | "hover" | ...</span>
+  <span class="cmt">// source: "content" | "price" | "splash" | "cta"</span>
+  <span class="cmt">// value:  the content object (offer, article, etc.)</span>
+});
+
+<span class="cmt">// To stop listening:</span>
+subscription.unsubscribe();</code></pre>
+
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>action</code></td><td><code>string</code></td><td><code>"click"</code>, <code>"hover"</code>, or other interaction verbs.</td></tr>
+      <tr><td><code>source</code></td><td><code>string</code></td><td>The clickable zone: <code>"content"</code>, <code>"price"</code>, <code>"splash"</code>, or <code>"cta"</code>. Useful as a GTM trigger dimension.</td></tr>
+      <tr><td><code>value.$type</code></td><td><code>string</code></td><td>Content type — track <code>"offer"</code> for ecommerce events.</td></tr>
+      <tr><td><code>value.contentGuid</code></td><td><code>string</code></td><td>Unique identifier of the offer (maps to GA4 <code>item_list_id</code>).</td></tr>
+      <tr><td><code>value.header</code></td><td><code>string</code></td><td>Offer title (maps to GA4 <code>item_list_name</code>).</td></tr>
+      <tr><td><code>value.sales_price.value</code></td><td><code>number</code></td><td>Offer-level price in <strong>micro-units</strong>. Divide by 1,000,000.</td></tr>
+      <tr><td><code>value.products</code></td><td><code>Product[]</code></td><td>Line items within the offer.</td></tr>
+    </table>
+
+    <h2 id="api-map">API — <code>mapOfferToEcommerce(offer, alias)</code></h2>
+    <p>Converts a raw Horizon offer object into a GA4-compatible ecommerce payload.</p>
+
+    <table>
+      <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>offer</code></td><td><code>object</code></td><td>The <code>value</code> from the content event (must have <code>$type === "offer"</code>).</td></tr>
+      <tr><td><code>alias</code></td><td><code>string | null</code></td><td>The Horizon alias string. Stored as <code>affiliation</code> on each GA4 item.</td></tr>
+      <tr><th>Returns</th><th colspan="2">GA4 <code>ecommerce</code> object ready to push to <code>dataLayer</code>.</th></tr>
+    </table>
+
+    <!-- ── dataLayer events ── -->
+    <h2 id="datalayer">dataLayer events</h2>
+
+    <h3><code>select_item</code> — offer click</h3>
+    <p>Fired when a user clicks an offer inside the embed. The full payload looks like this:</p>
+
+    <div class="payload-card">
+      <div class="payload-card-header">dataLayer.push payload</div>
+      <pre><code>{
+  <span class="nm">"event"</span>:          <span class="str">"select_item"</span>,
+  <span class="nm">"horizon_alias"</span>:  <span class="str">"mystore/mystorefront"</span>,
+  <span class="nm">"horizon_source"</span>: <span class="str">"cta"</span>,           <span class="cmt">// "content" | "price" | "splash" | "cta"</span>
+  <span class="nm">"ecommerce"</span>: {
+    <span class="nm">"item_list_id"</span>:   <span class="str">"abc123"</span>,
+    <span class="nm">"item_list_name"</span>: <span class="str">"Summer Deals"</span>,
+    <span class="nm">"value"</span>:          <span class="num">49.95</span>,
+    <span class="nm">"currency"</span>:       <span class="str">"DKK"</span>,
+    <span class="nm">"items"</span>: [
+      {
+        <span class="nm">"index"</span>:          <span class="num">0</span>,
+        <span class="nm">"item_id"</span>:        <span class="str">"SKU-001"</span>,
+        <span class="nm">"item_name"</span>:      <span class="str">"Wireless Headphones"</span>,
+        <span class="nm">"item_brand"</span>:     <span class="str">"SoundBrand"</span>,
+        <span class="nm">"price"</span>:          <span class="num">499.00</span>,
+        <span class="nm">"discount"</span>:       <span class="num">49.05</span>,
+        <span class="nm">"quantity"</span>:       <span class="num">1</span>,
+        <span class="nm">"item_list_id"</span>:   <span class="str">"abc123"</span>,
+        <span class="nm">"item_list_name"</span>: <span class="str">"Summer Deals"</span>,
+        <span class="nm">"affiliation"</span>:    <span class="str">"mystore/mystorefront"</span>
+      }
+    ]
+  }
+}</code></pre>
+    </div>
+
+    <h3><code>horizon_init_error</code> — initialisation failure</h3>
+    <p>Pushed if <code>initHorizonToDataLayer()</code> throws. Use this event in GTM to trigger error-monitoring tags.</p>
+
+    <div class="payload-card">
+      <div class="payload-card-header">dataLayer.push payload</div>
+      <pre><code>{
+  <span class="nm">"event"</span>:   <span class="str">"horizon_init_error"</span>,
+  <span class="nm">"message"</span>: <span class="str">"No horizon element found"</span>
+}</code></pre>
+    </div>
+
+    <!-- ── Price units ── -->
+    <h2 id="price-units">Price units</h2>
+    <p>All price values returned by the Horizon API are in <strong>micro-units</strong> (i.e. multiplied by 1,000,000). Always divide by 1,000,000 before pushing to <code>dataLayer</code>.</p>
+
+    <div class="callout callout-warning">
+      <strong>Important</strong>
+      If you push raw micro-unit values to GA4, your revenue reports will be inflated by a factor of one million. Use the <code>toGA4Price</code> helper in every price mapping.
+    </div>
+
+    <pre><code><span class="cmt">// Horizon raw value  →  GA4 price</span>
+<span class="num">49950000</span>  →  <span class="num">49.95</span>
+<span class="num">100000000</span> →  <span class="num">100.00</span>
+
+<span class="kw">const</span> <span class="fn">toGA4Price</span> = (v) => <span class="kw">typeof</span> v === <span class="str">"number"</span> ? v / <span class="num">1_000_000</span> : <span class="kw">null</span>;</code></pre>
+
+    <!-- ── Single init ── -->
+    <h2 id="single-init">Preventing double-init</h2>
+    <p>In single-page applications (SPAs) the <code>DOMContentLoaded</code> event may fire more than once or scripts may re-run on navigation. The <code>ensureSingleInit(key)</code> guard writes a flag to <code>window.__horizonInit</code> so the subscription is only registered once per page lifecycle.</p>
+
+    <pre><code><span class="kw">function</span> <span class="fn">ensureSingleInit</span>(key) {
+  window.__horizonInit = window.__horizonInit || {};
+  <span class="kw">if</span> (window.__horizonInit[key]) <span class="kw">return false</span>;   <span class="cmt">// already initialised</span>
+  window.__horizonInit[key] = <span class="kw">true</span>;
+  <span class="kw">return true</span>;
+}
+
+<span class="cmt">// Usage:</span>
+<span class="kw">if</span> (!<span class="fn">ensureSingleInit</span>(<span class="str">"content-subscribe"</span>)) <span class="kw">return</span>;</code></pre>
+
+    <!-- ── Unsubscribe ── -->
+    <h2 id="unsubscribe">Cleanup / unsubscribe</h2>
+    <p>If you need to tear down the listener (e.g. before a route change in an SPA), call the exposed cleanup function:</p>
+
+    <pre><code><span class="cmt">// Unsubscribe and free the listener:</span>
+window.__horizonUnsubscribe?.();</code></pre>
+
+    <div class="callout callout-tip">
+      <strong>Tip</strong>
+      After calling <code>__horizonUnsubscribe()</code> you will also need to reset the <code>window.__horizonInit["content-subscribe"]</code> flag to <code>false</code> if you want <code>initHorizonToDataLayer()</code> to be callable again on the same page.
+    </div>
+
+    <!-- ── Error handling ── -->
+    <h2 id="error-handling">Error handling</h2>
+    <p>The init function is async and wrapped in a <code>.catch()</code> block. Any unhandled errors are pushed to <code>dataLayer</code> as <code>horizon_init_error</code> events so they surface in GTM's debug preview and can trigger monitoring tags.</p>
+
+    <pre><code>document.addEventListener(<span class="str">"DOMContentLoaded"</span>, () => {
+  <span class="fn">initHorizonToDataLayer</span>().catch((err) => {
+    <span class="fn">dlPush</span>({ event: <span class="str">"horizon_init_error"</span>, message: String(err?.message ?? err) });
+    console.error(err);
+  });
+});</code></pre>
+
+    <p>Common error causes:</p>
+    <table>
+      <tr><th>Message</th><th>Cause</th></tr>
+      <tr><td><code>No horizon element found</code></td><td><code>document.getElementById("horizon")</code> returned <code>null</code>. Check that the element ID matches and the script runs after the element exists in the DOM.</td></tr>
+      <tr><td><code>getApi is not a function</code></td><td>The embed script (<code>web.js</code>) has not loaded yet. Ensure it is included on the page and not blocked.</td></tr>
+    </table>
+
+  </main>
+</div>
+</body>
+</html>
