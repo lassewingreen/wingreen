@@ -219,7 +219,7 @@
         item_list_id: offer.contentGuid || null,
         item_list_name: offer.header || null,
         value: offer.sales_price?.value ?? null,
-        currency: "EUR",
+        currency: "DKK",
         items: products.map((p, index) => {
           const price = p.price?.value ?? null;
           const salePrice = p.sale_price?.value ?? null;
