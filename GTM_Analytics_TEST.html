@@ -211,22 +211,18 @@
       return true;
     }
 
-    // Maps a Horizon offer + all its products to a GA4 ecommerce object.
-    // GA4 processes prices in micro-units (×1,000,000 internally), so raw API values
-    // must be divided by 1,000,000 before pushing to the dataLayer.
+    // Maps a Horizon offer + its products to a GA4 ecommerce object.
+    // API prices are already in the display currency (no unit conversion needed).
     function mapOfferToEcommerce(offer, alias) {
       const products = Array.isArray(offer.products) ? offer.products : [];
-      const toGA4Price = (v) => typeof v === "number" ? v / 1_000_000 : null;
-      const offerPrice = offer.sales_price ? toGA4Price(offer.sales_price.value) : null;
-
       return {
         item_list_id: offer.contentGuid || null,
         item_list_name: offer.header || null,
-        value: offerPrice,    // GA4 standard: total monetary value of the event
-        currency: "DKK",      // Update per integration
+        value: offer.sales_price?.value ?? null,
+        currency: "EUR",
         items: products.map((p, index) => {
-          const price = p.price ? toGA4Price(p.price.value) : null;
-          const salePrice = p.sale_price ? toGA4Price(p.sale_price.value) : null;
+          const price = p.price?.value ?? null;
+          const salePrice = p.sale_price?.value ?? null;
           return {
             index,
             item_id: p.sku || null,
