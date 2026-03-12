@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Horizon GA4 e-commerce tracking test v9.7</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-K9P6972K");
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      padding: 16px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .wrap {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    ip-embed-leaflet {
+      display: block;
+      width: 100%;
+      min-height: 75vh;
+    }
+
+    .log {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .log-entry {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e2e2;
+    }
+
+    .log-entry-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    .log-entry-event {
+      font-weight: 700;
+      font-size: 13px;
+      color: #7dd3fc;
+    }
+
+    .log-entry-time {
+      font-size: 11px;
+      color: #6b7280;
+      margin-left: auto;
+    }
+
+    .log-entry-body {
+      padding: 12px;
+      background: #f8f8f8;
+      white-space: pre;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    .log-entry-body .key   { color: #7c3aed; }
+    .log-entry-body .str   { color: #059669; }
+    .log-entry-body .num   { color: #d97706; }
+    .log-entry-body .null  { color: #9ca3af; font-style: italic; }
+    .log-entry-body .bool  { color: #2563ab; }
+
+    .log-empty {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      color: #9ca3af;
+      padding: 16px;
+      text-align: center;
+      background: #f6f6f6;
+      border-radius: 8px;
+    }
+
+    .log-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .log-clear {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      background: #fff;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    .log-clear:hover { background: #f3f4f6; }
+
+    .log-entry-header.raw {
+      background: #064e3b;
+    }
+
+    .log-entry-header.raw .log-entry-event {
+      color: #6ee7b7;
+    }
+
+    .log-entry-header .log-entry-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 1px 7px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.6);
+    }
+  </style>
+
+  <script>
+    function whenHorizonReady(horizonEl) {
+      if (!horizonEl) return Promise.reject(new Error("No horizon element found"));
+      if (horizonEl.getAttribute("ready") === "true") return Promise.resolve(true);
+      return new Promise((resolve) => {
+        horizonEl.addEventListener("ready", () => resolve(true), { once: true });
+      });
+    }
+
+    function syntaxHighlight(json) {
+      return json
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(
+          /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+          (match) => {
+            if (/^"/.test(match)) {
+              return /:$/.test(match)
+                ? `<span class="key">${match}</span>`
+                : `<span class="str">${match}</span>`;
+            }
+            if (/true|false/.test(match)) return `<span class="bool">${match}</span>`;
+            if (/null/.test(match))       return `<span class="null">${match}</span>`;
+            return `<span class="num">${match}</span>`;
+          }
+        );
+    }
+
+    function logToPanel(label, obj, { headerClass = "", badge = "" } = {}) {
+      const container = document.getElementById("debug-log");
+      if (!container) return;
+
+      const empty = container.querySelector(".log-empty");
+      if (empty) empty.remove();
+
+      const time = new Date().toLocaleTimeString("da-DK", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      const pretty = JSON.stringify(obj, null, 2);
+
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.innerHTML = `
+        <div class="log-entry-header ${headerClass}">
+          <span class="log-entry-event">${label}</span>
+          ${badge ? `<span class="log-entry-badge">${badge}</span>` : ""}
+          <span class="log-entry-time">${time}</span>
+        </div>
+        <div class="log-entry-body">${syntaxHighlight(pretty)}</div>`;
+
+      container.prepend(entry);
+    }
+
+    function logRaw(label, obj) {
+      console.log("Horizon raw:", label, obj);
+      logToPanel(label, obj, { headerClass: "raw", badge: "raw API" });
+    }
+
+    function dlPush(obj) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(obj);
+      console.log("dataLayer.push:", obj);
+      logToPanel(obj.event || "(no event)", obj, { badge: "dataLayer" });
+    }
+
+    function ensureSingleInit(key) {
+      window.__horizonInit = window.__horizonInit || {};
+      if (window.__horizonInit[key]) return false;
+      window.__horizonInit[key] = true;
+      return true;
+    }
+
+    // Maps a Horizon offer + its products to a GA4 ecommerce object.
+    // API prices are already in the display currency (no unit conversion needed).
+    function mapOfferToEcommerce(offer, alias) {
+      const products = Array.isArray(offer.products) ? offer.products : [];
+      return {
+        item_list_id: offer.contentGuid || null,
+        item_list_name: offer.header || null,
+        value: offer.sales_price?.value ?? null,
+        currency: "EUR",
+        items: products.map((p, index) => {
+          const price = p.price?.value ?? null;
+          const salePrice = p.sale_price?.value ?? null;
+          return {
+            index,
+            item_id: p.sku || null,
+            item_name: p.title || null,
+            item_brand: p.brand || null,
+            price,
+            discount: price !== null && salePrice !== null
+              ? parseFloat((price - salePrice).toFixed(2))
+              : null,
+            quantity: 1,
+            item_list_id: offer.contentGuid || null,
+            item_list_name: offer.header || null,
+            affiliation: alias || null
+          };
+        })
+      };
+    }
+
+    async function initHorizonToDataLayer() {
+      if (!ensureSingleInit("content-subscribe")) return;
+
+      const horizonEl = document.getElementById("horizon");
+      await whenHorizonReady(horizonEl);
+
+      const alias = horizonEl.getAttribute("alias") || null;
+      const api = await horizonEl.getApi();
+
+      const subscription = api.content.subscribe((contentEvent) => {
+        if (!contentEvent) return;
+        const { action, source, value: c } = contentEvent;
+
+        // Only track clicks on offer content
+        if (!c || c.$type !== "offer" || action !== "click") return;
+
+        logRaw(`content event · ${action}`, contentEvent);
+
+        const ecommerce = mapOfferToEcommerce(c, alias);
+
+        // GA4 requires clearing ecommerce before each push to prevent data bleed.
+        // Pushed directly to avoid showing as a "Message" event in GTM debug / our log.
+        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+
+        // source: 'content' | 'price' | 'splash' | 'cta' — useful for GTM trigger filtering
+        dlPush({ event: "select_item", horizon_alias: alias, horizon_source: source || null, ecommerce });
+      });
+
+      window.__horizonUnsubscribe = () => subscription && subscription.unsubscribe && subscription.unsubscribe();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initHorizonToDataLayer().catch((err) => {
+        dlPush({ event: "horizon_init_error", message: String(err && err.message ? err.message : err) });
+        console.error(err);
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K9P6972K" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header>
+    <strong>Horizon GA4 e-commerce tracking test v9.5</strong><br />
+    Alias: <code>kleemarkt/kleemarktstore</code>
+  </header>
+
+  <div class="wrap">
+    <ip-embed-leaflet id="horizon" alias="10-4/uge-12-2026"></ip-embed-leaflet>
+
+    <div>
+      <div class="log-toolbar">
+        <strong>Debug API + dataLayer pushes:</strong>
+        <button class="log-clear" onclick="document.getElementById('debug-log').innerHTML='<div class=\'log-empty\'>No pushes yet…</div>'">Clear</button>
+      </div>
+      <div id="debug-log" class="log">
+        <div class="log-empty">No pushes yet…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load the embed web component ONCE -->
+  <script defer src="https://embed.ipaper.io/web.js" type="module"></script>
+</body>
+
+</html>
