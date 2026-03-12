@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Horizon GA4 e-commerce tracking test v9.7</title>
+  <title>Horizon GA4 e-commerce tracking test v10.0</title>
 
   <!-- Google Tag Manager -->
   <script>
@@ -253,20 +253,23 @@
       const subscription = api.content.subscribe((contentEvent) => {
         if (!contentEvent) return;
         const { action, source, value: c } = contentEvent;
+        if (!c) return;
 
-        // Only track clicks on offer content
-        if (!c || c.$type !== "offer" || action !== "click") return;
+        // Log every raw event regardless of type/action
+        logRaw(`${c.$type} · ${action}`, contentEvent);
 
-        logRaw(`content event · ${action}`, contentEvent);
+        // Only push clicks to the dataLayer — viewEnter/viewLeave are too noisy
+        if (action !== "click") return;
 
-        const ecommerce = mapOfferToEcommerce(c, alias);
-
-        // GA4 requires clearing ecommerce before each push to prevent data bleed.
-        // Pushed directly to avoid showing as a "Message" event in GTM debug / our log.
-        (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
-
-        // source: 'content' | 'price' | 'splash' | 'cta' — useful for GTM trigger filtering
-        dlPush({ event: "select_item", horizon_alias: alias, horizon_source: source || null, ecommerce });
+        if (c.$type === "offer") {
+          // GA4 ecommerce — clear first to prevent data bleed, then push select_item
+          (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
+          // source: 'content' | 'price' | 'splash' | 'cta' — useful for GTM trigger filtering
+          dlPush({ event: "select_item", horizon_alias: alias, horizon_source: source || null, ecommerce: mapOfferToEcommerce(c, alias) });
+        } else {
+          // text | image | video | scene — generic content click
+          dlPush({ event: "horizon_content_click", horizon_alias: alias, horizon_content_type: c.$type, horizon_content_id: c.contentGuid || null, horizon_source: source || null });
+        }
       });
 
       window.__horizonUnsubscribe = () => subscription && subscription.unsubscribe && subscription.unsubscribe();
