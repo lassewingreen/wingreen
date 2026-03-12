@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Horizon GA4 e-commerce tracking test v10.0</title>
+  <title>Horizon GA4 e-commerce tracking test v10.1</title>
 
   <!-- Google Tag Manager -->
   <script>
@@ -255,11 +255,10 @@
         const { action, source, value: c } = contentEvent;
         if (!c) return;
 
-        // Log every raw event regardless of type/action
-        logRaw(`${c.$type} · ${action}`, contentEvent);
-
-        // Only push clicks to the dataLayer — viewEnter/viewLeave are too noisy
+        // Only track clicks — viewEnter/viewLeave are too noisy
         if (action !== "click") return;
+
+        logRaw(`${c.$type} · ${action}`, contentEvent);
 
         if (c.$type === "offer") {
           // GA4 ecommerce — clear first to prevent data bleed, then push select_item
@@ -293,7 +292,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <header>
-    <strong>Horizon GA4 e-commerce tracking test v10.0</strong><br />
+    <strong>Horizon GA4 e-commerce tracking test v10.1</strong><br />
     Alias: <code>kleemarkt/kleemarktstore</code>
   </header>
 
