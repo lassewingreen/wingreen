@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Horizon GA4 e-commerce tracking test v10.1</title>
+  <title>Horizon GA4 e-commerce tracking test v10.2</title>
 
   <!-- Google Tag Manager -->
   <script>
@@ -260,13 +260,13 @@
 
         logRaw(`${c.$type} · ${action}`, contentEvent);
 
-        if (c.$type === "offer") {
-          // GA4 ecommerce — clear first to prevent data bleed, then push select_item
+        if (c.$type === "offer" || c.$type === "scene") {
+          // offer & scene share the same shape (header, sales_price, products) — map both as GA4 ecommerce
           (window.dataLayer = window.dataLayer || []).push({ ecommerce: null });
           // source: 'content' | 'price' | 'splash' | 'cta' — useful for GTM trigger filtering
           dlPush({ event: "select_item", horizon_alias: alias, horizon_source: source || null, ecommerce: mapOfferToEcommerce(c, alias) });
         } else {
-          // text | image | video | scene — generic content click
+          // text | image | video — generic content click
           dlPush({ event: "horizon_content_click", horizon_alias: alias, horizon_content_type: c.$type, horizon_content_id: c.contentGuid || null, horizon_source: source || null });
         }
       });
@@ -292,7 +292,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <header>
-    <strong>Horizon GA4 e-commerce tracking test v10.1</strong><br />
+    <strong>Horizon GA4 e-commerce tracking test v10.2</strong><br />
     Alias: <code>kleemarkt/kleemarktstore</code>
   </header>
 
