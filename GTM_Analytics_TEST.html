@@ -121,6 +121,25 @@
     }
 
     .log-clear:hover { background: #f3f4f6; }
+
+    .log-entry-header.raw {
+      background: #064e3b;
+    }
+
+    .log-entry-header.raw .log-entry-event {
+      color: #6ee7b7;
+    }
+
+    .log-entry-header .log-entry-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 1px 7px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.6);
+    }
   </style>
 
   <script>
@@ -150,32 +169,39 @@
         );
     }
 
-    function dlPush(obj) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(obj);
-      console.log("dataLayer.push:", obj);
-
+    function logToPanel(label, obj, { headerClass = "", badge = "" } = {}) {
       const container = document.getElementById("debug-log");
       if (!container) return;
 
-      // Remove empty-state placeholder if present
       const empty = container.querySelector(".log-empty");
       if (empty) empty.remove();
 
-      const eventName = obj.event || "(no event)";
       const time = new Date().toLocaleTimeString("da-DK", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
       const pretty = JSON.stringify(obj, null, 2);
 
       const entry = document.createElement("div");
       entry.className = "log-entry";
       entry.innerHTML = `
-        <div class="log-entry-header">
-          <span class="log-entry-event">${eventName}</span>
+        <div class="log-entry-header ${headerClass}">
+          <span class="log-entry-event">${label}</span>
+          ${badge ? `<span class="log-entry-badge">${badge}</span>` : ""}
           <span class="log-entry-time">${time}</span>
         </div>
         <div class="log-entry-body">${syntaxHighlight(pretty)}</div>`;
 
       container.prepend(entry);
+    }
+
+    function logRaw(label, obj) {
+      console.log("Horizon raw:", label, obj);
+      logToPanel(label, obj, { headerClass: "raw", badge: "raw API" });
+    }
+
+    function dlPush(obj) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(obj);
+      console.log("dataLayer.push:", obj);
+      logToPanel(obj.event || "(no event)", obj, { badge: "dataLayer" });
     }
 
     function ensureSingleInit(key) {
@@ -234,6 +260,8 @@
 
         // Only track clicks on offer content
         if (!c || c.$type !== "offer" || action !== "click") return;
+
+        logRaw(`content event · ${action}`, contentEvent);
 
         const ecommerce = mapOfferToEcommerce(c, alias);
 
