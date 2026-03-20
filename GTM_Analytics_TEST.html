@@ -35,19 +35,30 @@
     .wrap {
       padding: 16px;
       display: grid;
-      gap: 12px;
+      grid-template-columns: 1fr 380px;
+      gap: 16px;
+      height: calc(100vh - 57px);
     }
 
     ip-embed-leaflet {
       display: block;
       width: 100%;
-      min-height: 75vh;
+      height: 100%;
+    }
+
+    .log-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     .log {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
     }
 
     .log-entry {
@@ -301,7 +312,7 @@
   <div class="wrap">
     <ip-embed-leaflet id="horizon" alias="kleemarkt/kleemarktstore"></ip-embed-leaflet>
 
-    <div>
+    <div class="log-panel">
       <div class="log-toolbar">
         <strong>Debug API + dataLayer pushes:</strong>
         <button class="log-clear" onclick="document.getElementById('debug-log').innerHTML='<div class=\'log-empty\'>No pushes yet…</div>'">Clear</button>
