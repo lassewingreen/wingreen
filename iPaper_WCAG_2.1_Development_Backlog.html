@@ -98,15 +98,18 @@
       <div><div class="title">WCAG 2.1 Backlog</div><div class="subtitle">iPaper Flipbook · Internal</div></div>
     </div>
     <div class="nav-meta">Overview</div>
-    <nav><ul><li><a href="#compliance-question">Does this make us compliant?</a></li></ul></nav>
+    <nav><ul>
+      <li><a href="#bottomline">Bottom line</a></li>
+      <li><a href="#compliance-question">Does this make us compliant?</a></li>
+    </ul></nav>
     <div class="nav-meta">Items</div>
     <nav><ul>
       <li><a href="#item-1"><span class="num">1</span>Alt text for image Enrichments</a></li>
       <li><a href="#item-2"><span class="num">2</span>MP4 video captions</a></li>
       <li><a href="#item-3"><span class="num">3</span>Autoplay audio &amp; controls ✓</a></li>
       <li><a href="#item-4"><span class="num">4</span>PDF reading-order detection</a></li>
-      <li><a href="#item-5"><span class="num">5</span>Modal focus trap/return ◐</a></li>
-      <li><a href="#item-6"><span class="num">6</span>Skip link &amp; landmarks ✗</a></li>
+      <li><a href="#item-5"><span class="num">5</span>Modal focus behaviour ✓</a></li>
+      <li><a href="#item-6"><span class="num">6</span>Skip link &amp; landmarks</a></li>
       <li><a href="#item-7"><span class="num">7</span>aria-live status messages</a></li>
       <li><a href="#item-8"><span class="num">8</span>Language of parts</a></li>
       <li><a href="#item-9"><span class="num">9</span>Reflow / zoom validation</a></li>
@@ -132,6 +135,17 @@
       </div>
     </header>
 
+    <section id="bottomline" style="border:1px solid var(--border);border-left:4px solid var(--accent);background:#fafbff;border-radius:10px;padding:16px 18px;margin:4px 0 8px;">
+      <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:700;margin-bottom:6px;">Bottom line</div>
+      <ul class="summary" style="margin:0;">
+        <li>Not yet WCAG 2.1 AA compliant, but close — most of the work is done or scoped.</li>
+        <li><b>3 blockers (P0):</b> alt text for image Enrichments, MP4 captions, PDF reading-order (PDF ripper).</li>
+        <li><b>4 further required (P1):</b> skip link, aria-live, language of parts, reflow/zoom.</li>
+        <li>A compliance claim requires these shipped, current features verified, and an external audit (→ VPAT).</li>
+        <li><b>One optional growth bet, for your call:</b> a pre-rendered “Text version” for AI/GEO visibility — same PDF ripper work as the blocker above.</li>
+      </ul>
+    </section>
+
     <section id="compliance-question">
       <h2>Does completing this list make iPaper compliant?</h2>
       <div class="callout">
@@ -144,7 +158,7 @@
         </ol>
       </div>
       <p>A conformance claim is only defensible after these ship, the “already implemented” items are verified, and a full audit on representative catalogs (incl. a scanned PDF and a media/hotspot-heavy one) passes. That audit produces the VPAT.</p>
-      <p style="font-size:14px;color:#475569;"><b>On priority &amp; compliance:</b> every P0 <em>and</em> P1 item below maps to a Level A or AA success criterion, so all of them are required for AA — two “P1” items (#5, #6) are even Level A. Priority is fix-order/severity, not necessity. Only P2 (#10) is optional for conformance.</p>
+      <p style="font-size:14px;color:#475569;"><b>On priority &amp; compliance:</b> every P0 <em>and</em> P1 item below maps to a Level A or AA success criterion, so all of them are required for AA — one “P1” item (#6 skip link) is even Level A. Priority is fix-order/severity, not necessity. Only P2 items (#5 polish, #10 checker) are optional for conformance.</p>
     </section>
 
     <h2 id="items">Items requiring development</h2>
@@ -152,7 +166,7 @@
     <section id="item-1" class="item">
       <div class="item-head"><span class="idx">1</span><h3>Alt text for image Enrichments</h3></div>
       <div class="badges"><span class="badge b-p0">P0</span><span class="badge b-wcag">1.1.1 (A)</span><span class="badge b-area"><span class="k">Area</span>E + V</span><span class="badge b-cx"><span class="k">Cx</span>Low–Med</span><span class="badge b-dep"><span class="k">Client</span>High</span></div>
-      <p><span class="lab">Build:</span> an alt-text field (+ “decorative” toggle) on every image Enrichment; render as <code>alt</code>/<code>aria-label</code>, never the filename. Warn when missing.</p>
+      <p><span class="lab">Build:</span> an alt-text field (+ “Image is decorative” toggle) on every image Enrichment; render as <code>alt</code>/<code>aria-label</code>, never the filename. Warn when missing.</p>
       <p class="why"><span class="lab">Why:</span> 1.1.1 (Level A) requires a text alternative for informative images. One un-alt’d image Enrichment fails Level A for the whole catalog. Confirmed gap today.</p>
     </section>
 
@@ -172,25 +186,26 @@
     </section>
 
     <section id="item-4" class="item">
-      <div class="item-head"><span class="idx">4</span><h3>PDF reading-order / tag detection</h3></div>
+      <div class="item-head"><span class="idx">4</span><h3>PDF reading-order &amp; structure — updated PDF ripper</h3></div>
       <div class="badges"><span class="badge b-p0">P0–P1</span><span class="badge b-wcag">1.1.1 · 1.3.2 (A)</span><span class="badge b-area"><span class="k">Area</span>P + E</span><span class="badge b-cx"><span class="k">Cx</span>High</span><span class="badge b-dep"><span class="k">Client</span>Med</span></div>
-      <p><span class="lab">Build:</span> use the PDF tag tree where present; detect columns/headings to repair order for untagged PDFs; flag scanned/untagged uploads with a quality warning. (Text is already exposed in order for clean PDFs — this hardens the messy ones.)</p>
-      <p class="why"><span class="lab">Why:</span> 1.3.2 (Level A) needs the correct reading sequence to be programmatic. For a rasterized flipbook the text layer <em>is</em> the screen-reader experience; a scrambled multi-column/untagged PDF reads as nonsense.</p>
+      <ul class="mini have"><li><b>Today:</b> on page focus the screen reader reads the page aloud — each page is a focusable <code>&lt;section tabindex="0"&gt;</code> with an <code>&lt;h2&gt;Page number N&lt;/h2&gt;</code> + the extracted text. The text <em>is</em> exposed.</li></ul>
+      <ul class="mini gap"><li>But it’s one <b>flat run-on <code>&lt;p&gt;</code></b> — headings, prices, refs and sizes mashed together with no reading order (multi-column catalogs scramble badly). Needs an <b>updated PDF ripper</b>: column/heading detection, logical reading order, segmented structure (headings vs paragraphs), and a quality flag for scanned/untagged PDFs.</li></ul>
+      <p class="why"><span class="lab">Why:</span> 1.3.2 (Level A) needs the correct reading <em>sequence</em>, not just presence. The text layer <em>is</em> the screen-reader (and crawler) experience; a jumbled dump reads as nonsense even though text is technically there. Same ripper powers the optional GEO “Text version” feature mentioned below.</p>
     </section>
 
     <section id="item-5" class="item">
-      <div class="item-head"><span class="idx">5</span><h3>Modal focus trap &amp; return</h3></div>
-      <div class="badges"><span class="badge b-partial">◐ Partially implemented</span><span class="badge b-p1">P1</span><span class="badge b-wcag">2.4.7 (AA) · 2.4.3 · 2.1.2 (A)</span><span class="badge b-area"><span class="k">Area</span>V</span><span class="badge b-cx"><span class="k">Cx</span>Medium</span></div>
-      <ul class="mini have"><li>Tab order through all elements (incl. Enrichments); standard blue focus ring; modals close on <code>Esc</code>; ARIA labels present. Whole-page focus reads the extracted PDF text.</li></ul>
-      <ul class="mini gap"><li><b>Trap focus</b> inside open modals/overlays (Tab must not reach the page behind).</li><li><b>Return focus</b> to the trigger on close.</li></ul>
-      <p class="why"><span class="lab">Why:</span> 2.4.3 (A) needs focus to stay meaningful — a modal that doesn’t trap/return focus strands keyboard users (also 2.1.2). The indicator and Esc parts are done; only the modal lifecycle remains.</p>
+      <div class="item-head"><span class="idx">5</span><h3>Modal focus behaviour</h3></div>
+      <div class="badges"><span class="badge b-done">✓ Meets WCAG 2.1 AA</span><span class="badge b-p2">P2 · polish only</span><span class="badge b-wcag">2.4.7 (AA) · 2.4.3 · 2.1.2 (A)</span><span class="badge b-area"><span class="k">Area</span>V</span></div>
+      <ul class="mini have"><li>Tab order through all elements; standard blue focus ring (2.4.7); modals close on <code>Esc</code>; ARIA labels; whole-page focus reads the extracted PDF text.</li><li><b>VoiceOver-tested:</b> Product View &amp; Cart modals are escapable — no keyboard trap (2.1.2 ✓) — and focus returns to the catalog (logical order, 2.4.3 ✓).</li></ul>
+      <ul class="mini"><li><b>Optional polish (not required):</b> return focus to the exact triggering CTA, and/or trap focus within the modal. Both are ARIA APG best practices, <em>not</em> WCAG 2.1 success criteria.</li></ul>
+      <p class="why"><span class="lab">Why it’s fine:</span> WCAG 2.1 requires no keyboard trap, logical focus order and visible focus — all met. Returning to the exact CTA is an ARIA best practice, not a 2.1 requirement. (Not trapping focus is fine for 2.1; only WCAG 2.2 tightens this.)</p>
     </section>
 
     <section id="item-6" class="item">
       <div class="item-head"><span class="idx">6</span><h3>Skip link &amp; ARIA landmarks</h3></div>
-      <div class="badges"><span class="badge b-p0" style="background:var(--p0-bg);color:var(--p0);">✗ Confirmed missing</span><span class="badge b-p1">P1</span><span class="badge b-wcag">2.4.1 · 1.3.1 (A)</span><span class="badge b-area"><span class="k">Area</span>V</span><span class="badge b-cx"><span class="k">Cx</span>Medium</span></div>
-      <p><span class="lab">Build:</span> a “skip to content” link as the first focusable element + landmark regions (<code>banner</code>/<code>main</code>/<code>navigation</code>). No skip option exists today.</p>
-      <p class="why"><span class="lab">Why:</span> 2.4.1 (Level A) requires a way to bypass repeated chrome; without it keyboard/SR users tab through the toolbar on every page. (Publitas marked this N/A — that wouldn’t survive an audit.)</p>
+      <div class="badges"><span class="badge b-p1">P1</span><span class="badge b-wcag">2.4.1 · 1.3.1 (A)</span><span class="badge b-area"><span class="k">Area</span>V</span><span class="badge b-cx"><span class="k">Cx</span>Medium</span></div>
+      <p><span class="lab">Build:</span> a Flipbook viewer “skip to content” link as the first link (top-left), appearing whenever a user tabs in or a screen reader is active; + landmark regions (<code>banner</code>/<code>main</code>/<code>navigation</code>). No skip option exists today.</p>
+      <p class="why"><span class="lab">Why:</span> 2.4.1 (Level A) requires a way to bypass repeated chrome; without it keyboard/SR users tab through the toolbar on every page.</p>
     </section>
 
     <section id="item-7" class="item">
@@ -230,7 +245,7 @@
           <tbody>
             <tr><td class="cap">Accessible names for hotspots/buttons/links</td><td>2.4.4, 4.1.2</td><td>Names are meaningful even when the client leaves the label blank (depends on client hover text).</td></tr>
             <tr><td class="cap">Full keyboard operability</td><td>2.1.1, 2.1.2</td><td><em>Every</em> action operable, no trap anywhere — earlier docs said “most”.</td></tr>
-            <tr><td class="cap">Extracted text in correct reading order</td><td>1.1.1, 1.3.2</td><td>Correct for multi-column / untagged / scanned PDFs — see item 4.</td></tr>
+            <tr><td class="cap">Extracted page text exposed &amp; read aloud (per page)</td><td>1.1.1, 1.3.2</td><td>Present, but reading <em>order</em> is often wrong on multi-column/untagged PDFs (flat run-on text) — not yet sequenced. See item 4.</td></tr>
             <tr><td class="cap">Hover/focus content dismissable, hoverable, persistent</td><td>1.4.13</td><td>Test all three sub-conditions on tooltips &amp; product overlays.</td></tr>
             <tr><td class="cap">Form accessibility (cart/search)</td><td>3.3.1–3.3.3</td><td>Labels + text error messages, verified with a screen reader.</td></tr>
             <tr><td class="cap">Descriptive page titles</td><td>2.4.2</td><td>Unique &amp; descriptive, not a generic “iPaper”.</td></tr>
@@ -245,25 +260,25 @@
       <h2>Summary</h2>
       <ul class="summary">
         <li><b>P0 (blockers):</b> #1 alt text · #2 MP4 captions · #4 PDF reading-order.</li>
-        <li><b>P1:</b> #5 modal focus (partial) · #6 skip link (missing) · #7 aria-live · #8 language of parts · #9 reflow/zoom.</li>
-        <li><b>P2:</b> #10 editor accessibility checker (biggest differentiator).</li>
-        <li><b>Already covered:</b> #3 autoplay/controls; YouTube/Vimeo captions; plus the verified-pending items above.</li>
+        <li><b>P1:</b> #6 skip link · #7 aria-live · #8 language of parts · #9 reflow/zoom.</li>
+        <li><b>P2 (optional):</b> #5 modal focus polish (exact-CTA return) · #10 editor accessibility checker (biggest differentiator).</li>
+        <li><b>Already covered:</b> #3 autoplay/controls; #5 modal focus (meets 2.1 AA — VoiceOver-tested); YouTube/Vimeo captions; plus the verified-pending items above.</li>
         <li><b>Heaviest lifts:</b> #4 PDF reading-order, #9 reflow/zoom, #10 editor checker.</li>
         <li><b>Client-dependent:</b> alt text (#1), captions (#2), language (#8), PDF quality (#4) — platform provides the field &amp; warns.</li>
       </ul>
     </section>
 
     <section id="opportunity">
-      <h2>Opportunity: “PDF ripper” → an optional “Text version” page layer</h2>
-      <p style="font-size:14px;color:#475569;margin-top:-4px;">Beyond compliance — one feature that pays off for AI search (GEO), users and accessibility at once.</p>
-      <p><span class="lab">Today:</span> extracted page text lives inside <code>window.staticSettings.pageTexts</code> (a <code>&lt;script&gt;</code>). It’s present, but many AI crawlers and SEO tools ignore script contents — so a customer’s “AI can’t read our flipbook” claim looks true from the outside.</p>
-      <p><span class="lab">Idea:</span> an improved extraction module (internal: <b>PDF ripper</b>) feeds an <b>optional viewer feature</b> that renders each page’s text as semantic HTML in the DOM — e.g. a collapsible “Read page text” panel (<code>&lt;details&gt;</code> with a heading + paragraphs per page).</p>
+      <h2>Opportunity: “PDF ripper” → an optional pre-rendered “Text version”</h2>
+      <p style="font-size:14px;color:#475569;margin-top:-4px;">Exploratory — pending decision &amp; further research. Optional; relevant to AI/GEO visibility, users and accessibility.</p>
+      <p><span class="lab">Today (three versions of the page):</span> (1) raw HTML source holds the text in <code>window.staticSettings.pageTexts</code> (a <code>&lt;script&gt;</code>); (2) after the viewer JS runs, the rendered DOM gets the per-page accessibility <code>&lt;section tabindex="0"&gt;</code> with the page text — great for screen readers; (3) what an AI crawler fetches often misses both, because many crawlers don’t run the viewer JS, snapshot before that section is injected, or filter accessibility-only/duplicate content. So the text <em>exists</em> — it’s a rendering/timing problem, not a “text doesn’t exist” one. (Googlebot is more capable and won’t penalise legitimate screen-reader text; most AI crawlers aren’t Googlebot.)</p>
+      <p><span class="lab">Lever:</span> the updated <b>PDF ripper</b> (item 4) feeds an <b>optional, server-side / pre-rendered “Text version”</b> — each page’s structured text placed in the <em>initial</em> HTML response per page URL, not only after the app initialises. Ideally a visible/collapsible “Read page text” panel (<code>&lt;details&gt;</code> with heading + paragraphs).</p>
       <ul class="mini">
-        <li><b>Crawlers / AI (GEO):</b> page text becomes crawlable and quotable in AI answers, not buried in JS.</li>
+        <li><b>Crawlers / AI (GEO):</b> text is captured even by crawlers that don’t execute JS.</li>
         <li><b>Users:</b> copy/paste, in-page search (Ctrl-F), and a readable fallback.</li>
         <li><b>Accessibility:</b> clean reading-order text for screen readers — reinforces items 1 &amp; 4.</li>
       </ul>
-      <p class="why"><span class="lab">Framing:</span> ship it as a genuine, visible/collapsible text layer — <em>not</em> hidden SEO text. That removes the original cloaking concern behind the JPEG-only design; Google treats legitimate accordion / “text version” UX as fine. Pair with crawlable per-page <code>&lt;a href&gt;</code> links, per-page metadata (title/description/canonical) and a crawlable PDF download. Quality depends on the ripper’s extraction &amp; reading-order (item 4); keep the feature opt-in.</p>
+      <p class="why"><span class="lab">Framing:</span> ship it as a genuine, visible/collapsible text layer — <em>not</em> hidden/accessibility-only text — so crawlers treat it as primary, user-facing content. Pair with crawlable per-page <code>&lt;a href&gt;</code> links, per-page metadata (title/description/canonical) and a crawlable PDF download. Quality depends on the ripper’s reading-order (item 4); keep the feature opt-in.</p>
     </section>
 
     <footer>iPaper Flipbook · WCAG 2.1 AA Development Backlog · Internal. Every claim must be confirmed by hands-on testing on representative catalogs before any public conformance statement.</footer>
