@@ -1,0 +1,7 @@
+.DS_Store
+private/
+.private/
+application-password.txt
+career/content.json
+career/build.py
+career/*Application.pdf

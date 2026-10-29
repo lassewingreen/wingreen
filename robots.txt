@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /career/application.html
+Disallow: /career/dedalus.html
