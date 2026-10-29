@@ -1,0 +1,75 @@
+{
+  "name": "Lasse Wingreen",
+  "title": "Product Owner",
+  "location": "Aarhus, Denmark",
+  "email": "lasse@wingreen.dk",
+  "phone": "+45 28 57 81 89",
+  "linkedin": "https://www.linkedin.com/in/lassewingreen/",
+  "updated": "28 October 2026",
+  "profile": "I'm a Product Owner with close to nine years at iPaper, progressing from customer support through implementation to product ownership. I turn complex needs into practical specifications and work closely with developers to clarify the details. My recent work spans e-commerce checkout, product views and accessibility across Flipbook and Horizon. I bring a hands-on understanding of SaaS, a background in digital design and a lasting interest in making technology useful to people.",
+  "letter": [
+    "I like understanding what people need from software and working out how to make it useful to them. That interest has taken me from customer support through implementation to product ownership during close to nine years at iPaper. I'm applying for the Product Owner role at Dedalus because I would like to bring that experience to software that healthcare professionals depend on in their daily work.",
+    "At iPaper, I specified the full project to improve the e-commerce checkout experience and product view. I worked through the requirements with developers and stayed involved in the discussions throughout. My earlier implementation work helped me understand how individual product decisions fit into a customer's wider setup. I enjoy getting into those details and making them clear enough for a team to work with.",
+    "Accessibility has also been an important part of my product work. I worked on a full accessibility suite for Flipbook and specified an accessibility suite for Horizon, a new addition to iPaper's products. For Horizon, I also specified an energy-rating system and numerous other product issues. These are different kinds of work, but they share something I care about: making complicated functionality understandable and usable.",
+    "I have worked closely with developers and taken part in regular Scrum ceremonies. Your emphasis on clear user stories, refinement and ongoing clarification appeals to me. At Dedalus, I would bring a practical approach to those conversations: understand the need, make open questions visible and work through the scope with the team. I would use feedback from users and colleagues to help keep the backlog focused on what matters most.",
+    "Years in support taught me to listen before jumping to a solution, and to explain technical things in language people can use. Implementation added experience with automation, data feeds, Google Analytics and Google Tag Manager. I would bring that combination of customer understanding and technical curiosity to the collaboration between your users, stakeholders and development team.",
+    "What attracts me to Dedalus is the opportunity to apply that approach where dependable, usable software has a direct purpose in people's working lives. I would welcome a conversation about your product area, the team's challenges and how I could contribute."
+  ],
+  "roles": [
+    {
+      "title": "Product Owner",
+      "dates": "Sep 2023 – 2026",
+      "bullets": [
+        "Specified the full project to improve the e-commerce checkout experience and product view, working through requirements with developers.",
+        "Worked on a full accessibility suite for Flipbook and specified an accessibility suite for Horizon.",
+        "Specified Horizon's energy-rating system and numerous other product issues as the new product developed.",
+        "Worked closely with developers throughout specification and clarification, and participated in regular Scrum ceremonies."
+      ]
+    },
+    {
+      "title": "Senior Implementation Specialist",
+      "dates": "Jan 2022 – Sep 2023",
+      "bullets": [
+        "Helped new and existing customers set up iPaper, including automation, Google Analytics and Google Tag Manager.",
+        "Worked with customers on technical configuration and how the product fitted into their wider marketing setup."
+      ]
+    },
+    {
+      "title": "Implementation Specialist",
+      "dates": "Jan 2020 – Jan 2022",
+      "bullets": [
+        "Implemented iPaper's SaaS products in new and existing customers' marketing setups.",
+        "Enabled and customised automation; advised on data sources, including Google Merchant feeds, analytics and tag management."
+      ]
+    },
+    {
+      "title": "Support Specialist",
+      "dates": "Nov 2017 – Jan 2020",
+      "bullets": [
+        "Provided customer support with a focus on helping people use the product effectively and get value from it."
+      ]
+    }
+  ],
+  "earlier": [
+    {"title": "Customer Success Manager", "company": "AccuRanker", "dates": "2017", "description": "Customer support and sales; developed support articles and automated communication using Intercom and HubSpot."},
+    {"title": "Web / SEO Manager", "company": "AudioNation", "dates": "2016 – 2017", "description": "Worked with WordPress landing pages, technical SEO, HubSpot, Google Tag Manager and analytics reporting."},
+    {"title": "IT Supporter", "company": "GECKO Booking", "dates": "2014 – 2016", "description": "Supported customers, helped integrate booking functionality into their websites, tested new features and produced guides and training materials."},
+    {"title": "Earlier technical and creative work", "company": "", "dates": "2010 – 2014", "description": "NemID support at CGI in two periods alongside my studies; internet support at TDC; iOS development at Playnation; game audio and implementation at Logic Artists; audio production at M2Film and AudioNation."}
+  ],
+  "education": [
+    {"title": "MSc / cand.it. in Digital Design", "detail": "Audio Design · Aarhus University", "dates": "2010 – 2012"},
+    {"title": "BSc in Medialogy", "detail": "Aalborg University", "dates": "2007 – 2010"}
+  ],
+  "skills": [
+    {"title": "Product work", "detail": "Product specifications, user stories, requirements clarification, developer collaboration, Scrum, accessibility specification."},
+    {"title": "SaaS implementation", "detail": "Automation, data feeds, Google Analytics, Google Tag Manager, customer onboarding and technical support."},
+    {"title": "Tools and technical background", "detail": "Jira, Asana, Intercom, HubSpot; working knowledge of HTML, CSS and JavaScript."}
+  ],
+  "languages": "Danish and English: fluent, written and spoken.",
+  "personal": "Music has been a constant alongside my work. My background includes singing, guitar, recording and performing, including with Flow & Green. I enjoy understanding how things work and helping other people get the most out of them.",
+  "projects": [
+    {"number": "01", "title": "Checkout & product view", "product": "iPaper", "text": "Specified a complete improvement project, working through the requirements with developers."},
+    {"number": "02", "title": "Accessibility", "product": "Flipbook & Horizon", "text": "Worked on Flipbook's accessibility suite and specified an accessibility suite for Horizon."},
+    {"number": "03", "title": "A new product", "product": "Horizon", "text": "Specified the energy-rating system and numerous other product issues."}
+  ]
+}
