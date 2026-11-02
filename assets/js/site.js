@@ -8,7 +8,7 @@
   play.addEventListener('click', () => {
     const iframe = document.createElement('iframe');
     iframe.src = 'https://fast.wistia.net/embed/iframe/to40tf54hb?seo=false&videoFoam=true&autoplay=true';
-    iframe.title = 'Flow & Green performing No Diggity';
+    iframe.title = document.documentElement.lang === 'da' ? 'Flow & Green spiller No Diggity' : 'Flow & Green performing No Diggity';
     iframe.allow = 'autoplay; fullscreen'; iframe.allowFullscreen = true;
     player.replaceChildren(iframe); dialog.showModal();
   });
