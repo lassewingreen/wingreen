@@ -9,3 +9,12 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 @page{size:A4;margin:16mm}
 @media print{body{background:white;color:#102a26;font:10pt/1.45 Arial,sans-serif}.wrap{max-width:none;width:auto;padding:0}.masthead,.hero,.context-strip,.closing,.footer,.cv-sidebar,.skip-link{display:none!important}.print-only{display:block}.print-header{border-bottom:1px solid #cbd0c3;margin-bottom:6mm;padding-bottom:5mm}.print-header h1{font:26pt Arial,sans-serif;letter-spacing:-1pt;margin:0 0 2mm}.print-header p{font-size:9pt;margin:0}.cv-layout{display:block;padding:0}.cv-main h2{font-size:18pt;margin-bottom:4mm}.cv-main>section{margin-bottom:5mm}.profile{font-size:10pt;line-height:1.5}.role{margin-bottom:4mm;padding-left:4mm}.role li{font-size:9.5pt;line-height:1.5;margin-bottom:1.5mm}.role h4,.past-role h3{font-size:11pt}.company-heading{margin-top:4mm;padding-top:4mm;margin-bottom:4mm}.company-heading h3{font-size:15pt}.role,.past-role,.education{break-inside:avoid}.earlier-section{break-before:page}.past-role p{font-size:10pt}.past-role{margin-bottom:4mm}.education{gap:5mm;padding-top:4mm}.education h3{font-size:10pt}.education p{font-size:9pt}.print-skills p{font-size:9pt;margin:0 0 3mm}a{text-decoration:none;color:inherit}}
+
+/* Match the flag-only language switcher without adding a separate header row. */
+.masthead:has(.locale-switch){padding-top:0}
+.masthead .nav{margin-left:auto}
+.masthead .locale-switch{position:static;flex:none;margin-left:2px;gap:9px}
+.masthead .locale-switch a{border-bottom:1px solid transparent}
+.masthead .locale-switch a[aria-current=page]{border:1px solid #111}
+@media(max-width:700px){.masthead .topbar{gap:14px}.masthead .nav{gap:14px}.masthead .locale-switch{gap:6px;margin-left:0}}
+@media print{.locale-switch{display:none!important}}
