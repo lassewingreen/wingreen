@@ -10,17 +10,19 @@
 footer.band{overflow:visible}.footer-sticker{overflow:hidden}
 @media(max-width:430px){.work-intro h2{font-size:clamp(36px,10.6vw,46px)}.footer-nav a{font-size:clamp(30px,8.8vw,36px)}}
 
+/* A vertical bicycle anchors the fan. Glow stays outside the silhouette-clipped
+   links, following the photographed contours with a soft white falloff. */
 /* Each photo emerges from the portrait's off-centre opening. The outer
    frame handles scroll motion; individual wrappers keep their rotations. */
 .object-wrap.real-gear{bottom:84%;left:0;width:78%;aspect-ratio:1.4;transform-origin:50% 100%;pointer-events:none}
-.real-gear .gear-item{position:absolute;display:block;transform:rotate(var(--angle));transform-origin:50% 90%;pointer-events:none}
+.real-gear .gear-item{position:absolute;display:block;transform:rotate(var(--angle));transform-origin:50% 90%;pointer-events:none;filter:drop-shadow(0 0 1px #ffffff8c) drop-shadow(0 0 3.5px #ffffff59) drop-shadow(0 0 7px #ffffff24)}
 .gear-link{display:block;width:100%;height:100%;padding:0;border:0;background:none;pointer-events:auto;cursor:pointer;transition:translate .3s var(--ease),scale .3s var(--ease);-webkit-tap-highlight-color:transparent}
-.real-gear .gear-item img{display:block;width:100%;height:100%;filter:sepia(.28) saturate(.8) drop-shadow(0 0 1px #fff4e866) drop-shadow(0 7px 6px #16090b55);pointer-events:none}
-.gear-electric{--angle:-18deg;left:22%;bottom:-2%;width:28%;aspect-ratio:788/1995;z-index:2}
-.gear-acoustic{--angle:13deg;right:10%;bottom:-2%;width:44%;aspect-ratio:1086/1448;z-index:2}
-.gear-bike{--angle:-63deg;left:30%;top:6%;width:58%;aspect-ratio:1448/1086;transform-origin:50% 50%!important;z-index:1}
-.gear-microphone{--angle:-78deg;left:37%;bottom:22%;width:42%;aspect-ratio:2149/731;z-index:3}
-.gear-shoe{--angle:85deg;left:12%;bottom:19%;width:41%;aspect-ratio:1585/992;transform-origin:50% 50%!important;z-index:4}
+.real-gear .gear-item img{display:block;width:100%;height:100%;filter:sepia(.28) saturate(.8);pointer-events:none}
+.gear-electric{--angle:-20deg;left:25%;bottom:-2%;width:28%;aspect-ratio:788/1995;z-index:2}
+.gear-acoustic{--angle:20deg;right:8%;bottom:-2%;width:42%;aspect-ratio:1086/1448;z-index:2}
+.gear-bike{--angle:-94.3deg;left:16%;top:20%;width:60%;aspect-ratio:1448/1086;transform-origin:50% 50%!important;z-index:1}
+.gear-microphone{--angle:-61deg;left:43%;bottom:18%;width:42%;aspect-ratio:2149/731;z-index:3}
+.gear-shoe{--angle:94deg;left:17%;bottom:19%;width:40%;aspect-ratio:1585/992;transform-origin:50% 50%!important;z-index:4}
 .gear-tip{position:absolute;bottom:100%;left:50%;width:max-content;max-width:210px;padding:7px 11px;background:var(--paper);color:var(--wine);font-size:12px;font-weight:600;line-height:1.25;border-radius:20px;box-shadow:0 5px 15px #16090b33;opacity:0;translate:0 5px;transform:translateX(-50%) rotate(calc(-1 * var(--angle)));transform-origin:50% 100%;transition:opacity .2s,translate .2s;pointer-events:none;z-index:10}
 .gear-item:focus-within{z-index:8}
 .gear-item:focus-within .gear-tip{opacity:1;translate:0 0;box-shadow:0 0 0 3px var(--orange),0 5px 15px #16090b33}

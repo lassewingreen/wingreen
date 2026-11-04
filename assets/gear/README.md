@@ -21,3 +21,5 @@ These are image-model-assisted edits, so preservation of the supplied objects wa
 ## Reversible website treatment
 
 The website applies the restrained CSS filter `sepia(.28) saturate(.8)` to harmonise the gear with the warm palette. This does not bake the tint into the master or delivery files, so the original cutout colours remain available by removing the filter.
+
+The hero fan uses the bicycle as a vertical centre, with two objects leaning each way. A narrow, layered white CSS drop-shadow on the outer object wrappers gives a soft contour glow without changing the image files or clipping it at the interactive hit areas.
